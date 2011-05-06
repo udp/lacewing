@@ -14,4 +14,15 @@ config.h
 *.ncb
 *.user
 *.suo
-
+.deps
+.libs
+*.lo
+*.pc
+config.*
+*.cache
+depcomp
+ltmain.sh
+missing
+stamp-h1
+libtool
+aclocal.m4
