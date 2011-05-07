@@ -239,7 +239,7 @@ void Lacewing::Client::Connect(Lacewing::Address &Address)
 
     Internal.EventPump.AddReadWrite(Internal.Socket, (void *) &Internal, (void *) ReadReady, (void *) WriteReady);
 
-    if(connect(Internal.Socket, &Internal.HostStructure, sizeof(sockaddr_in)) == -1)
+    if(connect(Internal.Socket, (const sockaddr*) &Internal.HostStructure, sizeof(sockaddr)) == -1)
     {
         if(errno == EINPROGRESS)
             return;
