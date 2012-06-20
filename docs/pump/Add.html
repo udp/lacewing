@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Adds a file descriptor to the Pump. Applications should rarely need to use this directly." />
+	<meta http-equiv="content-language" content="en"/>
+	<title>Add (Pump) - Lacewing API</title>
+	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
+</head>
+<body>
+<div id="container">
+<div id="nav">
+    <div class="header">Lacewing::Pump (A-Z)</div>
+    <br />    
+    <ul><li class="nav_header">Methods</li><li class="nav_item selected">Add</li><li class="nav_item"><a href="AddUser.html">AddUser</a></li><li class="nav_item"><a href="InUse.html">InUse</a></li><li class="nav_item"><a href="Post.html">Post</a></li><li class="nav_item"><a href="Remove.html">Remove</a></li><li class="nav_item"><a href="RemoveUser.html">RemoveUser</a></li><li class="nav_item"><a href="UpdateCallbacks.html">UpdateCallbacks</a></li><li class="nav_item"><a href="Watch.html">Watch</a></li></ul> 
+</div>
+
+<div id="content">
+    <h1><span id="function">Add</span> (Pump)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre>Pump::Watch * Lacewing::Pump::Add (HANDLE, <font color="blue">void</font> * tag, &lt;callback&gt;)</pre></td></tr><tr><td class="lang"><b>C++</b></td><td class="code"><pre>Pump::Watch * Lacewing::Pump::Add
+    (<font color="blue">int</font> FD, <font color="blue">void</font> * tag, &lt;read_callback&gt;, &lt;write_callback&gt;, <font color="blue">bool</font> edge_triggered = <font color="blue">true</font>)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre>lw_pump_watch * lw_pump_add (HANDLE, <font color="blue">void</font> * tag, &lt;callback&gt;)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre>lw_pump_watch * lw_pump_add
+    (<font color="blue">int</font> FD, <font color="blue">void</font> * tag, &lt;read_callback&gt;, &lt;write_callback&gt;, lw_bool edge_triggered)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Adds a file descriptor to the <a href="index.html">Pump</a>. Applications should rarely need to use this directly.</p><p>Because of the nature of I/O completion ports vs. more traditional select-style event handling, the semantics are significantly different on Windows than every other platform. On Windows, there is a single callback, directly exposing the result of the underlying overlapped I/O:</p><p><pre>    void onCompletion (void * tag, OVERLAPPED *, unsigned int bytes_transferred, int error);</pre></p><p>After registering a file descriptor, the user of the <a href="index.html">Pump</a> can issue operations such as <a target="_blank" href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa365467%28v=vs.85%29.aspx">ReadFile</a> and <a target="_blank" href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa365747%28v=vs.85%29.aspx">WriteFile</a> following standard overlapped I/O patterns, the callback being their completion routine.</p><p>On other platforms, two callbacks may be provided - one for read readiness and one for write readiness:</p><p><pre>    void onReadReady (void * tag);
+    void onWriteReady (void * tag);</pre></p><p>The user of the <a href="index.html">Pump</a> can then use regular system calls such as <a target="_blank" href="http://linux.die.net/man/2/read">read(2)</a> and <a target="_blank" href="http://linux.die.net/man/2/write">write(2)</a>, with the confidence that they will probably succeed.</p></div></p><p><h2>Parameters</h2><div class="sectionBody"><i>FD</i><br /><div class="parameterDesc"><p>A standard file descriptor or, on Windows, a file or socket <code>HANDLE</code>.</p></div><i>tag</i><br /><div class="parameterDesc"><p>A pointer-sized tag to pass to the callback upon invocation.</p></div><i>edge_triggered</i> [optional]<br /><div class="parameterDesc"><p><code>true</code> for edge-triggered notifications (run the callback only when the FD first becomes ready), or <code>false</code> for level-triggered (run the callback continuously while the FD is still ready).</p><p>Generally speaking, with edge-triggered notifications one should repeatedly attempt to read or write until <code>EAGAIN</code> is returned, and then wait for the callback to fire before trying again. Internally, liblacewing nearly always uses edge-triggered I/O.</p><p>This option does not apply to Windows.</p></div></div></p><p><h2>See also</h2><div class="sectionBody"><a href="UpdateCallbacks.html">UpdateCallbacks</a><br /><a href="Remove.html">Remove</a></div></p>
+</div>
+
+<div class="bottom"></div>
+
+<div id="parent"><a href="../">&lt;&lt; Back to Lacewing</a></div><div id="source"></div>
+<div id="copyright">
+<hr>
+Copyright &copy; The Lacewing Project Authors 2012<br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Jun-19.</i><br />
+</div>
+
+</div>
+</body>
+</html>

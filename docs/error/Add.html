@@ -4,10 +4,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<meta name="description" content="Adds an error as the highest level in an Error object. [C/C++/JS]" />
+	<meta name="description" content="Adds an error as the highest level in an Error object." />
 	<meta http-equiv="content-language" content="en"/>
 	<title>Add (Error) - Lacewing API</title>
-	<link rel="stylesheet" type="text/css" href="../css/style.css" />
+	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
 </head>
 <body>
 <div id="container">
@@ -18,7 +18,7 @@
 </div>
 
 <div id="content">
-    <h1><span id="function">Add</span> (Error)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> Lacewing::Error::Add (<font color="blue">const</font> <font color="blue">char</font> * Format, ...)</pre></td></tr><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> Lacewing::Error::Add (<font color="blue">const</font> <font color="blue">char</font> * Format, va_list)</pre></td></tr><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> Lacewing::Error::Add (<font color="blue">int</font> ErrorCode)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_error_addf (lw_error *, <font color="blue">const</font> <font color="blue">char</font> * format, ...)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_error_add (lw_error *, <font color="blue">long</font> error_code)</pre></td></tr><tr><td class="lang"><b>JS</b></td><td class="code"><pre>error.add (text)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Adds an error as the highest level in an <a href="index.html">Error</a> object.</p><p>For example, an error for a failed system call will initially contain the error text provided by the system.</p><p>Text describing the type of system call that failed (eg. "Error receiving") will then be added, and an even higher level class may add something like "Socket error" before reporting the error to the application.</p></div></p><p><h2>Parameters</h2><div class="sectionBody"><i>Format</i><br /><div class="parameterDesc"><p>The format of the error string, followed by a dynamic argument list (similar to the C function <a href="http://www.cplusplus.com/reference/clibrary/cstdio/printf/">printf</a>.</p></div><strong>OR</strong>&nbsp;<i>ErrorCode</i><br /><div class="parameterDesc"><p>A numeric error code reported by a system call. Internally, this will be converted to a string by <a href="http://msdn.microsoft.com/en-us/library/ms679351.aspx">FormatMessage</a> on Windows, or <a href="http://www.cplusplus.com/reference/clibrary/cstring/strerror/">strerror</a> on Unix.</p></div></div></p></div></p>
+    <h1><span id="function">Add</span> (Error)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> Lacewing::Error::Add (<font color="blue">const</font> <font color="blue">char</font> * Format, ...)</pre></td></tr><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> Lacewing::Error::Add (<font color="blue">const</font> <font color="blue">char</font> * Format, va_list)</pre></td></tr><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> Lacewing::Error::Add (<font color="blue">int</font> ErrorCode)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_error_addf (lw_error *, <font color="blue">const</font> <font color="blue">char</font> * format, ...)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_error_add (lw_error *, <font color="blue">long</font> error_code)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Adds an error as the highest level in an <a href="index.html">Error</a> object.</p><p>For example, an error for a failed system call will initially contain the error text provided by the system.</p><p>Text describing the type of system call that failed (eg. "Error receiving") will then be added, and an even higher level class may add something like "Socket error" before reporting the error to the application.</p></div></p><p><h2>Parameters</h2><div class="sectionBody"><i>Format</i><br /><div class="parameterDesc"><p>The format of the error string, followed by a dynamic argument list (similar to the C function <a href="http://www.cplusplus.com/reference/clibrary/cstdio/printf/">printf</a>.</p></div><strong>OR</strong>&nbsp;<i>ErrorCode</i><br /><div class="parameterDesc"><p>A numeric error code reported by a system call. Internally, this will be converted to a string by <a href="http://msdn.microsoft.com/en-us/library/ms679351.aspx">FormatMessage</a> on Windows, or <a href="http://www.cplusplus.com/reference/clibrary/cstring/strerror/">strerror</a> on Unix.</p></div></div></p></div></p>
 </div>
 
 <div class="bottom"></div>
@@ -26,7 +26,7 @@
 <div id="parent"><a href="../">&lt;&lt; Back to Lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/Error.cc">View function source &gt;&gt;</a></div>
 <div id="copyright">
 <hr>
-Copyright &copy; The Lacewing Project Authors 2011<br />
+Copyright &copy; The Lacewing Project Authors 2012<br />
 <i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2011-Sep-30.</i><br />
 </div>
 

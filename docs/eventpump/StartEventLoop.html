@@ -4,21 +4,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<meta name="description" content="Blocks until PostEventLoopExit is called, waking up any attached classes when necessary. [C/C++/JS]" />
+	<meta name="description" content="Blocks until PostEventLoopExit is called, processing and dispatching events as necessary." />
 	<meta http-equiv="content-language" content="en"/>
 	<title>StartEventLoop (EventPump) - Lacewing API</title>
-	<link rel="stylesheet" type="text/css" href="../css/style.css" />
+	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
 </head>
 <body>
 <div id="container">
 <div id="nav">
     <div class="header">Lacewing::EventPump (A-Z)</div>
     <br />    
-    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="InUse.html">InUse</a></li><li class="nav_item"><a href="Post.html">Post</a></li><li class="nav_item"><a href="PostEventLoopExit.html">PostEventLoopExit</a></li><li class="nav_item selected">StartEventLoop</li><li class="nav_item"><a href="StartSleepyTicking.html">StartSleepyTicking</a></li><li class="nav_item"><a href="Tick.html">Tick</a></li></ul> 
+    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="PostEventLoopExit.html">PostEventLoopExit</a></li><li class="nav_item selected">StartEventLoop</li><li class="nav_item"><a href="StartSleepyTicking.html">StartSleepyTicking</a></li><li class="nav_item"><a href="Tick.html">Tick</a></li><li class="extra"><a href="../pump"> +8 from Pump</a></li></ul> 
 </div>
 
 <div id="content">
-    <h1><span id="function">StartEventLoop</span> (EventPump)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre>Lacewing::Error * Lacewing::EventPump::StartEventLoop ()</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre>lw_error * lw_eventpump_start_event_loop (lw_eventpump *)</pre></td></tr><tr><td class="lang"><b>JS</b></td><td class="code"><pre>eventPump.startEventLoop ()</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Blocks until <a href="PostEventLoopExit.html">PostEventLoopExit</a> is called, waking up any attached classes when necessary.</p><p>This method of using <a href="index.html">EventPump</a> is particularly suited to dedicated console applications or daemons, which don't need any other type of message pump.</p><p><div class="notice"><p><b>Error Handling</b> - As <a href="index.html">EventPump</a> has no handlers, any error will be returned directly from this function as a pointer to an <a href="../error">Error</a> object. If no error occurred, <code>0</code> will be returned.</p><p>If an error does occur, it is the responsibility of the application to free the resulting <a href="../error">Error</a> object using <code>delete</code> (C++) or <code>lw_error_delete</code> (C). However, it is extremely rare for <a href="index.html">EventPump</a> to throw an error, and most applications can probably ignore this case without consequence.</p></div></p></div></p><p><h2>See also</h2><div class="sectionBody"><a href="PostEventLoopExit.html">PostEventLoopExit</a><br /><a href="Tick.html">Tick</a><br /><a href="StartSleepyTicking.html">StartSleepyTicking</a></div></p>
+    <h1><span id="function">StartEventLoop</span> (EventPump)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre>Lacewing::Error * Lacewing::EventPump::StartEventLoop ()</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre>lw_error * lw_eventpump_start_event_loop (lw_pump * eventpump)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Blocks until <a href="PostEventLoopExit.html">PostEventLoopExit</a> is called, processing and dispatching events as necessary.</p><p>This method of using <a href="index.html">EventPump</a> is particularly suited to dedicated console applications or daemons, which don't already have any other type of event loop.</p><p><div class="notice"><p><b>Error Handling</b> - As <a href="index.html">EventPump</a> has no handlers, any error will be returned directly from this function as a pointer to an <a href="../error">Error</a> object. If no error occurred, <code>0</code> will be returned.</p><p>If an error does occur, it is the responsibility of the application to free the resulting <a href="../error">Error</a> object using <code>delete</code> (C++) or <code>lw_error_delete</code> (C).</p></div></p></div></p><p><h2>See also</h2><div class="sectionBody"><a href="PostEventLoopExit.html">PostEventLoopExit</a><br /><a href="Tick.html">Tick</a><br /><a href="StartSleepyTicking.html">StartSleepyTicking</a></div></p>
 </div>
 
 <div class="bottom"></div>
@@ -26,8 +26,8 @@
 <div id="parent"><a href="../">&lt;&lt; Back to Lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/windows/EventPump.cc">Source (Windows)</a> | <a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/unix/EventPump.cc">Source (Unix)</a></div>
 <div id="copyright">
 <hr>
-Copyright &copy; The Lacewing Project Authors 2011<br />
-<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2011-Sep-30.</i><br />
+Copyright &copy; The Lacewing Project Authors 2012<br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Jun-19.</i><br />
 </div>
 
 </div>

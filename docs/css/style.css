@@ -4,14 +4,14 @@ body
 {
 	color: #000;
 	background-color: #FFF;
-	font-family: sans-serif;
+	font-family: Segoe UI, Tahoma, sans-serif;
 	font-size:0.9em;
 
 }
 
 h1
 {
-	font-family: sans-serif;
+	font-family: Helvetica Neue, Helvetica, Arial,  sans-serif;
 	font-size:1.4em;
 	padding-bottom:0.2em;
 	margin-top:0px;
@@ -22,7 +22,7 @@ h1
 
 h2
 {
-	font-family: sans-serif;
+	font-family: Helvetica Neue, Helvetica, Arial,  sans-serif;
 	font-size:1.0em;
 	padding-bottom:0.2em;
 	margin-top:0px;
@@ -54,6 +54,13 @@ a:visit
 div#nav li a
 {
 	display:block;
+}
+
+div#nav li.extra
+{
+    font-style: italic;
+    font-size: 7.5pt;
+    padding: 2px;
 }
 
 div#nav li a:hover

@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Decrements the number of active users of this Pump. When no users are left, InUse will return false." />
+	<meta http-equiv="content-language" content="en"/>
+	<title>RemoveUser (Pump) - Lacewing API</title>
+	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
+</head>
+<body>
+<div id="container">
+<div id="nav">
+    <div class="header">Lacewing::Pump (A-Z)</div>
+    <br />    
+    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="Add.html">Add</a></li><li class="nav_item"><a href="AddUser.html">AddUser</a></li><li class="nav_item"><a href="InUse.html">InUse</a></li><li class="nav_item"><a href="Post.html">Post</a></li><li class="nav_item"><a href="Remove.html">Remove</a></li><li class="nav_item selected">RemoveUser</li><li class="nav_item"><a href="UpdateCallbacks.html">UpdateCallbacks</a></li><li class="nav_item"><a href="Watch.html">Watch</a></li></ul> 
+</div>
+
+<div id="content">
+    <h1><span id="function">RemoveUser</span> (Pump)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> Lacewing::Pump::RemoveUser ()</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_pump_remove_user (lw_pump *)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Decrements the number of active users of this <a href="index.html">Pump</a>. When no users are left, <a href="InUse.html">InUse</a> will return <code>false</code>.</p><p>This will be called by each class when they are finished using the <a href="index.html">Pump</a>.</p></div></p><p><h2>See also</h2><div class="sectionBody"><a href="AddUser.html">AddUser</a><br /><a href="InUse.html">InUse</a></div></p>
+</div>
+
+<div class="bottom"></div>
+
+<div id="parent"><a href="../">&lt;&lt; Back to Lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/windows/EventPump.cc">Source (Windows)</a> | <a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/unix/Pump.cc">Source (Unix)</a></div>
+<div id="copyright">
+<hr>
+Copyright &copy; The Lacewing Project Authors 2012<br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Jun-19.</i><br />
+</div>
+
+</div>
+</body>
+</html>

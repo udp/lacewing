@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<meta name="description" content="The Tag members allow you to store a user-defined pointer in nearly any Lacewing class." />
+	<meta name="description" content="The Tag members allow you to store a user-defined pointer in nearly any liblacewing class." />
 	<meta http-equiv="content-language" content="en"/>
 	<title>Using the Tag members - Lacewing API</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
@@ -14,17 +14,17 @@
 <div id="nav">
     <div class="header">Lacewing (A-Z)</div>
     <br />    
-    <ul><li class="nav_header">Classes</li><li class="nav_item"><a href="address">Address</a></li><li class="nav_item"><a href="client">Client</a></li><li class="nav_item"><a href="error">Error</a></li><li class="nav_item"><a href="eventpump">EventPump</a></li><li class="nav_item"><a href="filter">Filter</a></li><li class="nav_item"><a href="flashpolicy">FlashPolicy</a></li><li class="nav_item"><a href="relayclient">RelayClient</a></li><li class="nav_item"><a href="relayserver">RelayServer</a></li><li class="nav_item"><a href="server">Server</a></li><li class="nav_item"><a href="spinsync">SpinSync</a></li><li class="nav_item"><a href="sync">Sync</a></li><li class="nav_item"><a href="thread">Thread</a></li><li class="nav_item"><a href="timer">Timer</a></li><li class="nav_item"><a href="udp">UDP</a></li><li class="nav_item"><a href="webserver">Webserver</a></li></ul><ul><li class="nav_header">Methods</li><li class="nav_item"><a href="CurrentThreadID.html">CurrentThreadID</a></li><li class="nav_item"><a href="FileExists.html">FileExists</a></li><li class="nav_item"><a href="FileSize.html">FileSize</a></li><li class="nav_item"><a href="GuessMimeType.html">GuessMimeType</a></li><li class="nav_item"><a href="Int64ToString.html">Int64ToString</a></li><li class="nav_item"><a href="LastModified.html">LastModified</a></li><li class="nav_item"><a href="MD5.html">MD5</a></li><li class="nav_item"><a href="MD5_Hex.html">MD5_Hex</a></li><li class="nav_item"><a href="NewTempFile.html">NewTempFile</a></li><li class="nav_item"><a href="PathExists.html">PathExists</a></li><li class="nav_item"><a href="SHA1.html">SHA1</a></li><li class="nav_item"><a href="SHA1_Hex.html">SHA1_Hex</a></li><li class="nav_item"><a href="TempPath.html">TempPath</a></li><li class="nav_item"><a href="Version.html">Version</a></li></ul> 
+    <ul><li class="nav_header">Classes</li><li class="nav_item"><a href="address">Address</a></li><li class="nav_item"><a href="client">Client</a></li><li class="nav_item"><a href="error">Error</a></li><li class="nav_item"><a href="eventpump">EventPump</a></li><li class="nav_item"><a href="fdstream">FDStream</a></li><li class="nav_item"><a href="file">File</a></li><li class="nav_item"><a href="filter">Filter</a></li><li class="nav_item"><a href="flashpolicy">FlashPolicy</a></li><li class="nav_item"><a href="pump">Pump</a></li><li class="nav_item"><a href="server">Server</a></li><li class="nav_item"><a href="stream">Stream</a></li><li class="nav_item"><a href="sync">Sync</a></li><li class="nav_item"><a href="thread">Thread</a></li><li class="nav_item"><a href="timer">Timer</a></li><li class="nav_item"><a href="udp">UDP</a></li><li class="nav_item"><a href="webserver">Webserver</a></li></ul><ul><li class="nav_header">Methods</li><li class="nav_item"><a href="CurrentThreadID.html">CurrentThreadID</a></li><li class="nav_item"><a href="FileExists.html">FileExists</a></li><li class="nav_item"><a href="FileSize.html">FileSize</a></li><li class="nav_item"><a href="GuessMimeType.html">GuessMimeType</a></li><li class="nav_item"><a href="LastModified.html">LastModified</a></li><li class="nav_item"><a href="MD5.html">MD5</a></li><li class="nav_item"><a href="MD5_Hex.html">MD5_Hex</a></li><li class="nav_item"><a href="NewTempFile.html">NewTempFile</a></li><li class="nav_item"><a href="PathExists.html">PathExists</a></li><li class="nav_item"><a href="SHA1.html">SHA1</a></li><li class="nav_item"><a href="SHA1_Hex.html">SHA1_Hex</a></li><li class="nav_item"><a href="TempPath.html">TempPath</a></li><li class="nav_item"><a href="Version.html">Version</a></li></ul> 
 </div>
 
 <div id="content">
     <h1>Using the Tag members</h1>
 
-<p>Nearly every class in liblacewing contains a member called <code>Tag</code>, and sometimes also <code>InternalTag</code>.</p>
+<p>Nearly every class in liblacewing contains a member called <code>Tag</code>, and sometimes also <code>internal</code>.</p>
 
 <p>The <code>Tag</code> member is initialized to <code>0</code> when an instance of a class is created, but is then left alone by the library. You are free to use it to store your own pointer (perhaps extending a <a href="server/client">Server::Client</a> with your own client-specific state, for instance).</p>
 
-<p>The <code>InternalTag</code> member is used to hide implementation details from the application, and the library will use it to store a pointer to an internal structure. This should not be accessed by code outside of the library itself.</p>
+<p>The <code>internal</code> member is used to hide implementation details from the application and keep public class sizes constant, and the library will use it to store a pointer to an internal structure. This should not be accessed by code outside of the library itself.</p>
 
 <p>Most of the handlers that introduce new instances of classes (such as <a href="server/onConnect.html">Server::onConnect</a>) will state that they do so in the documentation, and when the <i>last</i> time the instance will be seen is (in this case, <a href="server/onDisconnect.html">onDisconnect</a>). This is a good time to free any data stored in <code>Tag</code>.</p>
 
@@ -56,8 +56,8 @@
 <div id="parent"><a href="index.html">&lt;&lt; Back to Lacewing</a></div><div id="source"></div>
 <div id="copyright">
 <hr>
-Copyright &copy; The Lacewing Project Authors 2011<br />
-<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2011-Sep-30.</i><br />
+Copyright &copy; The Lacewing Project Authors 2012<br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Jun-20.</i><br />
 </div>
 
 </div>

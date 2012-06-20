@@ -4,21 +4,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<meta name="description" content="Getter/setter for the remote address associated with a Filter object. [C/C++/JS]" />
+	<meta name="description" content="Getter/setter for the remote address associated with a Filter object." />
 	<meta http-equiv="content-language" content="en"/>
 	<title>Remote (Filter) - Lacewing API</title>
-	<link rel="stylesheet" type="text/css" href="../css/style.css" />
+	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
 </head>
 <body>
 <div id="container">
 <div id="nav">
     <div class="header">Lacewing::Filter (A-Z)</div>
     <br />    
-    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="Local.html">Local</a></li><li class="nav_item"><a href="LocalIP.html">LocalIP</a></li><li class="nav_item"><a href="LocalPort.html">LocalPort</a></li><li class="nav_item selected">Remote</li><li class="nav_item"><a href="Reuse.html">Reuse</a></li></ul> 
+    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="IPv6.html">IPv6</a></li><li class="nav_item"><a href="Local.html">Local</a></li><li class="nav_item"><a href="LocalPort.html">LocalPort</a></li><li class="nav_item selected">Remote</li><li class="nav_item"><a href="RemotePort.html">RemotePort</a></li><li class="nav_item"><a href="Reuse.html">Reuse</a></li></ul> 
 </div>
 
 <div id="content">
-    <h1><span id="function">Remote</span> (Filter)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> Lacewing::Filter::Remote (<font color="blue">const</font> <font color="blue">char</font> *)</pre></td></tr><tr><td class="lang"><b>C++</b></td><td class="code"><pre>Lacewing::Address &Lacewing::Filter::Remote ()</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_filter_set_remote (lw_filter *, <font color="blue">const</font> <font color="blue">char</font> *)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre>lw_addr * lw_filter_get_remote_addr (lw_filter *)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre>lw_addr * lw_filter_set_remote (lw_filter *, <font color="blue">const</font> <font color="blue">char</font> *)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre>lw_addr * lw_filter_set_remote_addr (lw_filter *, lw_addr *)</pre></td></tr><tr><td class="lang"><b>JS</b></td><td class="code"><pre>filter.remote ([<i>&lt;<a href="../address">Address</a> or string&gt;</i>])</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Getter/setter for the remote address associated with a <a href="index.html">Filter</a> object.</p><p>This can be used to restrict a server-side class to listening for data <i>from</i> a particular address.</p></div></p><p><h2>Parameters</h2><div class="sectionBody"><i>Address</i><br /><div class="parameterDesc"><p>An <a href="../address">Address</a> object.</p></div><strong>OR</strong>&nbsp;<i>Hostname</i><br /><div class="parameterDesc"><p>Any string an <a href="../address">Address</a> object can resolve. May also contain a port number (eg. <code>"example.com:80"</code>).</p></div></div></p><p><h2>See also</h2><div class="sectionBody"><a href="Local.html">Local</a></div></p>
+    <h1><span id="function">Remote</span> (Filter)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> Lacewing::Filter::Remote (<font color="blue">const</font> <font color="blue">char</font> *)</pre></td></tr><tr><td class="lang"><b>C++</b></td><td class="code"><pre>Lacewing::Address &Lacewing::Filter::Remote ()</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_filter_set_remote (lw_filter *, <font color="blue">const</font> <font color="blue">char</font> *)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre>lw_addr * lw_filter_get_remote_addr (lw_filter *)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre>lw_addr * lw_filter_set_remote (lw_filter *, <font color="blue">const</font> <font color="blue">char</font> *)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre>lw_addr * lw_filter_set_remote_addr (lw_filter *, lw_addr *)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Getter/setter for the remote address associated with a <a href="index.html">Filter</a> object.</p><p>This can be used to restrict a server-side class to listening for data <i>from</i> a particular address.</p></div></p><p><h2>Parameters</h2><div class="sectionBody"><i>Address</i><br /><div class="parameterDesc"><p>An <a href="../address">Address</a> object.</p></div><strong>OR</strong>&nbsp;<i>Hostname</i><br /><div class="parameterDesc"><p>Any string an <a href="../address">Address</a> object can resolve. May also contain a port number (eg. <code>"example.com:80"</code>).</p></div></div></p><p><h2>See also</h2><div class="sectionBody"><a href="Local.html">Local</a></div></p>
 </div>
 
 <div class="bottom"></div>
@@ -26,7 +26,7 @@
 <div id="parent"><a href="../">&lt;&lt; Back to Lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/Filter.cc">View function source &gt;&gt;</a></div>
 <div id="copyright">
 <hr>
-Copyright &copy; The Lacewing Project Authors 2011<br />
+Copyright &copy; The Lacewing Project Authors 2012<br />
 <i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2011-Sep-30.</i><br />
 </div>
 

@@ -4,17 +4,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<meta name="description" content="The onGet handler is triggered for an incoming HTTP GET request. [C/C++/JS]" />
+	<meta name="description" content="The onGet handler is triggered for an incoming HTTP GET request." />
 	<meta http-equiv="content-language" content="en"/>
 	<title>onGet (Webserver) - Lacewing API</title>
-	<link rel="stylesheet" type="text/css" href="../css/style.css" />
+	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
 </head>
 <body>
 <div id="container">
 <div id="nav">
     <div class="header">Lacewing::Webserver (A-Z)</div>
     <br />    
-    <ul><li class="nav_header">Classes</li><li class="nav_item"><a href="request">Request</a></li><li class="nav_item"><a href="upload">Upload</a></li></ul><ul><li class="nav_header">Methods</li><li class="nav_item"><a href="BytesReceived.html">BytesReceived</a></li><li class="nav_item"><a href="BytesSent.html">BytesSent</a></li><li class="nav_item"><a href="CertificateLoaded.html">CertificateLoaded</a></li><li class="nav_item"><a href="CloseSession.html">CloseSession</a></li><li class="nav_item"><a href="EnableManualRequestFinish.html">EnableManualRequestFinish</a></li><li class="nav_item"><a href="Host.html">Host</a></li><li class="nav_item"><a href="HostSecure.html">HostSecure</a></li><li class="nav_item"><a href="Hosting.html">Hosting</a></li><li class="nav_item"><a href="HostingSecure.html">HostingSecure</a></li><li class="nav_item"><a href="IdleTimeout.html">IdleTimeout</a></li><li class="nav_item"><a href="LoadCertificateFile.html">LoadCertificateFile</a></li><li class="nav_item"><a href="LoadSystemCertificate.html">LoadSystemCertificate</a></li><li class="nav_item"><a href="Port.html">Port</a></li><li class="nav_item"><a href="SecurePort.html">SecurePort</a></li><li class="nav_item"><a href="Unhost.html">Unhost</a></li><li class="nav_item"><a href="UnhostSecure.html">UnhostSecure</a></li></ul><ul><li class="nav_header">Handlers</li><li class="nav_item"><a href="onDisconnect.html">onDisconnect</a></li><li class="nav_item"><a href="onError.html">onError</a></li><li class="nav_item selected">onGet</li><li class="nav_item"><a href="onHead.html">onHead</a></li><li class="nav_item"><a href="onPost.html">onPost</a></li><li class="nav_item"><a href="onUploadChunk.html">onUploadChunk</a></li><li class="nav_item"><a href="onUploadDone.html">onUploadDone</a></li><li class="nav_item"><a href="onUploadPost.html">onUploadPost</a></li><li class="nav_item"><a href="onUploadStart.html">onUploadStart</a></li></ul> 
+    <ul><li class="nav_header">Classes</li><li class="nav_item"><a href="request">Request</a></li><li class="nav_item"><a href="upload">Upload</a></li></ul><ul><li class="nav_header">Methods</li><li class="nav_item"><a href="CertificateLoaded.html">CertificateLoaded</a></li><li class="nav_item"><a href="CloseSession.html">CloseSession</a></li><li class="nav_item"><a href="EnableManualRequestFinish.html">EnableManualRequestFinish</a></li><li class="nav_item"><a href="Host.html">Host</a></li><li class="nav_item"><a href="HostSecure.html">HostSecure</a></li><li class="nav_item"><a href="Hosting.html">Hosting</a></li><li class="nav_item"><a href="HostingSecure.html">HostingSecure</a></li><li class="nav_item"><a href="IdleTimeout.html">IdleTimeout</a></li><li class="nav_item"><a href="LoadCertificateFile.html">LoadCertificateFile</a></li><li class="nav_item"><a href="LoadSystemCertificate.html">LoadSystemCertificate</a></li><li class="nav_item"><a href="Port.html">Port</a></li><li class="nav_item"><a href="SecurePort.html">SecurePort</a></li><li class="nav_item"><a href="Unhost.html">Unhost</a></li><li class="nav_item"><a href="UnhostSecure.html">UnhostSecure</a></li></ul><ul><li class="nav_header">Handlers</li><li class="nav_item"><a href="onDisconnect.html">onDisconnect</a></li><li class="nav_item"><a href="onError.html">onError</a></li><li class="nav_item selected">onGet</li><li class="nav_item"><a href="onHead.html">onHead</a></li><li class="nav_item"><a href="onPost.html">onPost</a></li><li class="nav_item"><a href="onUploadChunk.html">onUploadChunk</a></li><li class="nav_item"><a href="onUploadDone.html">onUploadDone</a></li><li class="nav_item"><a href="onUploadPost.html">onUploadPost</a></li><li class="nav_item"><a href="onUploadStart.html">onUploadStart</a></li></ul> 
 </div>
 
 <div id="content">
@@ -22,13 +22,11 @@
 {
 }
 
-Webserver.onGet (onGet); <font color="green">/* to register the handler */</font></pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> on_get (lw_ws * webserver, lw_ws_req * request)
+Webserver.onGet (onGet); <font color="green">/* to register the handler */</font></pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> on_get (lw_ws * webserver, lw_stream * request)
 {
 }
 
-lw_ws_onget (webserver, on_get); <font color="green">/* to register the handler */</font></pre></td></tr><tr><td class="lang"><b>JS</b></td><td class="code"><pre>webserver.onGet (<font color="blue">function</font> (webserver, request)
-{
-});</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>The <i>onGet</i> handler is triggered for an incoming HTTP <code>GET</code> request.</p><p>This handler marks the beginning of the lifetime of a <a href="request">Request</a> object. If <a href="EnableManualRequestFinish.html">EnableManualRequestFinish</a> has been called, the <a href="request">Request</a> object will be valid until either <a href="request/Finish.html">Request::Finish</a> is called OR the <a href="onDisconnect.html">onDisconnect</a> handler triggers. Otherwise, the <a href="request">Request</a> object is only valid until the handler returns.</p><p>The application may configure a response in this handler with functions such as <a href="request/Header.html">Request::Header</a>, and <a href="request/Cookie.html">Request::Cookie</a>, and write the response data itself with <a href="request/Send.html">Request::Send</a> and <a href="request/SendFile.html">Request::SendFile</a>.</p><p>Nothing will actually be written to the socket while the <a href="request">Request</a> object is still valid. This ensures that an accurate <code>Content-Length</code> header can be generated, and that headers can be changed throughout the lifetime of the <a href="request">Request</a>.</p></div></p><p><h2>See also</h2><div class="sectionBody"><a href="onHead.html">onHead</a><br /><a href="onPost.html">onPost</a><br /><a href="onUploadPost.html">onUploadPost</a></div></p>
+lw_ws_onget (webserver, on_get); <font color="green">/* to register the handler */</font></pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>The <i>onGet</i> handler is triggered for an incoming HTTP <code>GET</code> request.</p><p>This handler marks the beginning of the lifetime of a <a href="request">Request</a> object. If <a href="EnableManualRequestFinish.html">EnableManualRequestFinish</a> has been called, the <a href="request">Request</a> object will be valid until either <a href="request/Finish.html">Request::Finish</a> is called OR the <a href="onDisconnect.html">onDisconnect</a> handler triggers. Otherwise, the <a href="request">Request</a> object is only valid until the handler returns.</p><p>The application may configure a response in this handler with functions such as <a href="request/Header.html">Request::Header</a>, and <a href="request/Cookie.html">Request::Cookie</a>, and write the response data itself with #Request::Send# and #Request::SendFile#.</p><p>Nothing will actually be written to the socket while the <a href="request">Request</a> object is still valid. This ensures that an accurate <code>Content-Length</code> header can be generated, and that headers can be changed throughout the lifetime of the <a href="request">Request</a>.</p></div></p><p><h2>See also</h2><div class="sectionBody"><a href="onHead.html">onHead</a><br /><a href="onPost.html">onPost</a><br /><a href="onUploadPost.html">onUploadPost</a></div></p>
 </div>
 
 <div class="bottom"></div>
@@ -36,8 +34,8 @@ lw_ws_onget (webserver, on_get); <font color="green">/* to register the handler 
 <div id="parent"><a href="../">&lt;&lt; Back to Lacewing</a></div><div id="source"></div>
 <div id="copyright">
 <hr>
-Copyright &copy; The Lacewing Project Authors 2011<br />
-<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2011-Sep-30.</i><br />
+Copyright &copy; The Lacewing Project Authors 2012<br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2011-Oct-09.</i><br />
 </div>
 
 </div>

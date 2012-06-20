@@ -4,10 +4,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<meta name="description" content="Returns a formatted error message for an Error object. [C/C++/JS]" />
+	<meta name="description" content="Returns a formatted error message for an Error object." />
 	<meta http-equiv="content-language" content="en"/>
 	<title>ToString (Error) - Lacewing API</title>
-	<link rel="stylesheet" type="text/css" href="../css/style.css" />
+	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
 </head>
 <body>
 <div id="container">
@@ -18,7 +18,7 @@
 </div>
 
 <div id="content">
-    <h1><span id="function">ToString</span> (Error)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">const</font> <font color="blue">char</font> * Lacewing::Error::ToString ()</pre></td></tr><tr><td class="lang"><b>C++</b></td><td class="code"><pre>Lacewing::Error::operator <font color="blue">const</font> <font color="blue">char</font> * ()</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">const</font> <font color="blue">char</font> * lw_error_tostring (lw_error *)</pre></td></tr><tr><td class="lang"><b>JS</b></td><td class="code"><pre>error.toString ()</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Returns a formatted error message for an <a href="index.html">Error</a> object.</p><p>The string will be valid as long as the <a href="index.html">Error</a> object itself is in scope (this does not apply in Javascript). If more errors are added using <a href="Add.html">Add</a>, <i>ToString</i> should be called again and the old string considered invalid.</p></div></p>
+    <h1><span id="function">ToString</span> (Error)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">const</font> <font color="blue">char</font> * Lacewing::Error::ToString ()</pre></td></tr><tr><td class="lang"><b>C++</b></td><td class="code"><pre>Lacewing::Error::operator <font color="blue">const</font> <font color="blue">char</font> * ()</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">const</font> <font color="blue">char</font> * lw_error_tostring (lw_error *)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Returns a formatted error message for an <a href="index.html">Error</a> object.</p><p>The string will be valid as long as the <a href="index.html">Error</a> object itself is in scope (this does not apply in Javascript). If more errors are added using <a href="Add.html">Add</a>, <i>ToString</i> should be called again and the old string considered invalid.</p></div></p>
 </div>
 
 <div class="bottom"></div>
@@ -26,7 +26,7 @@
 <div id="parent"><a href="../">&lt;&lt; Back to Lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/Error.cc">View function source &gt;&gt;</a></div>
 <div id="copyright">
 <hr>
-Copyright &copy; The Lacewing Project Authors 2011<br />
+Copyright &copy; The Lacewing Project Authors 2012<br />
 <i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2011-Sep-30.</i><br />
 </div>
 

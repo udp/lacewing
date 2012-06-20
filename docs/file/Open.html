@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Opens a file, returning true if the file was opened successfully or false otherwise." />
+	<meta http-equiv="content-language" content="en"/>
+	<title>Open (File) - Lacewing API</title>
+	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
+</head>
+<body>
+<div id="container">
+<div id="nav">
+    <div class="header">Lacewing::File (A-Z)</div>
+    <br />    
+    <ul><li class="nav_header">Methods</li><li class="nav_item selected">Open</li><li class="extra"><a href="../fdstream"> +16 from FDStream</a></li></ul> 
+</div>
+
+<div id="content">
+    <h1><span id="function">Open</span> (File)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">bool</font> Lacewing::File::Open (<font color="blue">const</font> <font color="blue">char</font> * filename, <font color="blue">const</font> <font color="blue">char</font> * mode = "rb")</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre>lw_bool lw_file_open (lw_stream * file, <font color="blue">const</font> <font color="blue">char</font> * filename, <font color="blue">const</font> <font color="blue">char</font> * mode)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Opens a file, returning <code>true</code> if the file was opened successfully or <code>false</code> otherwise.</p></div></p><p><h2>Parameters</h2><div class="sectionBody"><i>filename</i><br /><div class="parameterDesc"><p>The name of the file to open.</p></div><i>mode</i> [optional]<br /><div class="parameterDesc"><p>The mode, as with e.g. <a target="_blank" href="http://linux.die.net/man/3/fopen">fopen</a>.</p></div></div></p></div></p>
+</div>
+
+<div class="bottom"></div>
+
+<div id="parent"><a href="../">&lt;&lt; Back to Lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/windows/File.cc">Source (Windows)</a> | <a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/unix/File.cc">Source (Unix)</a></div>
+<div id="copyright">
+<hr>
+Copyright &copy; The Lacewing Project Authors 2012<br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Jun-19.</i><br />
+</div>
+
+</div>
+</body>
+</html>
