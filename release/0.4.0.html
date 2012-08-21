@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Release notes for version 0.4.0 of the cross-platform, high-level network I/O library" />
+	<meta http-equiv="content-language" content="en"/>
+	<title>0.4.0 Release Notes - liblacewing</title>
+	<link rel="stylesheet" type="text/css" href="../style.css" />
+</head>
+<body>
+
+<div id="content">
+
+    <h1>Release Notes - 0.4.0</h1>
+
+    <p>The 0.4.0 release of liblacewing is <a href="http://lacewing-project.org">now available</a>, featuring many fixes and new features.</p>
+
+    <h2>Streams</h2>
+
+    <p>The Stream system introduced in 0.3.x provides a strong base for any library object capable of I/O, complete with <a target="_blank" href="../docs/stream/AddFilterUpstream.html">filtering</a>, <a href="http://lacewing-project.org/docs/stream/Write.html">intelligent splicing</a> and automatic queueing.</p>
+
+    <p>0.4.0 has many improvements regarding the stability of the Stream system in general, resolving issues with graph corruption and erroneous queueing behaviour (which was the cause of HTTP requests often hanging in 0.3.x).</p>
+    
+    <h2>SPDY</h2>
+
+    <p>The Webserver class now has support for the <a target="_blank" href="http://www.chromium.org/spdy/spdy-whitepaper/">SPDY protocol</a>.  Outside of Google, SPDY has enjoyed a surge in adoption in recent months by high profile websites such as <a target="_blank" href="http://www.webmonkey.com/2012/03/twitter-catches-the-spdy-train/">Twitter</a> and <a target="_blank" href="http://lists.w3.org/Archives/Public/ietf-http-wg/2012JulSep/0251.html">Facebook</a>, server software such as <a target="_blank" href="http://nginx.org/">nginx</a>, and browsers such as <a target="_blank" href="http://hacks.mozilla.org/2012/03/firefox-aurora-13-is-out-spdy-on-by-default-and-a-list-of-other-improvements/">Firefox</a> and <a target="_blank" href="http://dev.opera.com/articles/view/opera-spdy-build/">Opera</a>.</p>
+
+    <p>SPDY support is completely transparent, and will automatically be advertised to clients where <a target="_blank" href="https://technotes.googlecode.com/git/nextprotoneg.html">TLS NPN</a> is available server-side.  (NPN is not currently available on Windows due to the native <a target="_blank" href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms678421%28v=vs.85%29.aspx">SChannel</a> being used for TLS.)</p>
+
+    <h2>Multipart Form Data</h2>
+
+    <p>Prior to 0.4.0, the Webserver used a dated ad-hoc parser to handle multipart form data. This was not robust or efficient, and often <a target="_blank" href="https://github.com/udp/lacewing/issues/32">choked</a> on data produced by some user agents.</p>
+    
+    <p>This has now been completely replaced with Igor Afanov's <a target="_blank" href="https://github.com/udp/multipart-parser-c">multipart-parser-c</a>, which is far more maintainable and compliant with the multipart specification.</p>
+
+    <h2>Other changes</h2>
+
+    <p>
+        <ul>
+            <li>New option in <code>FDStream::SetFD</code> to close the FD on destruction, which is now used by <code>File</code></li>
+
+            <li>If <code>Stream::WriteFile</code> failed to open a file, the stream would be permanently blocked</li>
+
+            <li><code>Server</code> now supports TLS NPN where available</li>
+
+            <li>Fixed IPv4 in <code>Client</code> (regression introduced by IPv6 support)</li>
+
+            <li><code>File::OpenTemp</code> used incorrect filenames on Windows</li>
+        <ul>
+    </p>
+
+    <br />
+
+</div>
+
+<div id="copyright">
+
+<p style="font-size: 8pt;">Copyright &copy; The Lacewing Project Authors 2012<br />
+<a target="_blank" href="https://github.com/udp/lacewing/tree/gh-pages">Repo for this page</a>
+</div>
+
+</body>
+</html>
