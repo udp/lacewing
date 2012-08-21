@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<meta name="description" content="Sends a datagram to a remote host specified by an Address object." />
+	<meta name="description" content="Writes a datagram to a remote host specified by an Address object." />
 	<meta http-equiv="content-language" content="en"/>
 	<title>Write (UDP) - Lacewing API</title>
 	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
@@ -18,7 +18,7 @@
 </div>
 
 <div id="content">
-    <h1><span id="function">Write</span> (UDP)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> Lacewing::UDP::Write (Lacewing::Address &, <font color="blue">const</font> <font color="blue">char</font> * Data, size_t Size)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_udp_write (lw_udp *, lw_addr *, <font color="blue">const</font> <font color="blue">char</font> * data, size_t size)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Sends a datagram to a remote host specified by an <a href="../address">Address</a> object.</p></div></p><p><h2>Parameters</h2><div class="sectionBody"><i>Address</i><br /><div class="parameterDesc"><p>An <a href="../address">Address</a> object representing the address to send the datagram to.</p></div><i>Data</i><br /><div class="parameterDesc"><p>A pointer to the data to send.</p></div><i>Size</i> [optional]<br /><div class="parameterDesc"><p>The size of the data in bytes, or <code>-1</code> if the data is a null-terminated string.</p></div></div></p></div></p>
+    <h1><span id="function">Write</span> (UDP)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> Lacewing::UDP::Write (Lacewing::Address &, <font color="blue">const</font> <font color="blue">char</font> * Data, size_t Size)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_udp_write (lw_udp *, lw_addr *, <font color="blue">const</font> <font color="blue">char</font> * data, size_t size)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Writes a datagram to a remote host specified by an <a href="../address">Address</a> object.</p></div></p><p><h2>Parameters</h2><div class="sectionBody"><i>Address</i><br /><div class="parameterDesc"><p>An <a href="../address">Address</a> object representing the address to send the datagram to.</p></div><i>Data</i><br /><div class="parameterDesc"><p>A pointer to the data to send.</p></div><i>Size</i> [optional]<br /><div class="parameterDesc"><p>The size of the data in bytes, or <code>-1</code> if the data is a null-terminated string.</p></div></div></p></div></p>
 </div>
 
 <div class="bottom"></div>

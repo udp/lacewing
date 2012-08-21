@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<meta name="description" content="Sends the response to a Request when manual request finishing is enabled." />
+	<meta name="description" content="Writes the response to a Request when manual request finishing is enabled." />
 	<meta http-equiv="content-language" content="en"/>
 	<title>Finish (Webserver::Request) - Lacewing API</title>
 	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
@@ -18,7 +18,7 @@
 </div>
 
 <div id="content">
-    <h1><span id="function">Finish</span> (Webserver::Request)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> Lacewing::Webserver::Request::Finish ()</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_ws_req_finish (lw_stream * req)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Sends the response to a <a href="index.html">Request</a> when <a href="../EnableManualRequestFinish.html">manual request finishing</a> is enabled.</p><p>After this function has been called, the <a href="index.html">Request</a> object should not be touched (it may be internally deleted or recycled).</p></div></p><p><h2>See also</h2><div class="sectionBody"><a href="../EnableManualRequestFinish.html">EnableManualRequestFinish</a></div></p>
+    <h1><span id="function">Finish</span> (Webserver::Request)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> Lacewing::Webserver::Request::Finish ()</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_ws_req_finish (lw_stream * req)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Writes the response to a <a href="index.html">Request</a> when <a href="../EnableManualRequestFinish.html">manual request finishing</a> is enabled.</p><p>After this function has been called, the <a href="index.html">Request</a> object should not be touched (it may be internally deleted or recycled).</p></div></p><p><h2>See also</h2><div class="sectionBody"><a href="../EnableManualRequestFinish.html">EnableManualRequestFinish</a></div></p>
 </div>
 
 <div class="bottom"></div>

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<meta name="description" content="Returns true if the FDStream currently has a file descriptor, false otherwise." />
+	<meta name="description" content="Sets the file descriptor for this FDStream." />
 	<meta http-equiv="content-language" content="en"/>
 	<title>SetFD (FDStream) - Lacewing API</title>
 	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
@@ -18,7 +18,7 @@
 </div>
 
 <div id="content">
-    <h1><span id="function">SetFD</span> (FDStream)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> Lacewing::FDStream::SetFD (lw_fd FD)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_fdstream_setfd (lw_stream * fdstream, lw_fd FD)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Returns <code>true</code> if the <a href="index.html">FDStream</a> currently has a file descriptor, <code>false</code> otherwise.</p></div></p><p><h2>See also</h2><div class="sectionBody"><a href="Valid.html">Valid</a></div></p>
+    <h1><span id="function">SetFD</span> (FDStream)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> Lacewing::FDStream::SetFD (lw_fd FD, <font color="blue">bool</font> auto_close)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_fdstream_setfd (lw_stream * fdstream, lw_fd FD, lw_bool auto_close)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Sets the file descriptor for this <a href="index.html">FDStream</a>.</p></div></p><p><h2>Parameters</h2><div class="sectionBody"><i>FD</i><br /><div class="parameterDesc"><p>The file descriptor (Unix) or <code>HANDLE</code> (Windows) to use.</p></div><i>auto_close</i> [optional]<br /><div class="parameterDesc"><p>Set to <code>true</code> to close the file descriptor automatically when this <a href="index.html">FDStream</a> is destroyed.</p></div></div></p><p><h2>See also</h2><div class="sectionBody"><a href="Valid.html">Valid</a></div></p>
 </div>
 
 <div class="bottom"></div>
@@ -27,7 +27,7 @@
 <div id="copyright">
 <hr>
 Copyright &copy; The Lacewing Project Authors 2012<br />
-<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Jun-19.</i><br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Aug-21.</i><br />
 </div>
 
 </div>
