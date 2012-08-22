@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Release notes for version 0.4.1 of the cross-platform, high-level network I/O library" />
+	<meta http-equiv="content-language" content="en"/>
+	<title>0.4.1 Release Notes - liblacewing</title>
+	<link rel="stylesheet" type="text/css" href="../style.css" />
+</head>
+<body>
+
+<div id="content">
+
+    <h1>Release Notes - 0.4.1</h1>
+
+    <p>The 0.4.1 release of liblacewing is <a href="http://lacewing-project.org">now available</a>.  0.4.1 is a minor release to resolve issues with the HTTP server.</p>
+
+    <h2>HTTP parsing</h2>
+    <p>
+        When transitioning between parsing HTTP requests line-by-line (headers) and as it arrives (body), it was possible for the HTTP parser to be passed a zero length buffer, depending on how the message packets were fragmented.  This would cause the HTTP code to believe an error had occurred and close the socket, leading to <a target="_blank" href="https://github.com/udp/lacewing/issues/33">empty responses</a>.
+    </p>
+
+    <h2>URL decoding</h2>
+    <p>
+        A newly introduced bug in the internal function for URL decoding caused the null terminator to be set one place ahead of the correct position in the output buffer.  This resulted in <a target="_blank" href="https://github.com/udp/lacewing/issues/35">trailing garbage</a> in decoded strings, affecting the result of functions such as <a target="_blank" href="http://lacewing-project.org/docs/webserver/request/URL.html">Request::URL</a>.
+    </p>
+
+    <br />
+
+</div>
+
+<div id="copyright">
+
+<p style="font-size: 8pt;">Copyright &copy; The Lacewing Project Authors 2012<br />
+<a target="_blank" href="https://github.com/udp/lacewing/tree/gh-pages">Repo for this page</a>
+</div>
+
+</body>
+</html>
