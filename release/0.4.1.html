@@ -19,7 +19,7 @@
 
     <h2>HTTP parsing</h2>
     <p>
-        When transitioning between parsing HTTP requests line-by-line (headers) and as it arrives (body), it was possible for the HTTP parser to be passed a zero length buffer, depending on how the message packets were fragmented.  This would cause the HTTP code to believe an error had occurred and close the socket, leading to <a target="_blank" href="https://github.com/udp/lacewing/issues/33">empty responses</a>.
+        When transitioning between parsing HTTP request data line-by-line (headers) and as it arrives (body), it was possible for the HTTP parser to be passed a zero length buffer, depending on how the message packets were fragmented.  This would cause the HTTP code to believe an error had occurred and close the socket, leading to <a target="_blank" href="https://github.com/udp/lacewing/issues/33">empty responses</a>.
     </p>
 
     <h2>URL decoding</h2>
