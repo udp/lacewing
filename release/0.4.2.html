@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Release notes for version 0.4.2 of the cross-platform, high-level network I/O library" />
+	<meta http-equiv="content-language" content="en"/>
+	<title>0.4.2 Release Notes - liblacewing</title>
+	<link rel="stylesheet" type="text/css" href="../style.css" />
+</head>
+<body>
+
+<div id="content">
+
+    <h1>Release Notes - 0.4.2</h1>
+
+    <p>The 0.4.2 release of liblacewing is <a href="http://lacewing-project.org">now available</a>.  0.4.2 is a minor release to resolve issues with cookies, POST data and stream splicing.</p>
+
+    <h2>Cookies</h2>
+    <p>
+       In the <a href="0.4.0.html">0.4.0 release</a>, the cookie handling code was changed to use a hash map internally for more efficient lookups.  This introduced new problems with the cookie parser, which have now been resolved.
+    </p>
+
+    <h2>POST data</h2>
+    <p>
+       A 0.4.1 regression causing <a target="_blank" href="https://github.com/udp/lacewing/issues/37">truncated POST data</a> has been fixed.
+    </p>
+
+    <h2>Stream splicing</h2>
+    <p>
+       Writing one stream to another causes a StreamGraph to be constructed internally, which is responsible for ensuring each stream reads the correct number of bytes to satisfy the link to each write target. This is simple enough, but when filters are introduced the situation becomes more complicated: filters must also become part of the graph, so that the data can pass through them between stream and target.</p>
+       <p>Prior to 0.4.2, the recursive function to read from each stream in the graph would stop at the first stream which was not being written to anything.  Although this was the correct behaviour for a graph without filters, with filters present it would stop at the filter (which, being just a filter, was not really being written to the next stream) and not read from any target beyond it.</p>
+
+    <br />
+
+</div>
+
+<div id="copyright">
+
+<p style="font-size: 8pt;">Copyright &copy; The Lacewing Project Authors 2012<br />
+<a target="_blank" href="https://github.com/udp/lacewing/tree/gh-pages">Repo for this page</a>
+</div>
+
+</body>
+</html>
