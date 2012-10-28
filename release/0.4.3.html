@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Release notes for version 0.4.3 of the cross-platform, high-level network I/O library" />
+	<meta http-equiv="content-language" content="en"/>
+	<title>0.4.3 Release Notes - liblacewing</title>
+	<link rel="stylesheet" type="text/css" href="../style.css" />
+</head>
+<body>
+
+<div id="content">
+
+    <h1>Release Notes - 0.4.3</h1>
+
+    <p>The 0.4.3 release of liblacewing is <a href="http://lacewing-project.org">now available</a>.</p>
+
+    <h2>Windows support</h2>
+    <p>
+        0.4.3 has some important improvements for Windows support :-
+
+        <ul>
+            <li>Issues with the Windows implementation of <code>FDStream</code> have been resolved (solving things like truncation of <code>Webserver</code> file uploads)</li>
+
+            <li>There is now a Visual Studio project for each example, and all are contained in the master solution</li>
+
+            <li>Issues with building under MinGW have been resolved.  Note that it is currently necessary to configure with <code>--disable-spdy</code> for a successful build.</li>
+
+            <li>Applications using the <code>Server::Client::NPN</code> function will now compile, although it will always return an empty string on Windows</li>
+        </ul>
+    </p>
+
+    <h2>Stream::Close behaviour</h2>
+    <p>
+        In previous versions of the library, the behaviour of <a href="http://lacewing-project.org/docs/stream/Close.html">Stream::Close</a> was unclear when writes were still
+        pending: some types of stream would close immediately and cancel the writes, while others would retain the internal
+        structures until all pending writes had completed.  This lead to confusion as to when, if writing to and then closing
+        a stream, it would be safe to assume all pending data had been written.
+    </p>
+    <p>
+        To make this behaviour more controllable, <code>Stream::Close</code> now has a new boolean parameter <code>immediately</code>:
+
+        <ul>
+            <li>If <code>true</code>, the stream will cancel any pending writes. <code>Stream::Close</code> will always return <code>true</code>, and the stream is always closed.</li>
+
+            <li>If <code>false</code>, the stream will close as soon as all pending writes have completed.  If no writes were
+                pending, <code>Stream::Close</code> will return <code>true</code> and the stream is now closed.  Otherwise, <code>Stream::Close</code> will return <code>false</code>, and
+                the <code>onClose</code> handler can be used to observe out when the stream is finally closed.</code>
+            </li>
+        </ul>
+    </p>
+
+    <h2>Other changes</h2>
+    <p>
+        <ul>
+            <li>The public header file <code>Lacewing.h</code> is now <code>lacewing.h</code> (lowercase)</li>
+
+            <li>The C webserver examples have been updated for the current C API</li>
+
+            <li>Updated to the latest version of <a href="https://github.com/iafonov/multipart-parser-c" target="_blank">multipart-parser</a></li>
+    </p>
+
+    <br />
+
+</div>
+
+<div id="copyright">
+
+<p style="font-size: 8pt;">Copyright &copy; The Lacewing Project Authors 2012<br />
+<a target="_blank" href="https://github.com/udp/lacewing/tree/gh-pages">Repo for this page</a>
+</div>
+
+</body>
+</html>

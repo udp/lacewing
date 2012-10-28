@@ -67,6 +67,12 @@ ul
 	margin-bottom:0;
 }
 
+li
+{
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
 div#lacewing
 {
 	margin-left: auto;
