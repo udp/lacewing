@@ -248,6 +248,9 @@ LacewingFunction       lw_bool  lw_random                   (char * buffer, size
   LacewingFunction void lw_stream_add_handler_data (lw_stream *, lw_stream_handler_data, void * tag);
   LacewingFunction void lw_stream_remove_handler_data (lw_stream *, lw_stream_handler_data, void * tag);
 
+  LacewingFunction void lw_stream_add_handler_close (lw_stream *, lw_stream_handler_data, void * tag);
+  LacewingFunction void lw_stream_remove_handler_close (lw_stream *, lw_stream_handler_data, void * tag);
+
 /* FDStream */
 
   LacewingFunction  lw_stream* lw_fdstream_new         (lw_pump *);
@@ -931,6 +934,8 @@ struct Client : public FDStream
 
     LacewingFunction bool Connected ();
     LacewingFunction bool Connecting ();
+
+    LacewingFunction void Disconnect ();
     
     LacewingFunction Lacewing::Address &ServerAddress ();
 

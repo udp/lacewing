@@ -126,6 +126,19 @@ void lw_stream_close (lw_stream * stream, lw_bool immediate)
     ((Stream *) stream)->Close (immediate);
 }
 
+void lw_stream_add_handler_close
+        (lw_stream * stream, lw_stream_handler_data proc, void * tag)
+{
+    ((Stream *) stream)->AddHandlerClose ((Stream::HandlerClose) proc, tag);
+}
+
+void lw_stream_remove_handler_close
+        (lw_stream * stream, lw_stream_handler_data proc, void * tag)
+{
+    ((Stream *) stream)->RemoveHandlerClose ((Stream::HandlerClose) proc, tag);
+}
+
+
 void lw_stream_writef (lw_stream * stream, const char * format, ...)
 {
     va_list args;

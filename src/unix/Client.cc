@@ -225,6 +225,11 @@ bool Client::Connecting ()
     return internal->Connecting;
 }
 
+void Client::Disconnect ()
+{
+	Close ();
+}
+
 Address &Client::ServerAddress ()
 {
     return *internal->Address;

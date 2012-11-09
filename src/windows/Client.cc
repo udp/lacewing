@@ -115,7 +115,7 @@ static void Completion (void * tag, OVERLAPPED * overlapped,
         return;
     }
 
-    internal->Public.SetFD (internal->Socket, internal->Watch);
+    internal->Public.SetFD (internal->Socket, internal->Watch, true);
     internal->Connecting = false;
 
     if (internal->Handlers.Connect)
@@ -259,6 +259,11 @@ bool Client::Connected ()
 bool Client::Connecting ()
 {
     return internal->Connecting;
+}
+
+void Client::Disconnect ()
+{
+	Close ();
 }
 
 Address &Client::ServerAddress ()
