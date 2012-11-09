@@ -101,8 +101,9 @@ lw_bool lw_random (char * buffer, size_t size)
 {
    if (!crypt_init ())
       return lw_false;
-
-   if (!CryptGenRandom (crypt_prov, size, (PBYTE) buffer))
+   if (size > 0xFFFFFFFF)
+	  return lw_false;
+   if (!CryptGenRandom (crypt_prov, (DWORD) size, (PBYTE) buffer))
       return lw_false;
 
    return lw_true;
@@ -116,7 +117,7 @@ void lw_md5 (char * output, const char * input, size_t length)
    crypt_init ();
 
    CryptCreateHash (crypt_prov, CALG_MD5, 0, 0, &hash_prov);
-   CryptHashData (hash_prov, (BYTE *) input, length, 0);
+   CryptHashData (hash_prov, (BYTE *) input, (DWORD) length, 0);
    CryptGetHashParam (hash_prov, HP_HASHVAL, (BYTE *) output, &hash_length, 0);
    CryptDestroyHash (hash_prov);
 }
@@ -129,7 +130,7 @@ void lw_sha1 (char * output, const char * input, size_t length)
    crypt_init ();
 
    CryptCreateHash (crypt_prov, CALG_SHA1, 0, 0, &hash_prov);
-   CryptHashData (hash_prov, (BYTE *) input, length, 0);
+   CryptHashData (hash_prov, (BYTE *) input, (DWORD) length, 0);
    CryptGetHashParam (hash_prov, HP_HASHVAL, (BYTE *) output, &hash_length, 0);
    CryptDestroyHash (hash_prov);
 }

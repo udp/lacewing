@@ -99,7 +99,7 @@ size_t WinSSLClient::Upstream::Put (const char * buffer, size_t size)
 
 size_t WinSSLClient::Downstream::Put (const char * buffer, size_t size)
 {
-    int processed = 0;
+    size_t processed = 0;
 
     if (! (Client.Flags & Flag_HandshakeComplete))
     {

@@ -70,7 +70,7 @@ void lw_dump (const char * buffer, size_t size)
    const int text_offset = bytes_per_row * 3 + 8;
 
    unsigned char b;
-   lw_i64 i;
+   lw_ui64 i;
    int row_offset = 0, row_offset_c = 0, row = 0;
 
    if (size == -1)

@@ -190,7 +190,7 @@ void Client::Connect (Address &Address)
     (   
         SOCKET s,
         const struct sockaddr FAR *name,
-        int namelen,
+        size_t namelen,
         PVOID lpSendBuffer,
         DWORD dwSendDataLength,
         LPDWORD lpdwBytesSent,

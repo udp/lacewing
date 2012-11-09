@@ -489,7 +489,7 @@ size_t Multipart::Process (const char * buffer, size_t buffer_size)
                 }
             }
 
-            int toParse = i + 1;
+            size_t toParse = i + 1;
             bool error = false;
 
             if (Request.Buffer.Size)
