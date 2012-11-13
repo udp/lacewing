@@ -934,8 +934,6 @@ struct Client : public FDStream
 
     LacewingFunction bool Connected ();
     LacewingFunction bool Connecting ();
-
-    LacewingFunction void Disconnect ();
     
     LacewingFunction Lacewing::Address &ServerAddress ();
 
