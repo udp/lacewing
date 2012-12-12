@@ -1,4 +1,3 @@
-
 /* vim: set et ts=4 sw=4 ft=cpp:
  *
  * Copyright (C) 2011, 2012 James McLaughlin.  All rights reserved.
@@ -30,6 +29,8 @@
 #include "../lw_common.h"
 #include "../HeapBuffer.h"
 #include "../../deps/multipart-parser/multipart_parser.h"
+
+#define SESSION_ID_SIZE 32
 
 class WebserverClient;
 
@@ -153,6 +154,7 @@ struct Webserver::Internal
     {
         lw_nvhash * data;
         UT_hash_handle hh;
+    	char session_key[SESSION_ID_SIZE * 2 + 1];
     };
     
     Session * Sessions;

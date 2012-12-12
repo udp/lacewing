@@ -1,4 +1,3 @@
-
 /* vim: set et ts=4 sw=4 ft=cpp:
  *
  * Copyright (C) 2011, 2012 James McLaughlin.  All rights reserved.
@@ -587,6 +586,7 @@ void Webserver::Request::Internal::SetCookie
     if (!cookie)
     {
         cookie = (Request::Internal::Cookie *) malloc (sizeof (*cookie));
+        memset (cookie, 0, sizeof (*cookie));
 
         cookie->Changed = changed;
 

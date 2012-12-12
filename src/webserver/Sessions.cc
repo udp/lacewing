@@ -1,4 +1,3 @@
-
 /* vim: set et ts=4 sw=4 ft=cpp:
  *
  * Copyright (C) 2011, 2012 James McLaughlin.  All rights reserved.
@@ -38,7 +37,8 @@ void Webserver::Request::Session (const char * key, const char * value)
     Webserver::Internal::Session * session;
 
     if (*cookie)
-    {   HASH_FIND_STR (internal->Server.Sessions, cookie, session);
+    {
+        HASH_FIND_STR (internal->Server.Sessions, cookie, session);
     }
     else
     {   session = 0;
@@ -46,19 +46,19 @@ void Webserver::Request::Session (const char * key, const char * value)
 
     if (!session)
     {
-        char session_id [32];
-        char session_id_hex [sizeof (session_id) * 2 + 1];
-
+        char session_id [SESSION_ID_SIZE];
+ 
         lw_random (session_id, sizeof (session_id));
+ 
+    	session = new Webserver::Internal::Session;
+		memset (session, 0, sizeof (session));
 
         for (int i = 0; i < sizeof (session_id); ++ i)
-            sprintf (session_id_hex + i * 2, "%02x", session_id [i]);
+            sprintf (session->session_key + i * 2, "%02X", (unsigned char) session_id [i]);
+ 
+        HASH_ADD_STR (internal->Server.Sessions, session_key, session);
 
-        session = new Webserver::Internal::Session;
-
-        HASH_ADD_KEYPTR
-            (hh, internal->Server.Sessions,
-                session_id_hex, sizeof (session_id_hex), session);
+	Cookie(SessionCookie, session->session_key);
     }
 
     lw_nvhash_set (&session->data, key, value, lw_true);

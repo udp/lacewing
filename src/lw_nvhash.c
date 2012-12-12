@@ -1,4 +1,3 @@
-
 /* vim: set et ts=3 sw=3 ft=c:
  *
  * Copyright (C) 2012 James McLaughlin et al.  All rights reserved.
@@ -62,6 +61,8 @@ void lw_nvhash_set_ex (lw_nvhash ** hash, size_t key_len, const char * key,
    }
 
    item = (lw_nvhash *) malloc (sizeof (lw_nvhash));
+   memset(item, 0, sizeof(lw_nvhash));
+
 
    if (copy)
    {
