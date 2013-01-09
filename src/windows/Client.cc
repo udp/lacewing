@@ -115,7 +115,7 @@ static void Completion (void * tag, OVERLAPPED * overlapped,
         return;
     }
 
-    internal->Public.SetFD (internal->Socket, internal->Watch);
+    internal->Public.SetFD (internal->Socket, internal->Watch, true);
     internal->Connecting = false;
 
     if (internal->Handlers.Connect)
@@ -190,7 +190,7 @@ void Client::Connect (Address &Address)
     (   
         SOCKET s,
         const struct sockaddr FAR *name,
-        int namelen,
+        size_t namelen,
         PVOID lpSendBuffer,
         DWORD dwSendDataLength,
         LPDWORD lpdwBytesSent,

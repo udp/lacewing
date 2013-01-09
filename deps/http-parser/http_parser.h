@@ -253,8 +253,8 @@ struct http_parser_url {
   uint16_t port;                /* Converted UF_PORT string */
 
   struct {
-    uint16_t off;               /* Offset into buffer in which field starts */
-    uint16_t len;               /* Length of run in buffer */
+    ptrdiff_t off;               /* Offset into buffer in which field starts */
+    size_t len;               /* Length of run in buffer */
   } field_data[UF_MAX];
 };
 

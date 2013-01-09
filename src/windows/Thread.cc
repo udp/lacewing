@@ -79,7 +79,7 @@ static int ThreadWrapper (Thread::Internal * internal)
         ThreadNameInfo.dwThreadID  = -1;
 
         __try
-        {   RaiseException (0x406D1388, 0, sizeof (ThreadNameInfo) / sizeof (ULONG), (ULONG *) &ThreadNameInfo);
+        {   RaiseException (0x406D1388, 0, sizeof (ThreadNameInfo) / sizeof (ULONG), (ULONG_PTR *) &ThreadNameInfo);
         }
         __except (EXCEPTION_CONTINUE_EXECUTION)
         {

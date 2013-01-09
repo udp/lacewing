@@ -45,7 +45,7 @@ struct Error::Internal
 
     inline void Add(const char * Text)
     {
-        int Length = strlen (Text);
+        size_t Length = strlen (Text);
         memcpy(Begin -= Length, Text, Length);
     }
 };

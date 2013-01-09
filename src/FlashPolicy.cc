@@ -130,7 +130,7 @@ void FlashPolicy::Host (const char * Filename, Filter &Filter)
         
         fseek(File, 0, SEEK_SET);
 
-        int bytes = fread (internal->Buffer, 1, internal->Size, File);
+        size_t bytes = fread (internal->Buffer, 1, internal->Size, File);
         
         if (bytes != internal->Size)
         {

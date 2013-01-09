@@ -185,7 +185,7 @@ void Filter::RemotePort (int Port)
 
 /* Used internally by the library to create a server socket from a Filter */
 
-int lwp_create_server_socket (Lacewing::Filter &Filter, int Type, int Protocol,
+lwp_socket lwp_create_server_socket (Lacewing::Filter &Filter, int Type, int Protocol,
                               Lacewing::Error &Error)
 {
     if ((!Filter.IPv6 ()) && ( (Filter.Local () && Filter.Local ()->IPv6 ())
@@ -274,7 +274,7 @@ int lwp_create_server_socket (Lacewing::Filter &Filter, int Type, int Protocol,
     sockaddr_storage addr;
     memset (&addr, 0, sizeof (sockaddr_storage));
 
-    int addr_len = 0;
+    size_t addr_len = 0;
 
     if (Filter.Local ())
     {
@@ -317,7 +317,7 @@ int lwp_create_server_socket (Lacewing::Filter &Filter, int Type, int Protocol,
         }
     }
 
-    if (bind (Socket, (sockaddr *) &addr, addr_len) == -1)
+    if (bind (Socket, (sockaddr *) &addr, (int) addr_len) == -1)
     {
         Error.Add (lwp_last_socket_error);
         Error.Add ("Error binding socket");

@@ -42,6 +42,7 @@
     #include <inttypes.h>
     
     #define lw_i64   int64_t
+    #define lw_ui64   uint64_t
     #define lw_iptr  intptr_t
     #define lw_i32   int32_t
     #define lw_i16   int16_t
@@ -59,6 +60,7 @@
     #endif
 
     #define lw_i64  __int64
+    #define lw_ui64  unsigned __int64
     #define lw_i32  __int32
     #define lw_i16  __int16
     #define lw_i8   __int8
@@ -245,6 +247,9 @@ LacewingFunction       lw_bool  lw_random                   (char * buffer, size
 
   LacewingFunction void lw_stream_add_handler_data (lw_stream *, lw_stream_handler_data, void * tag);
   LacewingFunction void lw_stream_remove_handler_data (lw_stream *, lw_stream_handler_data, void * tag);
+
+  LacewingFunction void lw_stream_add_handler_close (lw_stream *, lw_stream_handler_data, void * tag);
+  LacewingFunction void lw_stream_remove_handler_close (lw_stream *, lw_stream_handler_data, void * tag);
 
 /* FDStream */
 
