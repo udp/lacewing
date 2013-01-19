@@ -10,6 +10,7 @@ build/*
 *.pdb
 *.ilk
 *.dll
+*.lib
 *.exe
 .deps
 .libs

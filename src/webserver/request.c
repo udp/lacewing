@@ -33,7 +33,7 @@ lw_ws_req lwp_ws_req_new (lw_ws ws,
                           lwp_ws_client client,
                           const lw_streamdef * def)
 {
-   lw_ws_req ctx = calloc (sizeof (*ctx), 1);
+   lw_ws_req ctx = (lw_ws_req) calloc (sizeof (*ctx), 1);
 
    if (!ctx)
       return 0;
