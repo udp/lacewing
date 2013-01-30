@@ -111,11 +111,13 @@ bool File::Open (const char * filename, const char * mode)
         dwCreationDisposition = CREATE_NEW;
     }
 
-    /* TODO: should be converting to UTF-16 and using *W functions */
+    WCHAR * filename_w = utf8_to_wchar (filename);
 
-    HANDLE FD = CreateFileA (filename, dwDesiredAccess, dwShareMode,
-                    0, dwCreationDisposition,
-                        FILE_ATTRIBUTE_NORMAL | FILE_FLAG_OVERLAPPED, 0);
+    HANDLE FD = CreateFileW (filename_w, dwDesiredAccess, dwShareMode,
+                              0, dwCreationDisposition,
+                               FILE_ATTRIBUTE_NORMAL | FILE_FLAG_OVERLAPPED, 0);
+    
+    free (filename_w);
 
     if (FD == INVALID_HANDLE_VALUE)
         return false;

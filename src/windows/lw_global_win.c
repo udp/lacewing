@@ -134,3 +134,17 @@ void lw_sha1 (char * output, const char * input, size_t length)
    CryptDestroyHash (hash_prov);
 }
 
+WCHAR * utf8_to_wchar (const char * str)
+{
+   size_t src_len = strlen (str);
+   size_t dest_len = MultiByteToWideChar (CP_UTF8, 0, str, src_len, 0, 0);
+
+   WCHAR * dest = (WCHAR *) malloc (sizeof (WCHAR) * (dest_len + 1));
+
+   dest_len = MultiByteToWideChar (CP_UTF8, 0, str, src_len, dest, dest_len);
+
+   dest [dest_len] = 0;
+
+   return dest;
+}
+

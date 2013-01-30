@@ -64,5 +64,4 @@ typedef SOCKET lwp_socket;
 #define lwp_last_error GetLastError()
 #define lwp_last_socket_error WSAGetLastError()
 
-
-
+WCHAR * utf8_to_wchar (const char * str);
