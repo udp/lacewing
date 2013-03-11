@@ -6,15 +6,15 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<meta name="description" content="Instructions for building the liblacewing library for various platforms." />
 	<meta http-equiv="content-language" content="en"/>
-	<title>Building - Lacewing API</title>
+	<title>Building - liblacewing API</title>
 	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
 </head>
 <body>
 <div id="container">
 <div id="nav">
-    <div class="header">Lacewing (A-Z)</div>
+    <div class="header">lacewing (A-Z)</div>
     <br />    
-    <ul><li class="nav_header">Classes</li><li class="nav_item"><a href="address">Address</a></li><li class="nav_item"><a href="client">Client</a></li><li class="nav_item"><a href="error">Error</a></li><li class="nav_item"><a href="eventpump">EventPump</a></li><li class="nav_item"><a href="fdstream">FDStream</a></li><li class="nav_item"><a href="file">File</a></li><li class="nav_item"><a href="filter">Filter</a></li><li class="nav_item"><a href="flashpolicy">FlashPolicy</a></li><li class="nav_item"><a href="pipe">Pipe</a></li><li class="nav_item"><a href="pump">Pump</a></li><li class="nav_item"><a href="server">Server</a></li><li class="nav_item"><a href="stream">Stream</a></li><li class="nav_item"><a href="sync">Sync</a></li><li class="nav_item"><a href="thread">Thread</a></li><li class="nav_item"><a href="timer">Timer</a></li><li class="nav_item"><a href="udp">UDP</a></li><li class="nav_item"><a href="webserver">Webserver</a></li></ul><ul><li class="nav_header">Methods</li><li class="nav_item"><a href="CurrentThreadID.html">CurrentThreadID</a></li><li class="nav_item"><a href="FileExists.html">FileExists</a></li><li class="nav_item"><a href="FileSize.html">FileSize</a></li><li class="nav_item"><a href="GuessMimeType.html">GuessMimeType</a></li><li class="nav_item"><a href="LastModified.html">LastModified</a></li><li class="nav_item"><a href="MD5.html">MD5</a></li><li class="nav_item"><a href="MD5_Hex.html">MD5_Hex</a></li><li class="nav_item"><a href="NewTempFile.html">NewTempFile</a></li><li class="nav_item"><a href="PathExists.html">PathExists</a></li><li class="nav_item"><a href="SHA1.html">SHA1</a></li><li class="nav_item"><a href="SHA1_Hex.html">SHA1_Hex</a></li><li class="nav_item"><a href="TempPath.html">TempPath</a></li><li class="nav_item"><a href="Version.html">Version</a></li></ul> 
+    <ul><li class="nav_header">Classes</li><li class="nav_item"><a href="address">address</a></li><li class="nav_item"><a href="client">client</a></li><li class="nav_item"><a href="error">error</a></li><li class="nav_item"><a href="eventpump">eventpump</a></li><li class="nav_item"><a href="fdstream">fdstream</a></li><li class="nav_item"><a href="file">file</a></li><li class="nav_item"><a href="filter">filter</a></li><li class="nav_item"><a href="flashpolicy">flashpolicy</a></li><li class="nav_item"><a href="pump">pump</a></li><li class="nav_item"><a href="server">server</a></li><li class="nav_item"><a href="stream">stream</a></li><li class="nav_item"><a href="sync">sync</a></li><li class="nav_item"><a href="thread">thread</a></li><li class="nav_item"><a href="timer">timer</a></li><li class="nav_item"><a href="udp">udp</a></li><li class="nav_item"><a href="webserver">webserver</a></li></ul><ul><li class="nav_header">Methods</li><li class="nav_item"><a href="file_exists.html">file_exists</a></li><li class="nav_item"><a href="file_size.html">file_size</a></li><li class="nav_item"><a href="guess_mimetype.html">guess_mimetype</a></li><li class="nav_item"><a href="last_modified.html">last_modified</a></li><li class="nav_item"><a href="md5.html">md5</a></li><li class="nav_item"><a href="md5_hex.html">md5_hex</a></li><li class="nav_item"><a href="path_exists.html">path_exists</a></li><li class="nav_item"><a href="random.html">random</a></li><li class="nav_item"><a href="sha1.html">sha1</a></li><li class="nav_item"><a href="sha1_hex.html">sha1_hex</a></li><li class="nav_item"><a href="temp_path.html">temp_path</a></li><li class="nav_item"><a href="version.html">version</a></li></ul> 
 </div>
 
 <div id="content">
@@ -24,7 +24,7 @@
 
 <p>There is a regular Visual C++ project file for MSVC 2008 or higher in the <code>msvc</code> directory. This has no external dependencies and should build out of the box, producing a <code>DLL</code> and <code>LIB</code> in the <code>bin</code> folder. Configurations are available for dynamic and static debug and release builds.</p>
 
-<p>When linking statically, you should also add a blank preprocessor definition for <code>LacewingFunction</code> to your project. This will prevent Lacewing.h from adding <code>__declspec(dllimport)</code> to library functions.</p>
+<p>When linking statically, you should also add a blank preprocessor definition for <code>lw_import</code> to your project. This will prevent lacewing.h from adding <code>__declspec(dllimport)</code> to library functions.</p>
 
 <h2>Unix</h2>
 
@@ -33,7 +33,11 @@
 <pre class="code">./configure
 make && make install</pre>
 
-The only prerequisite is OpenSSL (required everywhere except from Windows/MinGW). To enable debugging symbols, configure with <code>--enable-debug</code>:</p>
+By default, the library will depend on OpenSSL.  If SSL support is not required, this can be disabled with <code>--disable-ssl</code>:
+
+<pre class="code">./configure --disable-ssl</pre>
+
+To enable debugging symbols, configure with <code>--enable-debug</code>:</p>  
 
 <pre class="code">./configure --enable-debug</pre>
 
@@ -61,11 +65,11 @@ adb pull /system/lib/libcrypto.so</pre>
 
 <div class="bottom"></div>
 
-<div id="parent"><a href="index.html">&lt;&lt; Back to Lacewing</a></div><div id="source"></div>
+<div id="parent"><a href="index.html">&lt;&lt; Back to lacewing</a></div><div id="source"></div>
 <div id="copyright">
 <hr>
-Copyright &copy; The Lacewing Project Authors 2012<br />
-<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Jun-20.</i><br />
+Copyright &copy; The Lacewing Project Authors 2012, 2013<br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2013-Mar-11.</i><br />
 </div>
 
 </div>
