@@ -4,30 +4,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<meta name="description" content="Sets the local IP address associated with a Filter object." />
+	<meta name="description" content="Sets the local IP address associated with a filter object." />
 	<meta http-equiv="content-language" content="en"/>
-	<title>Local (Filter) - Lacewing API</title>
+	<title>local (filter) - liblacewing API</title>
 	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
 </head>
 <body>
 <div id="container">
 <div id="nav">
-    <div class="header">Lacewing::Filter (A-Z)</div>
+    <div class="header">lacewing::filter (A-Z)</div>
     <br />    
-    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="IPv6.html">IPv6</a></li><li class="nav_item selected">Local</li><li class="nav_item"><a href="LocalPort.html">LocalPort</a></li><li class="nav_item"><a href="Remote.html">Remote</a></li><li class="nav_item"><a href="RemotePort.html">RemotePort</a></li><li class="nav_item"><a href="Reuse.html">Reuse</a></li></ul> 
+    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="ipv6.html">ipv6</a></li><li class="nav_item selected">local</li><li class="nav_item"><a href="local_port.html">local_port</a></li><li class="nav_item"><a href="remote.html">remote</a></li><li class="nav_item"><a href="remote_port.html">remote_port</a></li><li class="nav_item"><a href="reuse.html">reuse</a></li></ul> 
 </div>
 
 <div id="content">
-    <h1><span id="function">Local</span> (Filter)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> Lacewing::Filter::Local (<font color="blue">const</font> <font color="blue">char</font> *)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_filter_set_local (lw_filter *, <font color="blue">const</font> <font color="blue">char</font> *)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Sets the local IP address associated with a <a href="index.html">Filter</a> object.</p><p>This can be used to restrict a server-side class to listening on a particular IP address, when the system has more than one.</p></div></p><p><h2>Parameters</h2><div class="sectionBody"><i>Address</i><br /><div class="parameterDesc"><p>An <a href="../address">Address</a> object.</p></div><strong>OR</strong>&nbsp;<i>Hostname</i><br /><div class="parameterDesc"><p>Any string an <a href="../address">Address</a> object can resolve. May also contain a port number (eg. <code>"192.168.1.2:80"</code>).</p></div></div></p><p><h2>See also</h2><div class="sectionBody"><a href="LocalPort.html">LocalPort</a></div></p>
+    <h1><span id="function">local</span> (filter)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> lacewing::filter::local (<font color="blue">const</font> <font color="blue">char</font> *)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_filter_set_local (lw_filter, <font color="blue">const</font> <font color="blue">char</font> *)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Sets the local IP address associated with a <a href="index.html">filter</a> object.</p><p>This can be used to restrict a server-side class to listening on a particular IP address, when the system has more than one.</p></div></p><p><h2>Parameters</h2><div class="sectionBody"><i>address</i><br /><div class="parameterDesc"><p>An <a href="../address">address</a> object.</p></div><strong>OR</strong>&nbsp;<i>hostname</i><br /><div class="parameterDesc"><p>Any string an <a href="../address">address</a> object can resolve. May also contain a port number (eg. <code>"192.168.1.2:80"</code>).</p></div></div></p><p><h2>See also</h2><div class="sectionBody"><a href="local_port.html">local_port</a></div></p>
 </div>
 
 <div class="bottom"></div>
 
-<div id="parent"><a href="../">&lt;&lt; Back to Lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/Filter.cc">View function source &gt;&gt;</a></div>
+<div id="parent"><a href="../">&lt;&lt; Back to lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/filter.c">View function source &gt;&gt;</a></div>
 <div id="copyright">
 <hr>
 Copyright &copy; The Lacewing Project Authors 2012<br />
-<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2011-Sep-30.</i><br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Dec-06.</i><br />
 </div>
 
 </div>

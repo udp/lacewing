@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Release notes for version 0.5.0 of the cross-platform, high-level network I/O library" />
+	<meta http-equiv="content-language" content="en"/>
+	<title>0.5.0 Release Notes - liblacewing</title>
+	<link rel="stylesheet" type="text/css" href="../style.css" />
+</head>
+<body>
+
+<div id="content">
+
+    <h1>Release Notes - 0.5.0</h1>
+
+    <p>The 0.5.0 release of liblacewing is <a href="http://lacewing-project.org">now available</a>.</p>
+
+    <h2>Reimplementation in C</h2>
+    <p>
+        Previous to 0.5.0, the library was written in C++98 with a set of wrappers to provide the C API.
+        Starting with 0.5.0, this has been reversed: the library has been ported in its entirety to C99, with wrappers over the C functions to provide the C++ API.
+    </p>
+
+        <h3>API changes</h3>
+        <p>
+            Various parts of the API have been updated for consistency or correctness during the C port.  Although a best effort has been made to keep the documentation up to date with these changes, there will be errors - so any reports of issues with the 0.5.x documentation are welcome.
+        </p>
+        </p>
+            One of the more visible API changes in 0.5.x is that all C++ classes and functions have been changed from <code>CamelCase</code> to <code>snake_case</code> to be consistent with the C API. The <code>&lt;&lt;</code> stream operator is no longer supported, but a new printf-style <code>writef</code> function is provided instead.
+        </p>
+        
+        <h3>C99 and MSVC</h3>
+        <p>
+            Microsoft Visual Studio does not support C99.  In order to maintain Visual Studio support, liblacewing compiles as C++ under MSVC.
+            To make this possible, any code targeting both UNIX and Windows is restricted to the subset of C99 that can compile as C++.  In particular, the following C99 features are only used in the UNIX code:
+
+            <ul>
+                <li>Implicit coersion of <code>void</code> pointers (i.e. return value of <code>malloc</code>)</li>
+                <li>Designated initializers</li>
+                <li>Dynamically sized arrays</li>
+            </ul>
+        </p>
+
+
+    <h2>Other changes</h2>
+    <p>
+        <ul>
+            <li>The UNIX <code>EventPump</code> will now exit the event loop if epoll or kqueue throws an error</li>
+
+            <li>The various types of internal ref counting have been replaced with a more consistent <code>lwp_retain</code> and <code>lwp_release</code></li>
+
+            <li>Preliminary support for <a target="_blank" href="http://swig.org/">SWIG</a></li>
+
+            <li>Updated SPDY and <a target="_blank" href="https://github.com/joyent/http-parser">http-parser</a> snapshots</li>
+            
+            <li><code>write(3)</code> is now used for non-sockets when <code>SO_NOSIGPIPE</code> is not available</li>
+
+            <li>Various fixes with webserver sessions</li>
+
+            <li>New <code>ENABLE_SSL</code> option in Makefile</li>
+    </p>
+
+    <br />
+
+</div>
+
+<div id="copyright">
+
+<p style="font-size: 8pt;">Copyright &copy; The Lacewing Project Authors 2013<br />
+<a target="_blank" href="https://github.com/udp/lacewing/tree/gh-pages">Repo for this page</a>
+</div>
+
+</body>
+</html>

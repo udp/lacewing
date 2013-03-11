@@ -4,30 +4,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<meta name="description" content="Sync provides a cross-platform synchronization object, similar to a CRITICAL_SECTION on Windows, or a recursive pthread mutex." />
+	<meta name="description" content="sync provides a cross-platform synchronization object, similar to a CRITICAL_SECTION on Windows, or a recursive pthread mutex." />
 	<meta http-equiv="content-language" content="en"/>
-	<title>Sync - Lacewing API</title>
+	<title>sync - liblacewing API</title>
 	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
 </head>
 <body>
 <div id="container">
 <div id="nav">
-    <div class="header">Lacewing::Sync (A-Z)</div>
+    <div class="header">lacewing::sync (A-Z)</div>
     <br />    
-    <ul><li class="nav_header">Classes</li><li class="nav_item"><a href="lock">Lock</a></li></ul> 
+    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="lock.html">lock</a></li><li class="nav_item"><a href="release.html">release</a></li></ul> 
 </div>
 
 <div id="content">
-    <h1>Lacewing::Sync</h1><p><h2>Description</h2><div class="sectionBody"><p><b>Sync</b> provides a cross-platform synchronization object, similar to a <a target="_blank" href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms682530%28v=vs.85%29.aspx">CRITICAL_SECTION</a> on Windows, or a recursive <a href="http://linux.die.net/man/3/pthread_mutex_init">pthread mutex</a>.</p><p>It enables the protection of sections of code or variables from simultaneous access by different threads. For a more complicated synchronization object designed for "multiple readers, one writer", see #SpinSync#.</p></div></p>
+    <h1>lacewing::sync</h1><p><h2>Description</h2><div class="sectionBody"><p><b>sync</b> provides a cross-platform synchronization object, similar to a <a target="_blank" href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms682530%28v=vs.85%29.aspx">CRITICAL_SECTION</a> on Windows, or a recursive <a href="http://linux.die.net/man/3/pthread_mutex_init">pthread mutex</a>.</p><p>It enables the protection of sections of code or variables from simultaneous access by different threads.</p></div></p>
 </div>
 
 <div class="bottom"></div>
 
-<div id="parent"><a href="../">&lt;&lt; Back to Lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/windows/Sync.cc">Source (Windows)</a> | <a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/unix/Sync.cc">Source (Unix)</a></div>
+<div id="parent"><a href="../">&lt;&lt; Back to lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/unix/sync.c">Source (Unix)</a> | <a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/windows/sync.c">Source (Windows)</a></div>
 <div id="copyright">
 <hr>
 Copyright &copy; The Lacewing Project Authors 2012<br />
-<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2011-Sep-30.</i><br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Dec-06.</i><br />
 </div>
 
 </div>

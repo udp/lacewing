@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="The on_data hook is triggered when the stream has downstream data to emit." />
+	<meta http-equiv="content-language" content="en"/>
+	<title>on_data (stream) - liblacewing API</title>
+	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
+</head>
+<body>
+<div id="container">
+<div id="nav">
+    <div class="header">lacewing::stream (A-Z)</div>
+    <br />    
+    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="add_filter_downstream.html">add_filter_downstream</a></li><li class="nav_item"><a href="add_filter_upstream.html">add_filter_upstream</a></li><li class="nav_item"><a href="begin_queue.html">begin_queue</a></li><li class="nav_item"><a href="bytes_left.html">bytes_left</a></li><li class="nav_item"><a href="close.html">close</a></li><li class="nav_item"><a href="end_queue.html">end_queue</a></li><li class="nav_item"><a href="is_transparent.html">is_transparent</a></li><li class="nav_item"><a href="queued.html">queued</a></li><li class="nav_item"><a href="read.html">read</a></li><li class="nav_item"><a href="write.html">write</a></li><li class="nav_item"><a href="write_file.html">write_file</a></li></ul><ul><li class="nav_header">Handlers</li><li class="nav_item"><a href="on_close.html">on_close</a></li><li class="nav_item selected">on_data</li></ul> 
+</div>
+
+<div id="content">
+    <h1><span id="function">on_data</span> (stream)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> on_data (lacewing::stream, <font color="blue">void</font> * tag, <font color="blue">const</font> <font color="blue">char</font> * buffer, size_t size)
+{
+}
+
+stream->add_hook_data (on_data); <font color="green">/* to register the hook */</font></pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> on_data (lw_stream, <font color="blue">void</font> * tag, <font color="blue">const</font> <font color="blue">char</font> * buffer, size_t size)
+{
+}
+
+lw_stream_add_hook_data (stream, on_data); <font color="green">/* to register the hook */</font></pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>The <i>on_data</i> hook is triggered when the <a href="index.html">stream</a> has downstream data to emit.</p><p>Unlike most hooks in the library, a stream may have more than one <i>on_data</i> hook (the most recently added will be called first.)</p><p><i>add_hook_data</i> also allows a pointer-sized tag to be specified, which will be included when the hook is called.</p></div></p><p><h2>See also</h2><div class="sectionBody"><a href="read.html">read</a></div></p>
+</div>
+
+<div class="bottom"></div>
+
+<div id="parent"><a href="../">&lt;&lt; Back to lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/stream.c">View stream source &gt;&gt;</a></div>
+<div id="copyright">
+<hr>
+Copyright &copy; The Lacewing Project Authors 2012<br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Dec-06.</i><br />
+</div>
+
+</div>
+</body>
+</html>

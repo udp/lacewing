@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Returns true if the directory specified by Filename exists, or false otherwise." />
+	<meta http-equiv="content-language" content="en"/>
+	<title>path_exists - liblacewing API</title>
+	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
+</head>
+<body>
+<div id="container">
+<div id="nav">
+    <div class="header">lacewing (A-Z)</div>
+    <br />    
+    <ul><li class="nav_header">Classes</li><li class="nav_item"><a href="flashpolicy">FlashPolicy</a></li><li class="nav_item"><a href="address">address</a></li><li class="nav_item"><a href="client">client</a></li><li class="nav_item"><a href="error">error</a></li><li class="nav_item"><a href="eventpump">eventpump</a></li><li class="nav_item"><a href="fdstream">fdstream</a></li><li class="nav_item"><a href="file">file</a></li><li class="nav_item"><a href="filter">filter</a></li><li class="nav_item"><a href="pump">pump</a></li><li class="nav_item"><a href="server">server</a></li><li class="nav_item"><a href="stream">stream</a></li><li class="nav_item"><a href="sync">sync</a></li><li class="nav_item"><a href="thread">thread</a></li><li class="nav_item"><a href="timer">timer</a></li><li class="nav_item"><a href="udp">udp</a></li><li class="nav_item"><a href="webserver">webserver</a></li></ul><ul><li class="nav_header">Methods</li><li class="nav_item"><a href="file_exists.html">file_exists</a></li><li class="nav_item"><a href="file_size.html">file_size</a></li><li class="nav_item"><a href="guess_mimetype.html">guess_mimetype</a></li><li class="nav_item"><a href="last_modified.html">last_modified</a></li><li class="nav_item"><a href="md5.html">md5</a></li><li class="nav_item"><a href="md5_hex.html">md5_hex</a></li><li class="nav_item selected">path_exists</li><li class="nav_item"><a href="random.html">random</a></li><li class="nav_item"><a href="sha1.html">sha1</a></li><li class="nav_item"><a href="sha1_hex.html">sha1_hex</a></li><li class="nav_item"><a href="temp_path.html">temp_path</a></li><li class="nav_item"><a href="version.html">version</a></li></ul> 
+</div>
+
+<div id="content">
+    <h1><span id="function">path_exists</span></h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre>lw_bool lacewing::path_exists (<font color="blue">const</font> <font color="blue">char</font> * filename)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre>lw_bool lw_path_exists (<font color="blue">const</font> <font color="blue">char</font> * filename)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Returns <code>true</code> if the directory specified by <code>Filename</code> exists, or <code>false</code> otherwise.</p><p>This function will also return <code>false</code> if the path specified by <code>Filename</code> is a file. To determine if a file exists, use #FileExists# instead.</p></div></p><p><h2>Parameters</h2><div class="sectionBody"><i>filename</i><br /><div class="parameterDesc"><p>Any absolute or relative filename.</p></div></div></p><p><h2>See also</h2><div class="sectionBody"><a href="file_exists.html">file_exists</a></div></p>
+</div>
+
+<div class="bottom"></div>
+
+<div id="parent"></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/unix/global.c">Source (Unix)</a> | <a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/windows/global.c">Source (Windows)</a></div>
+<div id="copyright">
+<hr>
+Copyright &copy; The Lacewing Project Authors 2012<br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Dec-06.</i><br />
+</div>
+
+</div>
+</body>
+</html>

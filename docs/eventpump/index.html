@@ -4,30 +4,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<meta name="description" content="EventPump is a default implementation of Pump provided by the library, powered by IOCP, kqueue or epoll." />
+	<meta name="description" content="eventpump is a default implementation of pump provided by the library, powered by IOCP, kqueue or epoll." />
 	<meta http-equiv="content-language" content="en"/>
-	<title>EventPump - Lacewing API</title>
+	<title>eventpump - liblacewing API</title>
 	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
 </head>
 <body>
 <div id="container">
 <div id="nav">
-    <div class="header">Lacewing::EventPump (A-Z)</div>
+    <div class="header">lacewing::eventpump (A-Z)</div>
     <br />    
-    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="PostEventLoopExit.html">PostEventLoopExit</a></li><li class="nav_item"><a href="StartEventLoop.html">StartEventLoop</a></li><li class="nav_item"><a href="StartSleepyTicking.html">StartSleepyTicking</a></li><li class="nav_item"><a href="Tick.html">Tick</a></li><li class="extra"><a href="../pump"> +8 from Pump</a></li></ul> 
+    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="post_eventloop_exit.html">post_eventloop_exit</a></li><li class="nav_item"><a href="start_eventloop.html">start_eventloop</a></li><li class="nav_item"><a href="start_sleepy_ticking.html">start_sleepy_ticking</a></li><li class="nav_item"><a href="tick.html">tick</a></li><li class="extra"><a href="../pump"> +8 from pump</a></li></ul> 
 </div>
 
 <div id="content">
-    <h1>Lacewing::EventPump</h1><p><h2>Description</h2><div class="sectionBody"><p><b>EventPump</b> is a default implementation of <a href="../pump">Pump</a> provided by the library, powered by <a href="http://msdn.microsoft.com/en-us/library/aa365198%28v=vs.85%29.aspx">IOCP</a>, <a href="http://people.freebsd.org/~jlemon/kqueue_slides/index.html">kqueue</a> or <a href="http://linux.die.net/man/4/epoll">epoll</a>.</p><p>As there is no single model for event handling that would suit every application, <b>EventPump</b> provides several different modes of operation :-</p><p><ul><li><a href="Tick.html">Tick</a> polls aggressively, suited to a game loop;</li><br /><li><a href="StartEventLoop.html">StartEventLoop</a> starts a simple "block forever" event loop, suited to console applications and daemons;</li><br /><li><a href="StartSleepyTicking.html">StartSleepyTicking</a> enables a threaded callback to request the application call <a href="Tick.html">Tick</a> as soon as possible, suited to GUI applications with an existing message pump.</li></ul></p></div></p>
+    <h1>lacewing::eventpump</h1><p><h2>Description</h2><div class="sectionBody"><p><b>eventpump</b> is a default implementation of <a href="../pump">pump</a> provided by the library, powered by <a href="http://msdn.microsoft.com/en-us/library/aa365198%28v=vs.85%29.aspx">IOCP</a>, <a href="http://people.freebsd.org/~jlemon/kqueue_slides/index.html">kqueue</a> or <a href="http://linux.die.net/man/4/epoll">epoll</a>.</p><p>As there is no single model for event handling that would suit every application, <b>eventpump</b> provides several different modes of operation:</p><p><ul><li><a href="tick.html">tick</a> polls aggressively, suited to a game loop;</li><br /><li><a href="start_eventloop.html">start_eventloop</a> starts a simple "block forever" event loop, suited to console applications and daemons;</li><br /><li><a href="start_sleepy_ticking.html">start_sleepy_ticking</a> enables a threaded callback to request the application call <a href="tick.html">tick</a> as soon as possible, suited to applications with an existing message pump (such as Win32 GUI applications)</li></ul></p></div></p>
 </div>
 
 <div class="bottom"></div>
 
-<div id="parent"><a href="../">&lt;&lt; Back to Lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/windows/EventPump.cc">Source (Windows)</a> | <a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/unix/EventPump.cc">Source (Unix)</a></div>
+<div id="parent"><a href="../">&lt;&lt; Back to lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/unix/eventpump.c">Source (Unix)</a> | <a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/windows/eventpump.c">Source (Windows)</a></div>
 <div id="copyright">
 <hr>
 Copyright &copy; The Lacewing Project Authors 2012<br />
-<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Jun-19.</i><br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Dec-06.</i><br />
 </div>
 
 </div>

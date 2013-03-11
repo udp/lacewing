@@ -4,30 +4,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<meta name="description" content="Stops the Timer immediately. The onTick handler will not be called again." />
+	<meta name="description" content="Stops the timer immediately. The on_tick hook will not be called again." />
 	<meta http-equiv="content-language" content="en"/>
-	<title>Stop (Timer) - Lacewing API</title>
+	<title>stop (timer) - liblacewing API</title>
 	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
 </head>
 <body>
 <div id="container">
 <div id="nav">
-    <div class="header">Lacewing::Timer (A-Z)</div>
+    <div class="header">lacewing::timer (A-Z)</div>
     <br />    
-    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="ForceTick.html">ForceTick</a></li><li class="nav_item"><a href="Start.html">Start</a></li><li class="nav_item"><a href="Started.html">Started</a></li><li class="nav_item selected">Stop</li></ul><ul><li class="nav_header">Handlers</li><li class="nav_item"><a href="onTick.html">onTick</a></li></ul> 
+    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="force_tick.html">force_tick</a></li><li class="nav_item"><a href="start.html">start</a></li><li class="nav_item"><a href="started.html">started</a></li><li class="nav_item selected">stop</li></ul><ul><li class="nav_header">Handlers</li><li class="nav_item"><a href="on_tick.html">on_tick</a></li></ul> 
 </div>
 
 <div id="content">
-    <h1><span id="function">Stop</span> (Timer)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> Lacewing::Timer::Stop ()</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_timer_stop (lw_timer *)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Stops the <a href="index.html">Timer</a> immediately. The <a href="onTick.html">onTick</a> handler will not be called again.</p></div></p><p><h2>See also</h2><div class="sectionBody"><a href="Start.html">Start</a><br /><a href="Started.html">Started</a></div></p>
+    <h1><span id="function">stop</span> (timer)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> lacewing::timer::stop ()</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_timer_stop (lw_timer)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Stops the <a href="index.html">timer</a> immediately. The <a href="on_tick.html">on_tick</a> hook will not be called again.</p></div></p><p><h2>See also</h2><div class="sectionBody"><a href="start.html">start</a><br /><a href="started.html">started</a></div></p>
 </div>
 
 <div class="bottom"></div>
 
-<div id="parent"><a href="../">&lt;&lt; Back to Lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/windows/Timer.cc">Source (Windows)</a> | <a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/unix/Timer.cc">Source (Unix)</a></div>
+<div id="parent"><a href="../">&lt;&lt; Back to lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/unix/timer.c">Source (Unix)</a> | <a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/windows/timer.c">Source (Windows)</a></div>
 <div id="copyright">
 <hr>
 Copyright &copy; The Lacewing Project Authors 2012<br />
-<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2011-Sep-30.</i><br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Dec-06.</i><br />
 </div>
 
 </div>

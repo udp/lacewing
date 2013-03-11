@@ -6,28 +6,28 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<meta name="description" content="Returns the hostname, as provided by the HTTP &quot;Host&quot; header)." />
 	<meta http-equiv="content-language" content="en"/>
-	<title>Hostname (Webserver::Request) - Lacewing API</title>
+	<title>hostname (webserver::request) - liblacewing API</title>
 	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
 </head>
 <body>
 <div id="container">
 <div id="nav">
-    <div class="header">Webserver::Request (A-Z)</div>
+    <div class="header">webserver::request (A-Z)</div>
     <br />    
-    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="CloseSession.html">CloseSession</a></li><li class="nav_item"><a href="Cookie.html">Cookie</a></li><li class="nav_item"><a href="DisableCache.html">DisableCache</a></li><li class="nav_item"><a href="Disconnect.html">Disconnect</a></li><li class="nav_item"><a href="EnableDownloadResuming.html">EnableDownloadResuming</a></li><li class="nav_item"><a href="Finish.html">Finish</a></li><li class="nav_item"><a href="GET.html">GET</a></li><li class="nav_item"><a href="GetAddress.html">GetAddress</a></li><li class="nav_item"><a href="GuessMimeType.html">GuessMimeType</a></li><li class="nav_item"><a href="Header.html">Header</a></li><li class="nav_item selected">Hostname</li><li class="nav_item"><a href="IdleTimeout.html">IdleTimeout</a></li><li class="nav_item"><a href="LastModified.html">LastModified</a></li><li class="nav_item"><a href="POST.html">POST</a></li><li class="nav_item"><a href="RequestedRangeBegin.html">RequestedRangeBegin</a></li><li class="nav_item"><a href="RequestedRangeEnd.html">RequestedRangeEnd</a></li><li class="nav_item"><a href="Secure.html">Secure</a></li><li class="nav_item"><a href="Session.html">Session</a></li><li class="nav_item"><a href="SetMimeType.html">SetMimeType</a></li><li class="nav_item"><a href="SetOutgoingRange.html">SetOutgoingRange</a></li><li class="nav_item"><a href="SetRedirect.html">SetRedirect</a></li><li class="nav_item"><a href="SetUnmodified.html">SetUnmodified</a></li><li class="nav_item"><a href="Status.html">Status</a></li><li class="nav_item"><a href="URL.html">URL</a></li><li class="extra"><a href="../../stream"> +11 from Stream</a></li></ul> 
+    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="GET.html">GET</a></li><li class="nav_item"><a href="POST.html">POST</a></li><li class="nav_item"><a href="address.html">address</a></li><li class="nav_item"><a href="cookie.html">cookie</a></li><li class="nav_item"><a href="disable_cache.html">disable_cache</a></li><li class="nav_item"><a href="disconnect.html">disconnect</a></li><li class="nav_item"><a href="enable_download_resuming.html">enable_download_resuming</a></li><li class="nav_item"><a href="finish.html">finish</a></li><li class="nav_item"><a href="guess_mimetype.html">guess_mimetype</a></li><li class="nav_item"><a href="header.html">header</a></li><li class="nav_item selected">hostname</li><li class="nav_item"><a href="idle_timeout.html">idle_timeout</a></li><li class="nav_item"><a href="last_modified.html">last_modified</a></li><li class="nav_item"><a href="requested_range_begin.html">requested_range_begin</a></li><li class="nav_item"><a href="requested_range_end.html">requested_range_end</a></li><li class="nav_item"><a href="secure.html">secure</a></li><li class="nav_item"><a href="session.html">session</a></li><li class="nav_item"><a href="session_close.html">session_close</a></li><li class="nav_item"><a href="set_mimetype.html">set_mimetype</a></li><li class="nav_item"><a href="set_outgoing_range.html">set_outgoing_range</a></li><li class="nav_item"><a href="set_redirect.html">set_redirect</a></li><li class="nav_item"><a href="set_unmodified.html">set_unmodified</a></li><li class="nav_item"><a href="status.html">status</a></li><li class="nav_item"><a href="url.html">url</a></li><li class="extra"><a href="../../stream"> +11 from stream</a></li></ul> 
 </div>
 
 <div id="content">
-    <h1><span id="function">Hostname</span> (Webserver::Request)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">const</font> <font color="blue">char</font> * Lacewing::Webserver::Request::Hostname ()</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">const</font> <font color="blue">char</font> * lw_ws_req_hostname (lw_stream * req)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Returns the hostname, as provided by the HTTP <code>"Host"</code> header).</p><p>This is nearly the same as calling <code>Header ("Host")</code>, but <i>Hostname</i> removes any port number.</p></div></p><p><h2>See also</h2><div class="sectionBody"><a href="Header.html">Header</a></div></p>
+    <h1><span id="function">hostname</span> (webserver::request)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">const</font> <font color="blue">char</font> * lacewing::webserver::request::hostname ()</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">const</font> <font color="blue">char</font> * lw_ws_req_hostname (lw_ws_req)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Returns the hostname, as provided by the HTTP <code>"Host"</code> header).</p><p>This is nearly the same as calling <code>header ("Host")</code>, but <i>hostname</i> removes any port number.</p></div></p><p><h2>See also</h2><div class="sectionBody"><a href="header.html">header</a></div></p>
 </div>
 
 <div class="bottom"></div>
 
-<div id="parent"><a href="../">&lt;&lt; Back to Webserver</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/webserver/Request.cc">View function source &gt;&gt;</a></div>
+<div id="parent"><a href="../">&lt;&lt; Back to webserver</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/webserver/request.c">View function source &gt;&gt;</a></div>
 <div id="copyright">
 <hr>
 Copyright &copy; The Lacewing Project Authors 2012<br />
-<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2011-Sep-30.</i><br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Dec-06.</i><br />
 </div>
 
 </div>

@@ -4,30 +4,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<meta name="description" content="The Timer class provides a simple EventPump driven timer, useful for implementing a &quot;heartbeat&quot; in server applications." />
+	<meta name="description" content="The timer class provides a simple eventpump driven timer, useful for implementing a &quot;heartbeat&quot; in server applications." />
 	<meta http-equiv="content-language" content="en"/>
-	<title>Timer - Lacewing API</title>
+	<title>timer - liblacewing API</title>
 	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
 </head>
 <body>
 <div id="container">
 <div id="nav">
-    <div class="header">Lacewing::Timer (A-Z)</div>
+    <div class="header">lacewing::timer (A-Z)</div>
     <br />    
-    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="ForceTick.html">ForceTick</a></li><li class="nav_item"><a href="Start.html">Start</a></li><li class="nav_item"><a href="Started.html">Started</a></li><li class="nav_item"><a href="Stop.html">Stop</a></li></ul><ul><li class="nav_header">Handlers</li><li class="nav_item"><a href="onTick.html">onTick</a></li></ul> 
+    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="force_tick.html">force_tick</a></li><li class="nav_item"><a href="start.html">start</a></li><li class="nav_item"><a href="started.html">started</a></li><li class="nav_item"><a href="stop.html">stop</a></li></ul><ul><li class="nav_header">Handlers</li><li class="nav_item"><a href="on_tick.html">on_tick</a></li></ul> 
 </div>
 
 <div id="content">
-    <h1>Lacewing::Timer</h1><p><h2>Description</h2><div class="sectionBody"><p>The <b>Timer</b> class provides a simple <a href="../eventpump">EventPump</a> driven timer, useful for implementing a "heartbeat" in server applications.</p><p><b>Timer</b> is implemented using <a target="_blank" href="http://manpages.courier-mta.org/htmlman2/timerfd_create.2.html">Timer FDs</a> on Linux, <a target="_blank" href="http://www.freebsd.org/cgi/man.cgi?query=kqueue&sektion=2">kqueue</a>'s <code>EVFILT_FILTER</code>, or a thread and #EventPump::Post# on other systems.</p></div></p>
+    <h1>lacewing::timer</h1><p><h2>Description</h2><div class="sectionBody"><p>The <b>timer</b> class provides a simple <a href="../eventpump">eventpump</a> driven timer, useful for implementing a "heartbeat" in server applications.</p><p><b>timer</b> is implemented using <a target="_blank" href="http://manpages.courier-mta.org/htmlman2/timerfd_create.2.html">Timer FDs</a> on Linux, <a target="_blank" href="http://www.freebsd.org/cgi/man.cgi?query=kqueue&sektion=2">kqueue</a>'s <code>EVFILT_FILTER</code>, or a thread and #eventpump::post# on other systems.</p></div></p>
 </div>
 
 <div class="bottom"></div>
 
-<div id="parent"><a href="../">&lt;&lt; Back to Lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/windows/Timer.cc">Source (Windows)</a> | <a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/unix/Timer.cc">Source (Unix)</a></div>
+<div id="parent"><a href="../">&lt;&lt; Back to lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/unix/timer.c">Source (Unix)</a> | <a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/windows/timer.c">Source (Windows)</a></div>
 <div id="copyright">
 <hr>
 Copyright &copy; The Lacewing Project Authors 2012<br />
-<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2011-Sep-30.</i><br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Dec-06.</i><br />
 </div>
 
 </div>

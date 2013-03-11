@@ -4,30 +4,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<meta name="description" content="Tries to read downstream data from the Stream. When data has been read successfully, the onData handlers will be invoked." />
+	<meta name="description" content="Tries to read downstream data from the stream. When data has been read successfully, any registered on_data hooks will be called." />
 	<meta http-equiv="content-language" content="en"/>
-	<title>Read (Stream) - Lacewing API</title>
+	<title>read (stream) - liblacewing API</title>
 	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
 </head>
 <body>
 <div id="container">
 <div id="nav">
-    <div class="header">Lacewing::Stream (A-Z)</div>
+    <div class="header">lacewing::stream (A-Z)</div>
     <br />    
-    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="AddFilterDownstream.html">AddFilterDownstream</a></li><li class="nav_item"><a href="AddFilterUpstream.html">AddFilterUpstream</a></li><li class="nav_item"><a href="BeginQueue.html">BeginQueue</a></li><li class="nav_item"><a href="BytesLeft.html">BytesLeft</a></li><li class="nav_item"><a href="Close.html">Close</a></li><li class="nav_item"><a href="EndQueue.html">EndQueue</a></li><li class="nav_item"><a href="IsTransparent.html">IsTransparent</a></li><li class="nav_item"><a href="Queued.html">Queued</a></li><li class="nav_item selected">Read</li><li class="nav_item"><a href="Write.html">Write</a></li><li class="nav_item"><a href="WriteFile.html">WriteFile</a></li></ul><ul><li class="nav_header">Handlers</li><li class="nav_item"><a href="onClose.html">onClose</a></li><li class="nav_item"><a href="onData.html">onData</a></li></ul> 
+    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="add_filter_downstream.html">add_filter_downstream</a></li><li class="nav_item"><a href="add_filter_upstream.html">add_filter_upstream</a></li><li class="nav_item"><a href="begin_queue.html">begin_queue</a></li><li class="nav_item"><a href="bytes_left.html">bytes_left</a></li><li class="nav_item"><a href="close.html">close</a></li><li class="nav_item"><a href="end_queue.html">end_queue</a></li><li class="nav_item"><a href="is_transparent.html">is_transparent</a></li><li class="nav_item"><a href="queued.html">queued</a></li><li class="nav_item selected">read</li><li class="nav_item"><a href="write.html">write</a></li><li class="nav_item"><a href="write_file.html">write_file</a></li></ul><ul><li class="nav_header">Handlers</li><li class="nav_item"><a href="on_close.html">on_close</a></li><li class="nav_item"><a href="on_data.html">on_data</a></li></ul> 
 </div>
 
 <div id="content">
-    <h1><span id="function">Read</span> (Stream)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> Lacewing::Stream::Read (size_t bytes)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_stream_read (lw_stream *, size_t bytes)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Tries to read downstream data from the <a href="index.html">Stream</a>. When data has been read successfully, the <a href="onData.html">onData</a> handlers will be invoked.</p><p>Note that <i>Read</i> is just a hint; the actual amount of data may vary, and streams are permitted to emit data even when <i>Read</i> has not been called.</p></div></p><p><h2>Parameters</h2><div class="sectionBody"><i>bytes</i><br /><div class="parameterDesc"><p>The number of bytes to read, or <code>-1</code> to read everything the <a href="index.html">Stream</a> can produce.</p></div></div></p><p><h2>See also</h2><div class="sectionBody"><a href="onData.html">onData</a></div></p>
+    <h1><span id="function">read</span> (stream)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> lacewing::stream::read (size_t bytes)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_stream_read (lw_stream, size_t bytes)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Tries to read downstream data from the <a href="index.html">stream</a>. When data has been read successfully, any registered <a href="on_data.html">on_data</a> hooks will be called.</p><p>Note that <i>read</i> is just a hint; the actual amount of data produced is not strictly controlled, and streams may emit data even when <i>read</i> has not been called.</p></div></p><p><h2>Parameters</h2><div class="sectionBody"><i>bytes</i><br /><div class="parameterDesc"><p>The number of bytes to read, or <code>-1</code> to read everything the <a href="index.html">stream</a> can produce.</p></div></div></p><p><h2>See also</h2><div class="sectionBody"><a href="on_data.html">on_data</a></div></p>
 </div>
 
 <div class="bottom"></div>
 
-<div id="parent"><a href="../">&lt;&lt; Back to Lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/Stream.cc">View function source &gt;&gt;</a></div>
+<div id="parent"><a href="../">&lt;&lt; Back to lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/stream.c">View function source &gt;&gt;</a></div>
 <div id="copyright">
 <hr>
 Copyright &copy; The Lacewing Project Authors 2012<br />
-<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Jun-19.</i><br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Dec-06.</i><br />
 </div>
 
 </div>

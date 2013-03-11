@@ -4,30 +4,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<meta name="description" content="Start hosting the FlashPolicy on the specified port, or with the specified Filter." />
+	<meta name="description" content="Start hosting the policy server on the specified port, or with the specified filter." />
 	<meta http-equiv="content-language" content="en"/>
-	<title>Host (FlashPolicy) - Lacewing API</title>
+	<title>host (FlashPolicy) - liblacewing API</title>
 	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
 </head>
 <body>
 <div id="container">
 <div id="nav">
-    <div class="header">Lacewing::FlashPolicy (A-Z)</div>
+    <div class="header">lacewing::FlashPolicy (A-Z)</div>
     <br />    
-    <ul><li class="nav_header">Methods</li><li class="nav_item selected">Host</li><li class="nav_item"><a href="Hosting.html">Hosting</a></li><li class="nav_item"><a href="Unhost.html">Unhost</a></li></ul><ul><li class="nav_header">Handlers</li><li class="nav_item"><a href="onError.html">onError</a></li></ul> 
+    <ul><li class="nav_header">Methods</li><li class="nav_item selected">host</li><li class="nav_item"><a href="hosting.html">hosting</a></li><li class="nav_item"><a href="unhost.html">unhost</a></li></ul><ul><li class="nav_header">Handlers</li><li class="nav_item"><a href="on_error.html">on_error</a></li></ul> 
 </div>
 
 <div id="content">
-    <h1><span id="function">Host</span> (FlashPolicy)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> Lacewing::FlashPolicy::Host (<font color="blue">const</font> <font color="blue">char</font> * Filename, <font color="blue">int</font> Port)</pre></td></tr><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> Lacewing::FlashPolicy::Host (<font color="blue">const</font> <font color="blue">char</font> * Filename, Lacewing::Filter &Filter)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_flashpolicy_host (lw_flashpolicy *, <font color="blue">const</font> <font color="blue">char</font> * filename, <font color="blue">long</font> port)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_flashpolicy_host_filter (lw_flashpolicy *, <font color="blue">const</font> <font color="blue">char</font> * filename, lw_filter *)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Start hosting the <a href="index.html">FlashPolicy</a> on the specified port, or with the specified <a href="../filter">Filter</a>.</p></div></p><p><h2>Parameters</h2><div class="sectionBody"><i>Filename</i><br /><div class="parameterDesc"><p>The filename of the <a href="http://www.adobe.com/devnet/flashplayer/articles/socket_policy_files.html">policy file</a> to host</p></div><i>Port</i><br /><div class="parameterDesc"><p>The port to host on</p></div><strong>OR</strong>&nbsp;<i>Filter</i><br /><div class="parameterDesc"><p>The <a href="../filter">Filter</a> to host with</p></div></div></p><p><h2>See also</h2><div class="sectionBody"><a href="Unhost.html">Unhost</a><br /><a href="Hosting.html">Hosting</a></div></p>
+    <h1><span id="function">host</span> (FlashPolicy)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> lacewing::flashpolicy::host (<font color="blue">const</font> <font color="blue">char</font> * filename, <font color="blue">long</font> port)</pre></td></tr><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> lacewing::flashpolicy::host (<font color="blue">const</font> <font color="blue">char</font> * filename, lacewing::filter filter)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_flashpolicy_host (lw_flashpolicy, <font color="blue">const</font> <font color="blue">char</font> * filename, <font color="blue">long</font> port)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_flashpolicy_host_filter (lw_flashpolicy, <font color="blue">const</font> <font color="blue">char</font> * filename, lw_filter)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Start hosting the policy server on the specified port, or with the specified <a href="../filter">filter</a>.</p></div></p><p><h2>Parameters</h2><div class="sectionBody"><i>filename</i><br /><div class="parameterDesc"><p>The filename of the <a href="http://www.adobe.com/devnet/flashplayer/articles/socket_policy_files.html">policy file</a> to host</p></div><i>port</i><br /><div class="parameterDesc"><p>the port to host on</p></div><strong>OR</strong>&nbsp;<i>filter</i><br /><div class="parameterDesc"><p>the <a href="../filter">filter</a> to host with</p></div></div></p><p><h2>See also</h2><div class="sectionBody"><a href="unhost.html">unhost</a><br /><a href="hosting.html">hosting</a></div></p>
 </div>
 
 <div class="bottom"></div>
 
-<div id="parent"><a href="../">&lt;&lt; Back to Lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/FlashPolicy.cc">View function source &gt;&gt;</a></div>
+<div id="parent"><a href="../">&lt;&lt; Back to lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/flashpolicy.c">View function source &gt;&gt;</a></div>
 <div id="copyright">
 <hr>
 Copyright &copy; The Lacewing Project Authors 2012<br />
-<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2011-Sep-30.</i><br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Dec-06.</i><br />
 </div>
 
 </div>

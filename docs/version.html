@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Returns a string identifying the current version of liblacewing." />
+	<meta http-equiv="content-language" content="en"/>
+	<title>version - liblacewing API</title>
+	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
+</head>
+<body>
+<div id="container">
+<div id="nav">
+    <div class="header">lacewing (A-Z)</div>
+    <br />    
+    <ul><li class="nav_header">Classes</li><li class="nav_item"><a href="flashpolicy">FlashPolicy</a></li><li class="nav_item"><a href="address">address</a></li><li class="nav_item"><a href="client">client</a></li><li class="nav_item"><a href="error">error</a></li><li class="nav_item"><a href="eventpump">eventpump</a></li><li class="nav_item"><a href="fdstream">fdstream</a></li><li class="nav_item"><a href="file">file</a></li><li class="nav_item"><a href="filter">filter</a></li><li class="nav_item"><a href="pump">pump</a></li><li class="nav_item"><a href="server">server</a></li><li class="nav_item"><a href="stream">stream</a></li><li class="nav_item"><a href="sync">sync</a></li><li class="nav_item"><a href="thread">thread</a></li><li class="nav_item"><a href="timer">timer</a></li><li class="nav_item"><a href="udp">udp</a></li><li class="nav_item"><a href="webserver">webserver</a></li></ul><ul><li class="nav_header">Methods</li><li class="nav_item"><a href="file_exists.html">file_exists</a></li><li class="nav_item"><a href="file_size.html">file_size</a></li><li class="nav_item"><a href="guess_mimetype.html">guess_mimetype</a></li><li class="nav_item"><a href="last_modified.html">last_modified</a></li><li class="nav_item"><a href="md5.html">md5</a></li><li class="nav_item"><a href="md5_hex.html">md5_hex</a></li><li class="nav_item"><a href="path_exists.html">path_exists</a></li><li class="nav_item"><a href="random.html">random</a></li><li class="nav_item"><a href="sha1.html">sha1</a></li><li class="nav_item"><a href="sha1_hex.html">sha1_hex</a></li><li class="nav_item"><a href="temp_path.html">temp_path</a></li><li class="nav_item selected">version</li></ul> 
+</div>
+
+<div id="content">
+    <h1><span id="function">version</span></h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">const</font> <font color="blue">char</font> * version ()</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">const</font> <font color="blue">char</font> * lw_version ()</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Returns a string identifying the current version of liblacewing.</p><p>The format of this string is not guaranteed, but it usually contains the last library release number and the operating system type, for example:</p><p>&nbsp;&nbsp;&nbsp;&nbsp;<code>liblacewing 0.2.3 (FreeBSD/x64)</code></p><p>This function is used by <a href="webserver">webserver</a> to generate the default HTTP <code>Server</code> header.</p></div></p>
+</div>
+
+<div class="bottom"></div>
+
+<div id="parent"></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/global.c">View function source &gt;&gt;</a></div>
+<div id="copyright">
+<hr>
+Copyright &copy; The Lacewing Project Authors 2012<br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Dec-06.</i><br />
+</div>
+
+</div>
+</body>
+</html>

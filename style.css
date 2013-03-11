@@ -12,7 +12,6 @@ body
 h1
 {
 	font-family: sans-serif;
-	font-size:1.4em;
 	padding-bottom:0.2em;
 	margin-top:0px;
 	margin-bottom:0.5em;
@@ -23,7 +22,15 @@ h1
 h2
 {
 	font-family: sans-serif;
-	font-size:1.0em;
+	padding-bottom:0.2em;
+	margin-bottom:0.5em;
+    margin-top: 20px;
+	color:#84cf40;
+}
+
+h3
+{
+	font-family: sans-serif;
 	padding-bottom:0.2em;
 	margin-top:0px;
 	margin-bottom:0.5em;

@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Getter/setter for the idle timeout of this request in seconds (the time a connection can stay open without making a complete request)." />
+	<meta http-equiv="content-language" content="en"/>
+	<title>idle_timeout (webserver::request) - liblacewing API</title>
+	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
+</head>
+<body>
+<div id="container">
+<div id="nav">
+    <div class="header">webserver::request (A-Z)</div>
+    <br />    
+    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="GET.html">GET</a></li><li class="nav_item"><a href="POST.html">POST</a></li><li class="nav_item"><a href="address.html">address</a></li><li class="nav_item"><a href="cookie.html">cookie</a></li><li class="nav_item"><a href="disable_cache.html">disable_cache</a></li><li class="nav_item"><a href="disconnect.html">disconnect</a></li><li class="nav_item"><a href="enable_download_resuming.html">enable_download_resuming</a></li><li class="nav_item"><a href="finish.html">finish</a></li><li class="nav_item"><a href="guess_mimetype.html">guess_mimetype</a></li><li class="nav_item"><a href="header.html">header</a></li><li class="nav_item"><a href="hostname.html">hostname</a></li><li class="nav_item selected">idle_timeout</li><li class="nav_item"><a href="last_modified.html">last_modified</a></li><li class="nav_item"><a href="requested_range_begin.html">requested_range_begin</a></li><li class="nav_item"><a href="requested_range_end.html">requested_range_end</a></li><li class="nav_item"><a href="secure.html">secure</a></li><li class="nav_item"><a href="session.html">session</a></li><li class="nav_item"><a href="session_close.html">session_close</a></li><li class="nav_item"><a href="set_mimetype.html">set_mimetype</a></li><li class="nav_item"><a href="set_outgoing_range.html">set_outgoing_range</a></li><li class="nav_item"><a href="set_redirect.html">set_redirect</a></li><li class="nav_item"><a href="set_unmodified.html">set_unmodified</a></li><li class="nav_item"><a href="status.html">status</a></li><li class="nav_item"><a href="url.html">url</a></li><li class="extra"><a href="../../stream"> +11 from stream</a></li></ul> 
+</div>
+
+<div id="content">
+    <h1><span id="function">idle_timeout</span> (webserver::request)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">int</font> lacewing::webserver::request::idle_timeout ()</pre></td></tr><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> lacewing::webserver::request::idle_timeout (<font color="blue">int</font>)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">long</font> lw_ws_req_idle_timeout (lw_ws_req)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_ws_req_set_idle_timeout (lw_ws_req, <font color="blue">long</font>)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Getter/setter for the idle timeout of this <a href="index.html">request</a> in seconds (the time a connection can stay open without making a complete request).</p><p>A connection will never be closed when a request is in progress, even when the idle timeout is enabled. A partial request, however, does not count against the timeout.</p><p>The default timeout for new requests can be adjusted with <a href="../../webserver/idle_timeout.html">webserver::idle_timeout</a>.</p></div></p><p><h2>See also</h2><div class="sectionBody"><a href="../../webserver/idle_timeout">idle_timeout (webserver)</a></div></p>
+</div>
+
+<div class="bottom"></div>
+
+<div id="parent"><a href="../">&lt;&lt; Back to webserver</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/webserver/request.c">View function source &gt;&gt;</a></div>
+<div id="copyright">
+<hr>
+Copyright &copy; The Lacewing Project Authors 2012<br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Dec-06.</i><br />
+</div>
+
+</div>
+</body>
+</html>

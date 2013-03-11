@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="The on_connect hook is called when a client connects to the server." />
+	<meta http-equiv="content-language" content="en"/>
+	<title>on_connect (server) - liblacewing API</title>
+	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
+</head>
+<body>
+<div id="container">
+<div id="nav">
+    <div class="header">lacewing::server (A-Z)</div>
+    <br />    
+    <ul><li class="nav_header">Classes</li><li class="nav_item"><a href="client">client</a></li></ul><ul><li class="nav_header">Methods</li><li class="nav_item"><a href="add_npn.html">add_npn</a></li><li class="nav_item"><a href="can_npn.html">can_npn</a></li><li class="nav_item"><a href="cert_loaded.html">cert_loaded</a></li><li class="nav_item"><a href="client_first.html">client_first</a></li><li class="nav_item"><a href="host.html">host</a></li><li class="nav_item"><a href="hosting.html">hosting</a></li><li class="nav_item"><a href="load_cert_file.html">load_cert_file</a></li><li class="nav_item"><a href="load_sys_cert.html">load_sys_cert</a></li><li class="nav_item"><a href="num_clients.html">num_clients</a></li><li class="nav_item"><a href="port.html">port</a></li><li class="nav_item"><a href="unhost.html">unhost</a></li></ul><ul><li class="nav_header">Handlers</li><li class="nav_item selected">on_connect</li><li class="nav_item"><a href="on_data.html">on_data</a></li><li class="nav_item"><a href="on_disconnect.html">on_disconnect</a></li><li class="nav_item"><a href="on_error.html">on_error</a></li></ul> 
+</div>
+
+<div id="content">
+    <h1><span id="function">on_connect</span> (server)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> on_connect (lacewing::server server, lacewing::server::client client)
+{
+}
+
+server->on_connect (on_connect); <font color="green">/* to register the hook */</font></pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> on_connect (lw_server server, lw_client client)
+{
+}
+
+lw_server_onconnect (server, on_connect); <font color="green">/* to register the hook */</font></pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>The <i>on_connect</i> hook is called when a <a href="client">client</a> connects to the <a href="index.html">server</a>.</p><p>The <a href="client">client</a> object will be valid until the <a href="on_disconnect.html">on_disconnect</a> hook is called. This hook will always be called before <a href="on_data.html">on_data</a> or <a href="on_disconnect.html">on_disconnect</a>.</p></div></p><p><h2>See also</h2><div class="sectionBody"><a href="on_disconnect.html">on_disconnect</a><br /><a href="on_data.html">on_data</a></div></p>
+</div>
+
+<div class="bottom"></div>
+
+<div id="parent"><a href="../">&lt;&lt; Back to lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/unix/server.c">Source (Unix)</a> | <a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/windows/server.c">Source (Windows)</a></div>
+<div id="copyright">
+<hr>
+Copyright &copy; The Lacewing Project Authors 2012<br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Dec-06.</i><br />
+</div>
+
+</div>
+</body>
+</html>

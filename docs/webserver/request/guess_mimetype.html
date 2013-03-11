@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Guesses an appropriate MIME type for a filename or file extension (ie. &quot;text/css&quot; for &quot;css&quot;)" />
+	<meta http-equiv="content-language" content="en"/>
+	<title>guess_mimetype (webserver::request) - liblacewing API</title>
+	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
+</head>
+<body>
+<div id="container">
+<div id="nav">
+    <div class="header">webserver::request (A-Z)</div>
+    <br />    
+    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="GET.html">GET</a></li><li class="nav_item"><a href="POST.html">POST</a></li><li class="nav_item"><a href="address.html">address</a></li><li class="nav_item"><a href="cookie.html">cookie</a></li><li class="nav_item"><a href="disable_cache.html">disable_cache</a></li><li class="nav_item"><a href="disconnect.html">disconnect</a></li><li class="nav_item"><a href="enable_download_resuming.html">enable_download_resuming</a></li><li class="nav_item"><a href="finish.html">finish</a></li><li class="nav_item selected">guess_mimetype</li><li class="nav_item"><a href="header.html">header</a></li><li class="nav_item"><a href="hostname.html">hostname</a></li><li class="nav_item"><a href="idle_timeout.html">idle_timeout</a></li><li class="nav_item"><a href="last_modified.html">last_modified</a></li><li class="nav_item"><a href="requested_range_begin.html">requested_range_begin</a></li><li class="nav_item"><a href="requested_range_end.html">requested_range_end</a></li><li class="nav_item"><a href="secure.html">secure</a></li><li class="nav_item"><a href="session.html">session</a></li><li class="nav_item"><a href="session_close.html">session_close</a></li><li class="nav_item"><a href="set_mimetype.html">set_mimetype</a></li><li class="nav_item"><a href="set_outgoing_range.html">set_outgoing_range</a></li><li class="nav_item"><a href="set_redirect.html">set_redirect</a></li><li class="nav_item"><a href="set_unmodified.html">set_unmodified</a></li><li class="nav_item"><a href="status.html">status</a></li><li class="nav_item"><a href="url.html">url</a></li><li class="extra"><a href="../../stream"> +11 from stream</a></li></ul> 
+</div>
+
+<div id="content">
+    <h1><span id="function">guess_mimetype</span> (webserver::request)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> lacewing::webserver::request::guess_mimetype (<font color="blue">const</font> <font color="blue">char</font> * name)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_ws_req_guess_mimetype (lw_ws_req, <font color="blue">const</font> <font color="blue">char</font> * name)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Guesses an appropriate MIME type for a filename or file extension (ie. <code>"text/css"</code> for <code>"css"</code>)</p><p>If the file extension is not known, <code>"application/octet-stream"</code> will be set.</p></div></p><p><h2>Parameters</h2><div class="sectionBody"><i>name</i><br /><div class="parameterDesc"><p>A filename or file extension. If the name contains any <code>.</code> characters, the rightmost and everything before it will be ignored (thus allowing complete filenames without the application having to perform any additional parsing).</p></div></div></p><p><h2>See also</h2><div class="sectionBody"><a href="../../guess_mimetype.html">guess_mimetype (lacewing)</a></div></p>
+</div>
+
+<div class="bottom"></div>
+
+<div id="parent"><a href="../">&lt;&lt; Back to webserver</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/webserver/request.c">View function source &gt;&gt;</a></div>
+<div id="copyright">
+<hr>
+Copyright &copy; The Lacewing Project Authors 2012<br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Dec-06.</i><br />
+</div>
+
+</div>
+</body>
+</html>

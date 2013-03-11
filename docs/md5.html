@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Returns the MD5 hash of a block of data as the raw hash bytes." />
+	<meta http-equiv="content-language" content="en"/>
+	<title>md5 - liblacewing API</title>
+	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
+</head>
+<body>
+<div id="container">
+<div id="nav">
+    <div class="header">lacewing (A-Z)</div>
+    <br />    
+    <ul><li class="nav_header">Classes</li><li class="nav_item"><a href="flashpolicy">FlashPolicy</a></li><li class="nav_item"><a href="address">address</a></li><li class="nav_item"><a href="client">client</a></li><li class="nav_item"><a href="error">error</a></li><li class="nav_item"><a href="eventpump">eventpump</a></li><li class="nav_item"><a href="fdstream">fdstream</a></li><li class="nav_item"><a href="file">file</a></li><li class="nav_item"><a href="filter">filter</a></li><li class="nav_item"><a href="pump">pump</a></li><li class="nav_item"><a href="server">server</a></li><li class="nav_item"><a href="stream">stream</a></li><li class="nav_item"><a href="sync">sync</a></li><li class="nav_item"><a href="thread">thread</a></li><li class="nav_item"><a href="timer">timer</a></li><li class="nav_item"><a href="udp">udp</a></li><li class="nav_item"><a href="webserver">webserver</a></li></ul><ul><li class="nav_header">Methods</li><li class="nav_item"><a href="file_exists.html">file_exists</a></li><li class="nav_item"><a href="file_size.html">file_size</a></li><li class="nav_item"><a href="guess_mimetype.html">guess_mimetype</a></li><li class="nav_item"><a href="last_modified.html">last_modified</a></li><li class="nav_item selected">md5</li><li class="nav_item"><a href="md5_hex.html">md5_hex</a></li><li class="nav_item"><a href="path_exists.html">path_exists</a></li><li class="nav_item"><a href="random.html">random</a></li><li class="nav_item"><a href="sha1.html">sha1</a></li><li class="nav_item"><a href="sha1_hex.html">sha1_hex</a></li><li class="nav_item"><a href="temp_path.html">temp_path</a></li><li class="nav_item"><a href="version.html">version</a></li></ul> 
+</div>
+
+<div id="content">
+    <h1><span id="function">md5</span></h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> lacewing::md5 (<font color="blue">char</font> * output, <font color="blue">const</font> <font color="blue">char</font> * input, size_t length)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_md5 (<font color="blue">char</font> * output, <font color="blue">const</font> <font color="blue">char</font> * input, size_t length)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Returns the MD5 hash of a block of data as the raw hash bytes.</p><p>The library itself does not include an MD5 implementation - this function is implemented through either OpenSSL or the <a href="http://msdn.microsoft.com/en-us/library/aa380255%28v=vs.85%29.aspx">Windows Cryptography API</a>.</p></div></p><p><h2>Parameters</h2><div class="sectionBody"><i>output</i><br /><div class="parameterDesc"><p>A buffer of at least 16 bytes to write the hash to.</p></div><i>input</i><br /><div class="parameterDesc"><p>A pointer to the input data.</p></div><i>length</i> [optional]<br /><div class="parameterDesc"><p>The length of the input data, or <code>-1</code> if the data is a null-terminated string.</p></div></div></p><p><h2>See also</h2><div class="sectionBody"><a href="md5_hex.html">md5_hex</a><br /><a href="sha1.html">sha1</a><br /><a href="sha1_hex.html">sha1_hex</a></div></p>
+</div>
+
+<div class="bottom"></div>
+
+<div id="parent"></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/unix/global.c">Source (Unix)</a> | <a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/windows/global.c">Source (Windows)</a></div>
+<div id="copyright">
+<hr>
+Copyright &copy; The Lacewing Project Authors 2012<br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Dec-06.</i><br />
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Causes the eventpump to enter &quot;sleepy ticking&quot; mode with the specified callback." />
+	<meta http-equiv="content-language" content="en"/>
+	<title>start_sleepy_ticking (eventpump) - liblacewing API</title>
+	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
+</head>
+<body>
+<div id="container">
+<div id="nav">
+    <div class="header">lacewing::eventpump (A-Z)</div>
+    <br />    
+    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="post_eventloop_exit.html">post_eventloop_exit</a></li><li class="nav_item"><a href="start_eventloop.html">start_eventloop</a></li><li class="nav_item selected">start_sleepy_ticking</li><li class="nav_item"><a href="tick.html">tick</a></li><li class="extra"><a href="../pump"> +8 from pump</a></li></ul> 
+</div>
+
+<div id="content">
+    <h1><span id="function">start_sleepy_ticking</span> (eventpump)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre>lacewing::error lacewing::eventpump::start_sleepy_ticking
+    (<font color="blue">void</font> (* on_tick_needed) (lacewing::eventpump))</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre>lw_error lw_eventpump_start_sleepy_ticking
+    (lw_eventpump, <font color="blue">void</font> (* on_tick_needed) (lw_eventpump *))</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Causes the <a href="index.html">eventpump</a> to enter "sleepy ticking" mode with the specified callback.</p><p>Perhaps the most complicated method of using <a href="index.html">eventpump</a>, this is suited to GUI applications (eg. Win32) which already have a message pump running in their main thread.</p><p>When sleepy ticking is enabled, the library will run a watcher thread to determine when a call to <a href="tick.html">tick</a> is necessary. The callback will then be called (from the watcher thread), and the application is then expected to call <a href="tick.html">tick</a> from the main application thread as soon as possible.</p><p>This could be accomplished, for example, in a Win32 application with <a target="_blank" href="http://msdn.microsoft.com/en-us/library/windows/apps/ms644944%28v=vs.85%29.aspx">PostMessage</a> sending a custom window message in the callback, which then results in a call to <a href="tick.html">tick</a> when received by the main thread.</p><p><div class="notice"><p><b>Error Handling</b> - As <a href="index.html">eventpump</a> has no hooks, any error will be returned directly from this function as a pointer to an #Error# object. If no error occurred, <code>0</code> will be returned.</p><p>If an error does occur, it is the responsibility of the application to free the resulting <a href="../error">error</a> object using <code>error_delete</code> (C++) or <code>lw_error_delete</code> (C).</p></div></p></div></p><p><h2>Parameters</h2><div class="sectionBody"><i>callback</i><br /><div class="parameterDesc"><p>The callback, as described above.</p></div></div></p><p><h2>See also</h2><div class="sectionBody"><a href="tick.html">tick</a><br /><a href="start_eventloop.html">start_eventloop</a></div></p>
+</div>
+
+<div class="bottom"></div>
+
+<div id="parent"><a href="../">&lt;&lt; Back to lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/unix/eventpump.c">Source (Unix)</a> | <a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/windows/eventpump.c">Source (Windows)</a></div>
+<div id="copyright">
+<hr>
+Copyright &copy; The Lacewing Project Authors 2012<br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Dec-06.</i><br />
+</div>
+
+</div>
+</body>
+</html>

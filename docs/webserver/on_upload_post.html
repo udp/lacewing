@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="The on_upload_post hook is triggered for an incoming HTTP POST request containing files." />
+	<meta http-equiv="content-language" content="en"/>
+	<title>on_upload_post (webserver) - liblacewing API</title>
+	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
+</head>
+<body>
+<div id="container">
+<div id="nav">
+    <div class="header">lacewing::webserver (A-Z)</div>
+    <br />    
+    <ul><li class="nav_header">Classes</li><li class="nav_item"><a href="request">request</a></li><li class="nav_item"><a href="upload">upload</a></li></ul><ul><li class="nav_header">Methods</li><li class="nav_item"><a href="cert_loaded.html">cert_loaded</a></li><li class="nav_item"><a href="enable_manual_finish.html">enable_manual_finish</a></li><li class="nav_item"><a href="host.html">host</a></li><li class="nav_item"><a href="host_secure.html">host_secure</a></li><li class="nav_item"><a href="hosting.html">hosting</a></li><li class="nav_item"><a href="hosting_secure.html">hosting_secure</a></li><li class="nav_item"><a href="idle_timeout.html">idle_timeout</a></li><li class="nav_item"><a href="load_cert_file.html">load_cert_file</a></li><li class="nav_item"><a href="load_sys_cert.html">load_sys_cert</a></li><li class="nav_item"><a href="port.html">port</a></li><li class="nav_item"><a href="port_secure.html">port_secure</a></li><li class="nav_item"><a href="session_close.html">session_close</a></li><li class="nav_item"><a href="unhost.html">unhost</a></li><li class="nav_item"><a href="unhost_secure.html">unhost_secure</a></li></ul><ul><li class="nav_header">Handlers</li><li class="nav_item"><a href="on_disconnect.html">on_disconnect</a></li><li class="nav_item"><a href="on_error.html">on_error</a></li><li class="nav_item"><a href="on_get.html">on_get</a></li><li class="nav_item"><a href="on_head.html">on_head</a></li><li class="nav_item"><a href="on_post.html">on_post</a></li><li class="nav_item"><a href="on_upload_chunk.html">on_upload_chunk</a></li><li class="nav_item"><a href="on_upload_done.html">on_upload_done</a></li><li class="nav_item selected">on_upload_post</li><li class="nav_item"><a href="on_upload_start.html">on_upload_start</a></li></ul> 
+</div>
+
+<div id="content">
+    <h1><span id="function">on_upload_post</span> (webserver)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> on_upload_post (lacewing::webserver webserver, lacewing::webserver::request request,
+                       lacewing::webserver::upload uploads [], <font color="blue">int</font> num_uploads)
+{
+}
+
+webserver->on_upload_post (on_upload_post); <font color="green">/* to register the hook */</font></pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> on_upload_post (lw_ws webserver, lw_ws_request,
+    lw_ws_upload uploads [], <font color="blue">long</font> num_uploads)
+{
+}
+
+lw_ws_on_upload_post (webserver, on_upload_post); <font color="green">/* to register the hook */</font></pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>The <i>on_upload_post</i> hook is triggered for an incoming HTTP <code>POST</code> request containing files.</p><p>This hook is the last time the <a href="request">request</a> object (as first seen in <a href="on_upload_start.html">on_upload_start</a>) will ever be passed to a hook. If #enable_manual_request_finish# has been called, the <a href="request">request</a> object will be valid until either <a href="request/finish.html">request::finish</a> is called OR the <a href="on_disconnect.html">on_disconnect</a> hook triggers. Otherwise, the <a href="request">request</a> object is only valid until this hook returns.</p><p>The application may configure a response in this hook with functions such as <a href="request/header.html">request::header</a>, and <a href="request/cookie.html">request::cookie</a>, and write the response data with #request::write# and #request::write_file#.</p><p>Nothing will actually be written to the socket while the <a href="request">request</a> object is still valid. This ensures that an accurate <code>Content-Length</code> header can be generated, and that headers can be changed throughout the lifetime of the <a href="request">request</a>.</p><p>The <code>uploads</code> parameter is an array of <a href="upload">upload</a> objects, all of which have finished uploading (either to the application through <a href="on_upload_chunk.html">on_upload_chunk</a> and <a href="on_upload_done.html">on_upload_done</a>, or to a temporary file when #upload::set_auto_save# was called).</p></div></p><p><h2>See also</h2><div class="sectionBody"><a href="on_upload_start.html">on_upload_start</a><br /><a href="on_upload_chunk.html">on_upload_chunk</a><br /><a href="on_upload_done.html">on_upload_done</a></div></p>
+</div>
+
+<div class="bottom"></div>
+
+<div id="parent"><a href="../">&lt;&lt; Back to lacewing</a></div><div id="source"></div>
+<div id="copyright">
+<hr>
+Copyright &copy; The Lacewing Project Authors 2012<br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2012-Dec-06.</i><br />
+</div>
+
+</div>
+</body>
+</html>
