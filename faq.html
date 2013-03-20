@@ -1,0 +1,314 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Frequently asked questions about liblacewing, the cross-platform high-level networking library for C/C++" />
+	<meta http-equiv="content-language" content="en"/>
+	<title>FAQ - liblacewing</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+
+<div id="content">
+
+    <div id="lacewing"></div>
+    
+    <h1>FAQ</h1>
+
+    <i>James McLaughlin &lt;<a href="mailto:james@lacewing-project.org">james@lacewing-project.org</a>&gt;</i>
+
+    <p>Most of the questions in this FAQ are, genuinely, frequently asked questions compiled from the various discussions I've had about the library over the years.</p>
+    <p>This FAQ is updated periodically.  If there's a question you think belongs here, drop me an e-mail and I'll do my best to answer it.</p>
+
+    <hr />
+    <br />
+
+    <ul id="toc">
+        <li><b>1. Branding</b>
+            <ul>
+                <li><a href="#why-lacewing">1.1. Why <i>lacewing</i>?</a></li>
+                <li><a href="#logo">1.2. Who drew the logo?</a></li>
+            </ul>
+        </li>
+        <li><b>2. The Project</b>
+            <ul>
+                <li><a href="#people">2.1. How many people are working on this?</a></li>
+                <li><a href="#history">2.2. How did this start?</a></li>
+                <li><a href="#yet-another">2.3. Don't we already have libraries for networking?</a></li>
+                <li><a href="#too-much">2.4. Wait, a <i>webserver</i>?  Aren't you trying to do too much?</a></li>
+                <li><a href="#http-client">2.5. So if there's a HTTP server, why not a HTTP client?</a></li>
+                <li><a href="#production">2.6. Is this stable enough for production code?</a></li>
+                <li><a href="#bsd">2.7. Why BSD and not (L)GPL?</a></li>
+            </ul>
+        </li>
+        <li><b>3. The Code</b>
+            <ul>
+                <li><a href="#github">3.1. Why GitHub?</a></li>
+                <li><a href="#why-c">3.2. Why C and not C++?</a></li>
+                <li><a href="#three-space-indent">3.3. Three space indent?  Seriously?</a></li>
+                <li><a href="#build-system">3.4. Why not use a build system like CMake or SCons?</a></li>
+                <li><a href="#wrapper-autogen">3.5. Can't the C++ wrappers be auto-generated?</a></li>
+                <li><a href="#ssl">3.6. What are you using for SSL?</a></li>
+                <li><a href="#pointer-typedef">3.7. Why did you typedef e.g. <code>lw_stream</code> to <code>lw_stream *</code>?</a></li>
+            </ul>
+        </li>
+        <li><b>4. Structure</b>
+            <ul>
+                <li><a href="#eventpump">4.1. Why is there a <code>lw_eventpump</code>?</a></li>
+                <li><a href="#streams">4.2. How does <code>lw_stream</code> compare to other implementations of a &#8220;stream&#8221;?</a></li>
+                <li><a href="#fd">4.3. Why can't I get a <code>SOCKET</code> or a file descriptor?</a></li>
+                <li><a href="#tags">4.4. Can I attach my own data to liblacewing classes?</a></li>
+                <li><a href="#stream-impl">4.5. How can I implement my own stream?</a></li>
+                <li><a href="#tail">4.6. I'm implementing a stream.  What's <code>tail_size</code> in <code>lw_streamdef</code>?</a></li>
+            </ul>
+        </li>
+        <li><b>5. Future</b>
+            <ul>
+                <li><a href="#future">5.1. What's next for the library?</a></li>
+                <li><a href="#goals">5.2. What, ultimately, are you trying to achieve?</a></li>
+                <li><a href="#contribute">5.3. How can I contribute?</a></li>
+            </ul>
+        </li>
+    </ul>
+
+
+    <h1 id="branding">1. Branding</h1>
+
+        <h3 id="why-lacewing">1.1. Why <i>lacewing</i>?</h3>
+        <p>
+            <i>Lacewing</i> is the common name for the <a target="_blank" href="http://en.wikipedia.org/wiki/Chrysopidae"><i>Chrysopidae</i></a>, a very cool looking insect that happens to be fast and lightweight.
+        </p>
+
+        <h3 id="logo">1.2. Who drew the logo?</h3>
+        <p>
+            The logo is a vector graphic drawn by <a href="http://villy.net">Jean Villy Edberg</a> in 2011.
+        </p>
+        <p>
+            He's called Eugene, and he's licensed under a <a href="http://creativecommons.org/licenses/by/3.0/deed.en_US" target="_blank">Creative Commons Attribution 3.0 Unported License</a>.  An SVG can be found in the <code>art</code> directory.
+        </p>
+
+
+    <h1 id="the-project">1. The Project</h1>
+
+        <h3 id="people">2.1. How many people are working on this?</h3>
+        <p>
+            The bulk of the library is written by myself, <a target="_blank" href="http://ramblingpitchfork.com">James McLaughlin</a>.  A list of contributors is available in the <a href="https://github.com/udp/lacewing/blob/master/AUTHORS">AUTHORS file</a>.
+        </p>
+        <p>
+            The library also incorporates a lot of third party code such as <a href="https://github.com/joyent/http-parser" target="_blank">http-parser</a>, <a href="https://github.com/iafonov/multipart-parser-c" target="_blank">multipart-parser-c</a> and <a target="_blank" href="http://troydhanson.github.com/uthash/">uthash</a> (all, like liblacewing, under a BSD or MIT license).
+        </p>
+
+        <h3 id="history">2.2. How did this start?</h3>
+        <p>
+            The library was originally developed in 2006 to facilitate the development of a networking layer for Multimedia Fusion 2, a game development tool produced by <a href="http://www.clickteam.com" target="_blank">Clickteam</a>.  It was then released as open source in January 2011, following a substantial effort further developing the webserver under <a href="http://www.networktronics.com/" target="_blank">NetworkTronics</a> as the backend for a web application.
+        </p>
+        <p>
+            Today, development continues independently of any commercial incentive.
+        </p>
+
+        <h3 id="yet-another">2.3. Don't we already have libraries for networking?</h3>
+        <p>
+            Of course we do - but, as with any other field, there's no &#8220;one true way&#8221; an API for networking should be structured, and every library has its own set of quirks, features and limitations.
+        </p>
+        <p>
+            My motivation for working on liblacewing is that I'm developing the library <i>I want to use</i>. And with any luck, that means other developers might quite like working with it, too.
+        </p>
+
+        <h3 id="too-much">2.4. Wait, a <i>webserver</i>?  Aren't you trying to do too much?</h3>
+        <p>Maybe, but here are a few reasons the HTTP server is sticking around:</p>
+        <br />
+        <ul>
+            <li>It's becoming increasingly apparent that HTTP is the standard for network communication, with most modern APIs for services being HTTP operated.  HTTP communication is nearly as ubiquitous as socket communication in most frameworks.</li>
+            <li>Most other easily embeddable webserver libraries have serious limitations, and have their own ad-hoc socket code where we can build on the strengths of <code>lw_server</code> and <code>lw_eventpump</code>.</li>
+            <li><code>lw_webserver</code> is a workout for the entire library, and is the first port of call for testing changes or new platforms</li>
+            <li>The library itself hardly contains any HTTP code anyway - most of the work is done by <a href="https://github.com/joyent/http-parser" target="_blank">http-parser</a> and/or <a href="https://github.com/udp/spdy" target="_blank">libspdy</a>.</li>
+        </ul>
+
+        <h3 id="http-client">2.5. So if there's a HTTP server, why not a HTTP client?</h3>
+        <p><a href="http://curl.haxx.se/libcurl/" target="_blank">libcurl</a> is a very good HTTP client, and not something we have a reason to compete with.</p>
+        <p>Better integration of libcurl with <code>lw_eventpump</code> and friends might be a good future project.</p>
+
+        <h3 id="production">2.6. Is this stable enough for production code?</h3>
+        <p>We're still pre-1.0.0, so by definition not production-ready.  I won't make any claims about stability.</p>
+
+        <h3 id="bsd">2.7. Why BSD and not (L)GPL?</h3>
+        <p>
+            I believe that proprietary software isn't going anywhere, and shouldn't be forced to reinvent the wheel.  Encouraging proprietary software to adopt open source by using permissive licenses is a good thing.
+        </p>
+        <p>
+            The GPL suggestion that everyone who uses a piece of code wants to make a closed source fork and never contribute back is unrealistic.  BSD-licensed projects receive contributions for the right reasons: contribute code upstream, and you don't have to maintain it yourself.
+        </p>
+
+    <h1 id="the-code">3. The Code</h1>
+
+        <!-- -->
+
+        <h3 id="github">3.1. Why GitHub?</h3>
+        <p>
+            GitHub is quickly becoming industry standard for project hosting.  And it's really awesome.
+        </p>
+
+        <h3 id="why-c">3.2. Why C and not C++?</h3>
+        <p>
+            I try to be pragmatic about this.  The library code itself wouldn't benefit from C++ features, but I understand how ugly it can be to use a C library in C++.  That's why a complete set of C++ wrappers around the C functions are provided and maintained as part of the core library.
+        </p>
+
+        <h3 id="three-space-indent">3.3. Three space indent?  Seriously?</h3>
+        <p>
+            Yes, it's a bit eccentric.  But four was too long, two was too short and three was <i>juuust right</i>. ;-)
+        </p>
+        <p>
+            In all seriousness, you should be able to configure your editor to work with a three space indent quite easily, if it doesn't do this automatically.  You might even start to like it...
+        </p>
+
+        <h3 id="build-system">3.4. Why not use a build system like CMake or SCons?</h3>
+        <p>
+            I'm sure they're brilliant, but our more boring setup with autoconf and make seems to be adequate for the time being.
+        </p>
+        <p>
+            The only issue is keeping the Visual Studio project in synchronization with the Makefile, but we don't really add or remove source files often enough for this to be a problem.
+        </p>
+
+        <h3 id="wrapper-autogen">3.5. Can't the C++ wrappers be auto-generated?</h3>
+        <p>
+            They could be, but since they're all there already, it'd just be a waste of time writing a generator.  Besides, some of the functions in the C++ API are intentionally slightly different from their C counterparts.
+        </p>
+        <p>
+            It's possible that we might look into doing something with <a href="http://swig.org" target="_blank">SWIG</a> in the future, which is something we weren't able to use before due to the lack of support for nested classes.
+        </p>
+
+        <h3 id="ssl">3.6. What are you using for SSL?</h3>
+        <p>
+            <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms678421%28v=vs.85%29.aspx" target="_blank">SChannel</a> on Windows, <a href="http://www.openssl.org/" target="_blank">OpenSSL</a> everywhere else.  We're probably one of the few projects out there using SChannel for SSL (I believe libcurl recently added support?)
+        </p>
+        <p>Cryptic API aside, it seems to work pretty well.  The biggest limitation is the lack of support for TLS <a href="https://technotes.googlecode.com/git/nextprotoneg.html" target="_blank">Next Protocol Negotiation</a>, which means we don't currently support the SPDY protocol on Windows.
+        </p>
+
+        <h3 id="pointer-typedef">3.7. Why did you typedef e.g. <code>lw_stream</code> to <code>lw_stream *</code>?</h3>
+        <p>
+            This one is controversial, because it makes it unclear that <code>lw_stream</code> is actually a pointer.
+        </p>
+        <p>
+            I did it this way because user code can never actually use a real <code>lw_stream</code>, because that struct definition is internal to the library.  Without the typedef, <i>every single occurrence</i> of <code>lw_stream</code> in user code would have to be written as <code>lw_stream *</code>, which makes the <code>*</code> redundant.
+        </p>
+        <p>
+            (Note that <code>lw_stream</code> was just used as an example here; this applies to all liblacewing classes.)
+        </p>
+
+    <h1 id="structure">4. Structure</h1>
+
+        <!-- -->
+
+        <h3 id="eventpump">4.1. Why is there a <code>lw_eventpump</code>?</h3>
+        <p>
+            If you're a UNIX developer, you can think of <code>lw_eventpump</code> as the liblacewing answer to <code>select(2)</code>.  The application plugs liblacewing classes into it, and then (through one of several usage patterns) sets it to work watching for things happening and pumping events around the library.
+        </p>
+        <p>
+            One of the key design issues is that not all applications are the same, and <code>lw_eventpump</code> has to respect that. A game can't run <code>lw_eventpump_start_eventloop</code> and have the whole main thread blocked forever, and that's why we have <code>lw_eventpump_tick</code>. A Win32 GUI application already has a blocking message pump, so <code>lw_eventpump_start_sleepy_ticking</code> is provided.
+        </p>
+        <p>Also, you don't <i>have</i> to use <code>lw_eventpump</code>.  The <code>lw_pumpdef</code> structure is a set of function pointers defining what a pump has to be able to do, so if you can implement those for your own event loop, the liblacewing classes should play ball.</p>
+
+        <h3 id="streams">4.2. How does <code>lw_stream</code> compare to other implementations of a &#8220;stream&#8221;?</h3>
+        <p>
+            You're probably familiar with the concept of a stream from elsewhere: it's something you can write data to, and read data from.  In liblacewing, pretty much everything is a stream, which is standard for an I/O library.
+        </p>
+        <p>However, there are a few things that set liblacewing streams apart:</p>
+        <ul>
+        <li><b>Push, not pull.</b> With many implementations of streams, one must <i>pull</i> data from the stream with some kind of &#8220;read&#8221; function, by passing it a buffer. In liblacewing, one <i>subscribes</i> to data by registering a callback, and then data is actively pushed by the sender. The recipient is not responsible for allocating memory.</li>
+        <li><b>Filters.</b> Filters allow you to make what's written to or read from a stream pass through another stream first, completely transparently.  For example, you might have a socket stream but you want data written to the socket to be encrypted, and data read from the socket to be decrypted.  With an encryption stream added as an upstream filter and a decryption stream added as a downstream filter, you could have this happen transparently while the socket is used as normal.</li>
+        <li><b>Buffering.</b> When a liblacewing stream is given data, it does not have to immediately consume all of the data.  Instead, it might want to wait until more data is received before processing anything (for example, if the data provided was just one fragment of a complete message).  Streams in liblacewing handle this elegantly and efficiently, with all buffering logic internal to <code>lw_stream</code> itself.</li>
+        <li><b>Optimization.</b> Sometimes, it works out that, for example, a file stream is being written to a socket stream.  It turns out that the kernel is pretty good at optimizing for this case, with syscalls such as <a href="http://linux.die.net/man/2/sendfile" target="_blank">sendfile</a> and <a href="http://msdn.microsoft.com/en-gb/library/windows/desktop/ms740565%28v=vs.85%29.aspx" target="_blank">TransmitFile</a>.  liblacewing is smart enough to work out when this is happening and use the appropriate optimized syscall, but is still capable of falling back on a simple buffered read/write where necessary.</li>
+        </ul>
+
+        <h3 id="fd">4.3. Why can't I have a <code>SOCKET</code> or a file descriptor?</h3>
+        <p>
+            You should assume there isn't one.  Reading or writing to the underlying socket would subvert the stream model, and it probably wouldn't be compatible with the dark magic we do to achieve consistency across different platforms.
+        </p>
+
+        <h3 id="tags">4.4. Can I attach my own data to liblacewing classes?</h3>
+        <p>
+            Most classes have <code>_tag</code> and <code>_set_tag</code> functions:
+        </p>
+        <pre>
+          void* lw_stream_tag                   (lw_stream);
+          void  lw_stream_set_tag               (lw_stream, void *);
+        </pre>
+        <p>These can be used to store and retrieve a pointer of your choice (for example, a pointer to your own structure).</p>
+
+        <h3 id="stream-impl">4.6. How can I implement my own stream?</h3>
+        <p>
+            Populate a <code>lw_streamdef</code> structure with function pointers to your own stream functions, and pass it to <code>lw_stream_new</code> to retrieve a <code>lw_stream</code> instance.
+        </p>
+        <p>At the time of writing, a description of each function in <code>lw_streamdef</code> is currently missing from the documentation.  Some example stream implementations to work from:</p>
+        <ul>
+            <li><a href="https://github.com/udp/lacewing/blob/master/src/pipe.c" target="_blank"><b>lw_pipe</b></a> is the simplest possible example of a stream implementation, which simply always returns <code>true</code> from <code>is_transparent</code> (meaning the data will always skip the stream and go straight to the data hooks, or to whatever the stream is being written to)</li>
+
+            <li><b>lw_fdstream</b> (<a href="https://github.com/udp/lacewing/blob/master/src/unix/fdstream.c" target="_blank">unix</a>, <a href="https://github.com/udp/lacewing/blob/master/src/windows/fdstream.c" target="_blank">windows</a>) is an example of a complete stream implementation to wrap a system file descriptor</li>
+
+            <li><a href="https://github.com/udp/lacewing/blob/master/src/openssl" target="_blank"><b>sslclient</b></a> is a good example of buffering and filters</li>
+
+            <li><a href="https://github.com/udp/lacewing/blob/master/src/webserver/http/http-client.c" target="_blank"><b>http-client.c</b></a> and <a href="https://github.com/udp/lacewing/blob/master/src/webserver/spdy/spdy-client.c" target="_blank"><b>spdy-client.c</b></a> are good examples of buffering</li>
+
+        </ul>
+
+        <h3 id="tail">4.6. I'm implementing a stream.  What's <code>tail_size</code> in <code>lw_streamdef</code>?</h3>
+        <p>
+            It lets <code>lw_stream_new</code> know how much memory you want allocating <i>after</i> the <code>lw_stream</code> structure, which you can use to store your own data without taking over the tag.
+        </p>
+        <p>
+            There are two functions to work with this:
+        </p>
+        <pre>
+           lw_import void * lw_stream_tail (lw_stream);
+           lw_import lw_stream lw_stream_from_tail (void *);
+        </pre>
+        <p>Where <code>lw_stream_tail</code> returns a pointer to the data after the <code>lw_stream</code>, and <code>lw_stream_from_tail</code> returns the <code>lw_stream</code> from the pointer to the data.</p>
+
+    <h1 id="roadmap">5. Future</h1>
+
+        <!-- -->
+
+        <h3 id="future">5.1. What's next for liblacewing?</h3>
+        <p>
+            Probably some kind of support for multi-threading, but it's not yet clear how this will be implemented or what advantages it will bring.
+        </p>
+
+        <h3 id="goals">5.2. What, ultimately, are you trying to achieve?</h3>
+        <p>
+            liblacewing is a solution to a current problem, and its survival is entirely dependent on whether the languages and platforms of today survive in the future.
+        </p>
+        <p>
+            There's no ultimate goal for this project: computers only function through layer upon layer of abstraction, and we're just trying to abstract over something that's commonly done and hard to get right.  And, with any luck, there'll be some good ideas in the process.
+        </p>
+
+        <h3 id="contribute">5.3. How can I contribute?</h3>
+        <p>
+            We need help in a lot of areas.  In particular:
+        </p>
+        <ul>
+            <li>There isn't enough testing, particularly on platforms other than Mac OS X and Linux.  Something as simple as preparing a test case and making sure it works with each new release could be immensely helpful.</li>
+            <li>The number of examples available is very small, and most of them are for the webserver only.  Any contributions of new examples is always welcome.</li>
+            <li>There are a number of programming tasks in the <a href="https://github.com/udp/lacewing/blob/master/TODO" target="_blank">TODO file</a>.  It's worth sending me an e-mail if you intend to start working on one of these, just in case anything has already been started.</li>
+            <li>The <a href="http://lacewing-project.org/docs" target="_blank">documentation</a> can be quite thin in places, and has never been completely proof-read.  A tutorial or two would be very helpful for those new to the library.</li>
+            <li>The <a href="https://github.com/udp/lacewing/issues" target="_blank">GitHub issue tracker</a> usually has some outstanding issues to check or attempt to rectify.  Even something as simple as a &#8220;me too&#8221; comment is helpful, and a fix is obviously even better.</li>
+        </ul>
+</div>
+
+<div id="copyright">
+    <br />
+    <p style="font-size: 8pt;">Copyright &copy; The Lacewing Project Authors 2013<br />
+    <a target="_blank" href="https://github.com/udp/lacewing/tree/gh-pages">Repo for this page</a>
+    <br />
+    <br />
+    <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" /></a>
+    <br />
+    <br />
+    This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US">Creative Commons Attribution 3.0 Unported License</a>.
+</p>
+
+</div>
+
+</body>
+</html>

@@ -13,7 +13,7 @@ h1
 {
 	font-family: sans-serif;
 	padding-bottom:0.2em;
-	margin-top:0px;
+	margin-top:35px;
 	margin-bottom:0.5em;
 	color:#84cf40;
 	border-bottom: 1px dashed #AAA;
@@ -24,7 +24,7 @@ h2
 	font-family: sans-serif;
 	padding-bottom:0.2em;
 	margin-bottom:0.5em;
-    margin-top: 20px;
+    margin-top: 35px;
 	color:#84cf40;
 }
 
@@ -32,7 +32,7 @@ h3
 {
 	font-family: sans-serif;
 	padding-bottom:0.2em;
-	margin-top:0px;
+	margin-top:35px;
 	margin-bottom:0.5em;
 	color:#84cf40;
 }
@@ -76,8 +76,7 @@ ul
 
 li
 {
-    margin-top:5px;
-    margin-bottom:5px;
+    padding-top: 7px;
 }
 
 div#lacewing
@@ -88,5 +87,4 @@ div#lacewing
 	width: 414px;
 	height: 150px;
 }
-
 
