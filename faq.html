@@ -118,7 +118,6 @@
 
         <h3 id="too-much">2.4. Wait, a <i>webserver</i>?  Aren't you trying to do too much?</h3>
         <p>Maybe, but here are a few reasons the HTTP server is sticking around:</p>
-        <br />
         <ul>
             <li>It's becoming increasingly apparent that HTTP is the standard for network communication, with most modern APIs for services being HTTP operated.  HTTP communication is nearly as ubiquitous as socket communication in most frameworks.</li>
             <li>Most other easily embeddable webserver libraries have serious limitations, and have their own ad-hoc socket code where we can build on the strengths of <code>lw_server</code> and <code>lw_eventpump</code>.</li>
