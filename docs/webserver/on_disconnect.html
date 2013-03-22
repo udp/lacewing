@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<meta name="description" content="The on_disconnect hook is triggered when the connection that started a #Request# closes before the response has been sent (ie. request::finish has been called)." />
+	<meta name="description" content="The on_disconnect hook is triggered when the connection that started a request closes before the response has been sent (ie. request::finish has been called)." />
 	<meta http-equiv="content-language" content="en"/>
 	<title>on_disconnect (webserver) - liblacewing API</title>
 	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
@@ -26,7 +26,7 @@ webserver->on_disconnect (on_disconnect); <font color="green">/* to register the
 {
 }
 
-lw_ws_on_disconnect (webserver, on_disconnect); <font color="green">/* to register the hook */</font></pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>The <i>on_disconnect</i> hook is triggered when the connection that started a #Request# closes <i>before</i> the response has been sent (ie. <a href="request/finish.html">request::finish</a> has been called).</p><p><i>on_disconnect</i> is not called if <a href="enable_manual_finish.html">manual request finishing</a> has not been enabled, because then the lifetime of a #Request# object is not longer than the original hook (eg. #onGet# or #onPost#).</p><p>The exception to this rule is with multipart file upload, when <i>on_disconnect</i> may fire between the first <a href="on_upload_start.html">on_upload_start</a> and <a href="on_upload_post.html">on_upload_post</a>.</p><p>As <i>on_disconnect</i> only fires for an abnormally terminated request, it is a good way of detecting when a client using long-poll AJAX has left the page.</p></div></p>
+lw_ws_on_disconnect (webserver, on_disconnect); <font color="green">/* to register the hook */</font></pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>The <i>on_disconnect</i> hook is triggered when the connection that started a <a href="request">request</a> closes <i>before</i> the response has been sent (ie. <a href="request/finish.html">request::finish</a> has been called).</p><p><i>on_disconnect</i> is not called if <a href="enable_manual_finish.html">manual request finishing</a> has not been enabled, because then the lifetime of a <a href="request">request</a> object is not longer than the original hook (eg. #onGet# or #onPost#).</p><p>The exception to this rule is with multipart file upload, when <i>on_disconnect</i> may fire between the first <a href="on_upload_start.html">on_upload_start</a> and <a href="on_upload_post.html">on_upload_post</a>.</p><p>As <i>on_disconnect</i> only fires for an abnormally terminated request, it is a good way of detecting when a client using long-poll AJAX has left the page.</p></div></p>
 </div>
 
 <div class="bottom"></div>

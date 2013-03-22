@@ -18,7 +18,7 @@
 </div>
 
 <div id="content">
-    <h1>lacewing::thread</h1><p><h2>Description</h2><div class="sectionBody"><p><b>thread</b> provides a simple, cross-platform facility for starting and joining a named thread.</p><p>The constructor for <b>thread</b> takes two parameters:</p><p><ul><li>A pointer to the thread procedure</li><li>A user-defined name for the thread</li></ul></p><p>The thread procedure may take a single pointer-sized parameter (as will be passed to <a href="start.html">start</a>) and return a 32-bit integer (returned by <a href="join.html">join</a>).</p><p>When working with threads, remember that the majority of liblacewing is <i>not</i> thread-safe, with the exception of #eventpump::post# and similar.</p></div></p><p><h2>See also</h2><div class="sectionBody"><a href="../sync">sync</a></div></p>
+    <h1>lacewing::thread</h1><p><h2>Description</h2><div class="sectionBody"><p><b>thread</b> provides a simple, cross-platform facility for starting and joining a named thread.</p><p>The constructor for <b>thread</b> takes two parameters:</p><p><ul><li>A pointer to the thread procedure</li><li>A user-defined name for the thread</li></ul></p><p>The thread procedure may take a single pointer-sized parameter (as will be passed to <a href="start.html">start</a>) and return a 32-bit integer (returned by <a href="join.html">join</a>).</p><p>When working with threads, remember that the majority of liblacewing is <i>not</i> thread-safe, with the exception of <a href="../pump/post.html">pump::post</a> and similar.</p></div></p><p><h2>See also</h2><div class="sectionBody"><a href="../sync">sync</a></div></p>
 </div>
 
 <div class="bottom"></div>

@@ -18,7 +18,7 @@
 </div>
 
 <div id="content">
-    <h1>lacewing::timer</h1><p><h2>Description</h2><div class="sectionBody"><p>The <b>timer</b> class provides a simple <a href="../eventpump">eventpump</a> driven timer, useful for implementing a "heartbeat" in server applications.</p><p><b>timer</b> is implemented using <a target="_blank" href="http://manpages.courier-mta.org/htmlman2/timerfd_create.2.html">Timer FDs</a> on Linux, <a target="_blank" href="http://www.freebsd.org/cgi/man.cgi?query=kqueue&sektion=2">kqueue</a>'s <code>EVFILT_FILTER</code>, or a thread and #eventpump::post# on other systems.</p></div></p>
+    <h1>lacewing::timer</h1><p><h2>Description</h2><div class="sectionBody"><p>The <b>timer</b> class provides a simple <a href="../eventpump">eventpump</a> driven timer, useful for implementing a "heartbeat" in server applications.</p><p><b>timer</b> is implemented using <a target="_blank" href="http://manpages.courier-mta.org/htmlman2/timerfd_create.2.html">Timer FDs</a> on Linux, <a target="_blank" href="http://www.freebsd.org/cgi/man.cgi?query=kqueue&sektion=2">kqueue</a>'s <code>EVFILT_FILTER</code>, or a thread and <a href="../pump/post.html">pump::post</a> on other systems.</p></div></p>
 </div>
 
 <div class="bottom"></div>
