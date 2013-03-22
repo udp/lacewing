@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Getter/setter for the SO_REUSEADDR option for this filter." />
+	<meta http-equiv="content-language" content="en"/>
+	<title>reuse (filter) - liblacewing API</title>
+	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
+</head>
+<body>
+<div id="container">
+<div id="nav">
+    <div class="header">lacewing::filter (A-Z)</div>
+    <br />    
+    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="ipv6.html">ipv6</a></li><li class="nav_item"><a href="local.html">local</a></li><li class="nav_item"><a href="local_port.html">local_port</a></li><li class="nav_item"><a href="remote.html">remote</a></li><li class="nav_item"><a href="remote_port.html">remote_port</a></li><li class="nav_item selected">reuse</li></ul> 
+</div>
+
+<div id="content">
+    <h1><span id="function">reuse</span> (filter)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> lacewing::filter::reuse (<font color="blue">bool</font>)</pre></td></tr><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">bool</font> lacewing::filter::reuse ()</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre>lw_bool lw_filter_reuse (lw_filter)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_filter_reuse (lw_filter, lw_bool)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Getter/setter for the <code>SO_REUSEADDR</code> option for this <a href="index.html">filter</a>.</p><p>This is set to <code>false</code> by default. When enabled, it allows a server-side class to bind to a port marked as busy (i.e. potentially already bound by something else).</p><p>This option is often convenient when testing an application on operating systems where ports are not released immediately when a process exits.</p></div></p>
+</div>
+
+<div class="bottom"></div>
+
+<div id="parent"><a href="../">&lt;&lt; Back to lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/filter.c">View function source &gt;&gt;</a></div>
+<div id="copyright">
+<hr>
+Copyright &copy; The Lacewing Project Authors 2012, 2013<br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2013-Jan-15.</i><br />
+</div>
+
+</div>
+</body>
+</html>

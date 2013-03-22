@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Start listening for datagrams using a port, filter or address." />
+	<meta http-equiv="content-language" content="en"/>
+	<title>host (udp) - liblacewing API</title>
+	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
+</head>
+<body>
+<div id="container">
+<div id="nav">
+    <div class="header">lacewing::udp (A-Z)</div>
+    <br />    
+    <ul><li class="nav_header">Methods</li><li class="nav_item selected">host</li><li class="nav_item"><a href="hosting.html">hosting</a></li><li class="nav_item"><a href="port.html">port</a></li><li class="nav_item"><a href="send.html">send</a></li><li class="nav_item"><a href="unhost.html">unhost</a></li></ul><ul><li class="nav_header">Handlers</li><li class="nav_item"><a href="on_data.html">on_data</a></li><li class="nav_item"><a href="on_error.html">on_error</a></li></ul> 
+</div>
+
+<div id="content">
+    <h1><span id="function">host</span> (udp)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> lacewing::udp::host (<font color="blue">long</font> port)</pre></td></tr><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> lacewing::udp::host (lacewing::filter)</pre></td></tr><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> lacewing::udp::host (lacewing::address)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_udp_host (lw_udp, <font color="blue">long</font> port)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_udp_host_filter (lw_udp, lw_filter)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_udp_host_addr (lw_udp, lw_addr)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Start listening for datagrams using a port, <a href="../filter">filter</a> or <a href="../address">address</a>.</p></div></p><p><h2>Parameters</h2><div class="sectionBody"><i>port</i><br /><div class="parameterDesc"><p>The port to listen on</p></div><strong>OR</strong>&nbsp;<i>filter</i><br /><div class="parameterDesc"><p>A <a href="../filter">filter</a> describing where to listen for data</p></div><strong>OR</strong>&nbsp;<i>address</i><br /><div class="parameterDesc"><p>A specific <a href="../address">address</a> to listen for data from</p></div></div></p><p><h2>See also</h2><div class="sectionBody"><a href="unhost.html">unhost</a><br /><a href="hosting.html">hosting</a></div></p>
+</div>
+
+<div class="bottom"></div>
+
+<div id="parent"><a href="../">&lt;&lt; Back to lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/unix/udp.c">Source (Unix)</a> | <a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/windows/udp.c">Source (Windows)</a></div>
+<div id="copyright">
+<hr>
+Copyright &copy; The Lacewing Project Authors 2012, 2013<br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2013-Jan-15.</i><br />
+</div>
+
+</div>
+</body>
+</html>

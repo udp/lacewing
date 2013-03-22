@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Returns a formatted error message for an error object." />
+	<meta http-equiv="content-language" content="en"/>
+	<title>tostring (error) - liblacewing API</title>
+	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
+</head>
+<body>
+<div id="container">
+<div id="nav">
+    <div class="header">lacewing::error (A-Z)</div>
+    <br />    
+    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="add.html">add</a></li><li class="nav_item"><a href="clone.html">clone</a></li><li class="nav_item selected">tostring</li></ul> 
+</div>
+
+<div id="content">
+    <h1><span id="function">tostring</span> (error)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">const</font> <font color="blue">char</font> * lacewing::error::tostring ()</pre></td></tr><tr><td class="lang"><b>C++</b></td><td class="code"><pre>lacewing::error::operator <font color="blue">const</font> <font color="blue">char</font> * ()</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">const</font> <font color="blue">char</font> * lw_error_tostring (lw_error)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Returns a formatted error message for an <a href="index.html">error</a> object.</p><p>The string will be valid as long as the <a href="index.html">error</a> object is in scope. If more errors are added using <a href="add.html">add</a>, <i>tostring</i> should be called again and the old string considered invalid.</p></div></p>
+</div>
+
+<div class="bottom"></div>
+
+<div id="parent"><a href="../">&lt;&lt; Back to lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/error.c">View function source &gt;&gt;</a></div>
+<div id="copyright">
+<hr>
+Copyright &copy; The Lacewing Project Authors 2012, 2013<br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2013-Jan-15.</i><br />
+</div>
+
+</div>
+</body>
+</html>

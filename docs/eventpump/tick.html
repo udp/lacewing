@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Causes the eventpump to dispatch any currently pending events, then returns immediately." />
+	<meta http-equiv="content-language" content="en"/>
+	<title>tick (eventpump) - liblacewing API</title>
+	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
+</head>
+<body>
+<div id="container">
+<div id="nav">
+    <div class="header">lacewing::eventpump (A-Z)</div>
+    <br />    
+    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="post_eventloop_exit.html">post_eventloop_exit</a></li><li class="nav_item"><a href="start_eventloop.html">start_eventloop</a></li><li class="nav_item"><a href="start_sleepy_ticking.html">start_sleepy_ticking</a></li><li class="nav_item selected">tick</li><li class="extra"><a href="../pump"> +8 from pump</a></li></ul> 
+</div>
+
+<div id="content">
+    <h1><span id="function">tick</span> (eventpump)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre>lacewing::error lacewing::eventpump::tick ()</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre>lw_error lw_eventpump_tick (lw_eventpump)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Causes the <a href="index.html">eventpump</a> to dispatch any currently pending events, then returns immediately.</p><p>If any hooks need to run, they are guaranteed to be called before <i>tick</i> returns. This function never blocks.</p><p>This method of using <a href="index.html">eventpump</a> is particularly suited to games, which can simply place a call to <i>tick</i> in the gameloop to have all attached classes function properly.</p><p><div class="notice"><p><b>Error Handling</b> - As <a href="index.html">eventpump</a> has no hooks, any error will be returned directly from this function as a pointer to an #Error# object. If no error occurred, <code>0</code> will be returned.</p><p>If an error does occur, it is the responsibility of the application to free the resulting <a href="../error">error</a> object using <code>error_delete</code> (C++) or <code>lw_error_delete</code> (C).</p></div></p></div></p><p><h2>See also</h2><div class="sectionBody"><a href="start_eventloop.html">start_eventloop</a><br /><a href="start_sleepy_ticking.html">start_sleepy_ticking</a></div></p>
+</div>
+
+<div class="bottom"></div>
+
+<div id="parent"><a href="../">&lt;&lt; Back to lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/unix/eventpump.c">Source (Unix)</a> | <a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/windows/eventpump.c">Source (Windows)</a></div>
+<div id="copyright">
+<hr>
+Copyright &copy; The Lacewing Project Authors 2012, 2013<br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2013-Jan-15.</i><br />
+</div>
+
+</div>
+</body>
+</html>

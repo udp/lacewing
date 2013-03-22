@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Returns the next client on the server, or 0 if this client is the last." />
+	<meta http-equiv="content-language" content="en"/>
+	<title>next (server::client) - liblacewing API</title>
+	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
+</head>
+<body>
+<div id="container">
+<div id="nav">
+    <div class="header">server::client (A-Z)</div>
+    <br />    
+    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="address.html">address</a></li><li class="nav_item selected">next</li><li class="nav_item"><a href="npn.html">npn</a></li><li class="extra"><a href="../../fdstream"> +16 from fdstream</a></li></ul> 
+</div>
+
+<div id="content">
+    <h1><span id="function">next</span> (server::client)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre>lacewing::server::client lacewing::server::client::next ()</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre>lw_stream lw_server_client_next (lw_server_client)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Returns the next <a href="index.html">client</a> on the <a href="../../server">server</a>, or <code>0</code> if this <a href="index.html">client</a> is the last.</p><p>Combined with <a href="../../server/client_first.html">server::client_first</a>, this can be used to iterate through the entire client list. The order of the clients is unspecified.</p></div></p>
+</div>
+
+<div class="bottom"></div>
+
+<div id="parent"><a href="../">&lt;&lt; Back to server</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/unix/server.c">Source (Unix)</a> | <a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/windows/server.c">Source (Windows)</a></div>
+<div id="copyright">
+<hr>
+Copyright &copy; The Lacewing Project Authors 2012, 2013<br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2013-Jan-15.</i><br />
+</div>
+
+</div>
+</body>
+</html>

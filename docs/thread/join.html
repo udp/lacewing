@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Blocks until the thread is no longer running, returning the result of the thread function." />
+	<meta http-equiv="content-language" content="en"/>
+	<title>join (thread) - liblacewing API</title>
+	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
+</head>
+<body>
+<div id="container">
+<div id="nav">
+    <div class="header">lacewing::thread (A-Z)</div>
+    <br />    
+    <ul><li class="nav_header">Methods</li><li class="nav_item selected">join</li><li class="nav_item"><a href="start.html">start</a></li><li class="nav_item"><a href="started.html">started</a></li></ul> 
+</div>
+
+<div id="content">
+    <h1><span id="function">join</span> (thread)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> lacewing::thread::join ()</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_thread_join (lw_thread)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Blocks until the <a href="index.html">thread</a> is no longer running, returning the result of the thread function.</p><p>If the thread is not currently running, this function will return <code>-1</code> immediately.</p></div></p><p><h2>See also</h2><div class="sectionBody"><a href="started.html">started</a></div></p>
+</div>
+
+<div class="bottom"></div>
+
+<div id="parent"><a href="../">&lt;&lt; Back to lacewing</a></div><div id="source"><a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/unix/thread.c">Source (Unix)</a> | <a target="_blank" href="https://github.com/udp/lacewing/blob/master/src/windows/thread.c">Source (Windows)</a></div>
+<div id="copyright">
+<hr>
+Copyright &copy; The Lacewing Project Authors 2012, 2013<br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2013-Jan-15.</i><br />
+</div>
+
+</div>
+</body>
+</html>

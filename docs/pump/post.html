@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Posts a function to be called safely as part of the event loop." />
+	<meta http-equiv="content-language" content="en"/>
+	<title>post (pump) - liblacewing API</title>
+	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
+</head>
+<body>
+<div id="container">
+<div id="nav">
+    <div class="header">lacewing::pump (A-Z)</div>
+    <br />    
+    <ul><li class="nav_header">Methods</li><li class="nav_item"><a href="add.html">add</a></li><li class="nav_item"><a href="add_user.html">add_user</a></li><li class="nav_item"><a href="in_use.html">in_use</a></li><li class="nav_item selected">post</li><li class="nav_item"><a href="remove.html">remove</a></li><li class="nav_item"><a href="remove_user.html">remove_user</a></li><li class="nav_item"><a href="update_callbacks.html">update_callbacks</a></li><li class="nav_item"><a href="watch.html">watch</a></li></ul> 
+</div>
+
+<div id="content">
+    <h1><span id="function">post</span> (pump)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre><font color="blue">void</font> lacewing::pump::post (<font color="blue">void</font> * <font color="blue">function</font>, <font color="blue">void</font> * parameter)</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_pump_post (lw_pump *, <font color="blue">void</font> * <font color="blue">function</font>, <font color="blue">void</font> * parameter)</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Posts a function to be called safely as part of the event loop.</p><p>The function specified by <code>function</code> will be called with the single pointer-sized parameter specified by <code>parameter</code> in the same way that a <a href="index.html">pump</a> callback would be executed.</p><p>For example, if the application was a game calling <a href="../eventpump/tick.html">eventpump::tick</a> every frame, the function would be called the next time <a href="../eventpump/tick.html">eventpump::tick</a> was called. If a thread is currently blocking on <a href="../eventpump/start_eventloop.html">eventpump::start_eventloop</a>, that thread would call the function as soon any pending operations had completed.</p><p><i>This function is thread-safe.</i></p></div></p><p><h2>Parameters</h2><div class="sectionBody"><i>function</i><br /><div class="parameterDesc"><p>A pointer to a C-style function to call.</p></div><i>parameter</i><br /><div class="parameterDesc"><p>A single pointer-sized parameter to pass to the function. If multiple parameters are required, a pointer to a structure may be passed.</p></div></div></p></div></p>
+</div>
+
+<div class="bottom"></div>
+
+<div id="parent"><a href="../">&lt;&lt; Back to lacewing</a></div><div id="source"></div>
+<div id="copyright">
+<hr>
+Copyright &copy; The Lacewing Project Authors 2012, 2013<br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2013-Jan-15.</i><br />
+</div>
+
+</div>
+</body>
+</html>
