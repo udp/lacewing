@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Release notes for version 0.5.0 of the cross-platform, high-level network I/O library" />
+	<meta http-equiv="content-language" content="en"/>
+	<title>0.5.0 Release Notes - liblacewing</title>
+	<link rel="stylesheet" type="text/css" href="../style.css" />
+</head>
+<body>
+
+<div id="content">
+
+    <h1>Release Notes - 0.5.1</h1>
+
+    <p>The 0.5.1 release of liblacewing is <a href="http://lacewing-project.org">now available</a>.</p>
+
+    <h2>Changes</h2>
+    <p>
+        <ul>
+            <li><code>lw_addr_clone</code> segfault fixed</li>
+
+            <li>The <code>outer_size</code> in <code>lw_streamdef</code> has been renamed to <code>tail_size</code>, and a new <code>lw_stream_from_tail</code> function has been added.  A section on <code>tail_size</code> usage is now included in the <a href="http://lacewing-project.org/faq.html#tail">FAQ</a>.</li>
+
+            <li><code>lw_udp</code> and <code>lw_flashpolicy</code> now allow a tag to be attached</li>
+
+            <li>The prototype for <code>lw_filter_clone</code> was erroneously called <code>lw_filter_copy</code> (and so the function was not callable)</li>
+
+            <li>Assorted fixes for <code>lw_udp</code>, which was unusable in 0.5.0</li>
+            
+            <li>New <code>lw_addr_type</code> and <code>lw_addr_set_type</code> functions added, to get and set the type (TCP or UDP) of an address</li>
+
+            <li>Fix problems with the UNIX implementation of <code>lw_timer_stop</code></li>
+
+            <li>Fix segfault with Windows FDStream when the completion routine fires after stream deletion</li>
+
+            <li>Fix some problems building on 64-bit Windows</li>
+    </p>
+
+    <br />
+
+</div>
+
+<div id="copyright">
+
+<p style="font-size: 8pt;">Copyright &copy; The Lacewing Project Authors 2013<br />
+<a target="_blank" href="https://github.com/udp/lacewing/tree/gh-pages">Repo for this page</a>
+</div>
+
+</body>
+</html>
