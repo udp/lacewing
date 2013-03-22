@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<meta name="description" content="Call #lw_sync_lock# (C) or create an instance of a lock (C++) to acquire exclusive access to the resource protected by a sync." />
+	<meta name="description" content="Call lock or create an instance of a lock (C++) to acquire exclusive access to the resource protected by a sync." />
 	<meta http-equiv="content-language" content="en"/>
 	<title>lock (sync) - liblacewing API</title>
 	<link rel="stylesheet" type="text/css" href="/docs/css/style.css" />
@@ -20,7 +20,7 @@
 <div id="content">
     <h1><span id="function">lock</span> (sync)</h1><table class="code"><col style="width: 70px;"><col /><tr><td class="lang"><b>C++</b></td><td class="code"><pre>{ lacewing::sync::lock lock (some_sync);
     /* we now have exclusive access to the resource protected by some_sync */
-}</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_sync_lock (lw_sync);</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Call #lw_sync_lock# (C) or create an instance of a <i>lock</i> (C++) to acquire exclusive access to the resource protected by a <a href="index.html">sync</a>.</p><p>#lw_sync_lock# or the <i>lock</i> constructor will block if the given <a href="index.html">sync</a> is currently locked by another thread.</p></div></p>
+}</pre></td></tr><tr><td class="lang"><b>C</b></td><td class="code"><pre><font color="blue">void</font> lw_sync_lock (lw_sync);</pre></td></tr></table><p><h2>Description</h2><div class="sectionBody"><p>Call <i>lock</i> or create an instance of a <i>lock</i> (C++) to acquire exclusive access to the resource protected by a <a href="index.html">sync</a>.</p><p><i>lock</i> or the <i>lock</i> constructor will block if the given <a href="index.html">sync</a> is currently locked by another thread.</p></div></p>
 </div>
 
 <div class="bottom"></div>
@@ -29,7 +29,7 @@
 <div id="copyright">
 <hr>
 Copyright &copy; The Lacewing Project Authors 2012, 2013<br />
-<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2013-Jan-15.</i><br />
+<i>This file is part of the <a href="http://lacewing-project.org">liblacewing</a> API documentation. It was last updated on 2013-Mar-22.</i><br />
 </div>
 
 </div>
