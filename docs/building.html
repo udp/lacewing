@@ -31,7 +31,8 @@
 <p>Building on Unix-like operating systems (such as Linux, FreeBSD, OS X or even Windows/MinGW) should be as easy as:</p>
 
 <pre class="code">./configure
-make && make install</pre>
+make
+make install</pre>
 
 By default, the library will depend on OpenSSL.  If SSL support is not required, this can be disabled with <code>--disable-ssl</code>:
 
@@ -43,23 +44,9 @@ To enable debugging symbols, configure with <code>--enable-debug</code>:</p>
 
 <h2>Android</h2>
 
-<p>It is possible to compile liblacewing for use with the Android NDK (<i>not</i> from Java). There is an <code>Android.mk</code> file provided in the <code>jni</code> folder, ready to use with <code>ndk-build</code>.</p>
+<p>It is possible to compile liblacewing for use with the Android NDK (<i>not</i> from Java). There is an <code>Android.mk</code> file provided in the <code>jni</code> directory, so assuming the NDK is in your PATH, it should be as simple as:</p>
 
-<p>Unfortunately, the NDK is missing OpenSSL by default, so it is necessary to get hold of <code>libssl.so</code>, <code>libcrypto.so</code> and the <code>openssl</code> include folder before you can build.</p>
-
-<p>A copy of these files is provided <a href="http://lacewing-project.org/openssl-ndk.zip">here</a> for convenience. If this becomes unavailable (or if you'd rather get them yourself) you can get the shared objects easy enough from an Android device or emulator:</p>
-
-<pre class="code">adb pull /system/lib/libssl.so
-adb pull /system/lib/libcrypto.so</pre>
-
-<p>The <code>openssl</code> include directory can be obtained through git:</p>
-
-<pre class="code">git clone -b donut http://android.git.kernel.org/platform/external/openssl.git</pre>
-
-<p>Install the files in [YOUR_NDK_ROOT]/platforms/android-*/arch-arm/usr (or somewhere else and add the search paths), and you should be good to go.</p>
-
-
-
+<pre class="code">ndk-build</pre>
 
 </div>
 
