@@ -164,10 +164,10 @@
 
         <h3 id="build-system">3.4. Why not use a build system like CMake or SCons?</h3>
         <p>
-            I'm sure they're brilliant, but our more boring setup with autoconf and make seems to be adequate for the time being.
+            I'm sure they're brilliant, but our more boring setup with autoconf and (GNU) make seems to be adequate for the time being.  GNU make is required because (and this is stupid) the syntax for conditionals is slightly different compared to BSD make, and GNU make is the more common of the two.
         </p>
         <p>
-            The only issue is keeping the Visual Studio project in synchronization with the Makefile, but we don't really add or remove source files often enough for this to be a problem.
+            The only major issue with our current build system is keeping the Visual Studio project in synchronization with the Makefile, but we don't really add or remove source files often enough for this to be a problem.
         </p>
 
         <h3 id="wrapper-autogen">3.5. Can't the C++ wrappers be auto-generated?</h3>
