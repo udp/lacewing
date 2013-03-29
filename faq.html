@@ -62,6 +62,7 @@
                 <li><a href="#tags">4.4. Can I attach my own data to liblacewing classes?</a></li>
                 <li><a href="#stream-impl">4.5. How can I implement my own stream?</a></li>
                 <li><a href="#tail">4.6. I'm implementing a stream.  What's <code>tail_size</code> in <code>lw_streamdef</code>?</a></li>
+                <li><a href="#new-delete">4.7. Why is there a <code>lw_client_new</code> but not a <code>lw_client_delete</code>?</a></li>
             </ul>
         </li>
         <li><b>5. Future</b>
@@ -264,6 +265,12 @@
            lw_import lw_stream lw_stream_from_tail (void *);
         </pre>
         <p>Where <code>lw_stream_tail</code> returns a pointer to the data after the <code>lw_stream</code>, and <code>lw_stream_from_tail</code> returns the <code>lw_stream</code> from the pointer to the data.</p>
+
+        <h3 id="new-delete">4.7. Why is there a <code>lw_client_new</code> but not a <code>lw_client_delete</code>?</h3>
+        <p>
+            Only the base object has a delete function.  Anything that derives from <code>lw_stream</code> is deleted with <code>lw_stream_delete</code>, and similarly anything that derives from <code>lw_pump</code> is deleted with <code>lw_pump_delete</code>.
+        </p>
+
 
     <h1 id="roadmap">5. Future</h1>
 
