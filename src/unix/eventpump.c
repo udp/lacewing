@@ -228,6 +228,9 @@ lw_error lw_eventpump_start_eventloop (lw_eventpump ctx)
       
          if (count == -1)
          {
+            if (errno == EINTR)
+               continue;
+
             lwp_trace ("epoll error: %d", errno);
             break;
          }
@@ -261,6 +264,9 @@ lw_error lw_eventpump_start_eventloop (lw_eventpump ctx)
       
          if (count == -1)
          {
+            if (errno == EINTR)
+               continue;
+
             lwp_trace ("kevent error: %d", errno);
             break;
          }
