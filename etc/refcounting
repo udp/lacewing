@@ -1,0 +1,25 @@
+
+This file contains notes about the refcounting system used in liblacewing.
+
+
+lw_server
+=========
+
+* Creates an fdstream for each client when connected.  Retains a ref.
+
+* Releases ref on stream close
+
+* When calling out to user code (hooks):
+    
+    - Retain an extra ref on the client fdstream
+
+    - Call the hook
+
+    - Release the ref.  If lwp_release returned true or lwp_stream_flag_dead
+      is set, the client is gone and we should return immediately.
+
+
+
+
+
+
