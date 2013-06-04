@@ -382,23 +382,30 @@ static int on_body_end (multipart_parser * parser)
 
 void lwp_ws_multipart_call_hook (lwp_ws_multipart ctx)
 {
-    /* Only call the handler if all files are closed */
+   /* The handler might have already been called in autosave mode
+    */
+   if (ctx->called_handler)
+      return;
 
-    for (int i = 0; i < ctx->num_uploads; ++ i)
-    {
-        if (ctx->uploads [i]->autosave_file)
-            return;
-    }
+   /* Only call the handler if all files are closed
+    */
+   for (int i = 0; i < ctx->num_uploads; ++ i)
+   {
+      if (ctx->uploads [i]->autosave_file)
+         return;
+   }
 
-    lwp_ws_req_before_handler (ctx->request);
+   ctx->called_handler = lw_true;
 
-    if (ctx->ws->on_upload_post)
-    {
-       ctx->ws->on_upload_post (ctx->ws, ctx->request,
-                                ctx->uploads, ctx->num_uploads);
-    }
+   lwp_ws_req_before_handler (ctx->request);
 
-    lwp_ws_req_after_handler (ctx->request);
+   if (ctx->ws->on_upload_post)
+   {
+      ctx->ws->on_upload_post (ctx->ws, ctx->request,
+                               ctx->uploads, ctx->num_uploads);
+   }
+
+   lwp_ws_req_after_handler (ctx->request);
 }
     
 const multipart_parser_settings settings =

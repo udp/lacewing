@@ -37,6 +37,7 @@ typedef struct _lwp_ws_multipart
    multipart_parser * parser;
 
    lw_bool done;
+   lw_bool called_handler;
 
    lwp_nvhash disposition;
 
