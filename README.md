@@ -39,6 +39,36 @@ Issues with the documentation can be reported in the [gh-pages branch](https://g
 of the liblacewing GitHub repository.
 
 
+Changes in 0.5.2 (2013-Jun-05)
+==============================
+
+- The library can now build on Unix systems where neither `TCP_CORK` nor `TCP_NOPUSH` are available
+
+- The library can now build on systems without `AI_V4MAPPED` and `AI_ADDRCONFIG`
+
+- `alloca.h` is no longer required for SPDY support
+
+- Tags added to `lw_addr`, `lw_thread`, `lw_filter`, `lw_pump` and `lw_client`
+
+- MSVC static builds no longer use `__declspec(dllexport)`
+
+- Windows: `shutdown` is now called on sockets before `closesocket`
+
+- C++ API: Tag getters/setters added to all classes
+
+- C++ API: Server connect and disconnect hooks changed to receive a `server_client` instead of a `client`
+
+- Windows: Fixed various 0.5.0 regressions in `lw_client`
+
+- Unix: An `EINTR` result from `epoll_wait` or `kqueue` no longer causes `lw_eventpump_start_eventloop` to terminate
+
+- 0.5.0 regressions with `lw_server` refcounting fixed, which prevented the client list from functioning
+
+- Webserver: Issue with `on_upload_post` hook being fired multiple times fixed
+
+[0.5.2 Release Notes](http://lacewing-project.org/release/0.5.2.html)
+
+
 Changes in 0.5.1 (2013-Mar-22)
 ==============================
 
