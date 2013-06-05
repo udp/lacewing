@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Release notes for version 0.5.2 of the cross-platform, high-level network I/O library" />
+	<meta http-equiv="content-language" content="en"/>
+	<title>0.5.2 Release Notes - liblacewing</title>
+	<link rel="stylesheet" type="text/css" href="../style.css" />
+</head>
+<body>
+
+<div id="content">
+
+    <h1>Release Notes - 0.5.2</h1>
+
+    <p>The 0.5.2 release of liblacewing is <a href="http://lacewing-project.org">now available</a>.</p>
+
+    <p>This release fixes many of the regressions in the 0.5.x series.</p>
+
+    <h2>Changes</h2>
+    <p>
+        <ul>
+            <li>The library can now build on Unix systems where neither <code>TCP_CORK</code> nor <code>TCP_NOPUSH</code> are available</li>
+
+            <li>The library can now build on systems without <code>AI_V4MAPPED</code> and <code>AI_ADDRCONFIG</code></li>
+
+            <li><code>alloca.h</code> is no longer required for SPDY support</li>
+
+            <li>Tags added to <code>lw_addr</code>, <code>lw_thread</code>, <code>lw_filter</code>, <code>lw_pump</code> and <code>lw_client</code></li>
+
+            <li>MSVC static builds no longer use <code>__declspec(dllexport)</code></li>
+
+            <li>Windows: <code>shutdown</code> is now called on sockets before <code>closesocket</code></li>
+
+            <li>C++ API: Tag getters/setters added to all classes</li>
+
+            <li>C++ API: Server connect and disconnect hooks changed to receive a <code>server_client</code> instead of a <code>client</code></li>
+
+            <li>Windows: Fixed various 0.5.0 regressions in <code>lw_client</code></li>
+
+            <li>Unix: An <code>EINTR</code> result from <code>epoll_wait</code> or <code>kqueue</code> no longer causes <code>lw_eventpump_start_eventloop</code> to terminate</li>
+
+            <li>0.5.0 regressions with <code>lw_server</code> refcounting fixed, which prevented the client list from functioning</li>
+
+            <li>Webserver: Issue with <code>on_upload_post</code> hook being fired multiple times fixed</li>
+        </ul>
+    </p>
+
+    <br />
+
+</div>
+
+<div id="copyright">
+
+<p style="font-size: 8pt;">Copyright &copy; The Lacewing Project Authors 2013<br />
+<a target="_blank" href="https://github.com/udp/lacewing/tree/gh-pages">Repo for this page</a>
+</div>
+
+</body>
+</html>
