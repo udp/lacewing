@@ -1,15 +1,4 @@
 
-PREFIX = $(DESTDIR)@prefix@
-
-CC = @CC@
-CXX = @CXX@
-AR = @AR@
-
-CFLAGS = @CFLAGS@
-CXXFLAGS = @CXXFLAGS@
-LDFLAGS = @LDFLAGS@
-LIBS = @LIBS@
-
 # unix or windows
 PLATFORM = @PLATFORM@
 
@@ -21,6 +10,21 @@ ENABLE_SPDY = @ENABLE_SPDY@
 
 # 1 to enable SSL support
 ENABLE_SSL = @ENABLE_SSL@
+
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+bindir = $(DESTDIR)@bindir@
+includedir = $(DESTDIR)@includedir@
+libdir = $(DESTDIR)@libdir@
+
+CC = @CC@
+CXX = @CXX@
+AR = @AR@
+
+CFLAGS = @CFLAGS@
+CXXFLAGS = @CXXFLAGS@
+LDFLAGS = @LDFLAGS@
+LIBS = @LIBS@
 
 SO_EXT = @SO_EXT@
 SO_NAME = @SO_NAME@
@@ -347,21 +351,21 @@ clean:
 
 install: liblacewing.@SO_EXT@ liblacewing.a
 	@echo -----
-	@echo Installing shared library: $(PREFIX)/lib/liblacewing.@SO_EXT@
-	@install -d $(PREFIX)/lib
-	@install -m 0755 liblacewing.@SO_EXT@ $(PREFIX)/lib/$(REAL_NAME)
-	@rm -f $(PREFIX)/lib/$(SO_NAME)
-	@ln -s $(REAL_NAME) $(PREFIX)/lib/$(SO_NAME)
-	@rm -f $(PREFIX)/lib/liblacewing.@SO_EXT@
-	@ln -s $(SO_NAME) $(PREFIX)/lib/liblacewing.@SO_EXT@
-	@echo Installing static library: $(PREFIX)/lib/liblacewing.a
-	@install -m 0755 liblacewing.a $(PREFIX)/lib/liblacewing.a
-	@echo Installing header file: $(PREFIX)/include/lacewing.h
-	@install -d $(PREFIX)/include
-	@install -m 0644 ./include/lacewing.h $(PREFIX)/include/lacewing.h
+	@echo Installing shared library: $(libdir)/liblacewing.@SO_EXT@
+	@install -d $(libdir)
+	@install -m 0755 liblacewing.@SO_EXT@ $(libdir)/$(REAL_NAME)
+	@rm -f $(libdir)/$(SO_NAME)
+	@ln -s $(REAL_NAME) $(libdir)/$(SO_NAME)
+	@rm -f $(libdir)/liblacewing.@SO_EXT@
+	@ln -s $(SO_NAME) $(libdir)/liblacewing.@SO_EXT@
+	@echo Installing static library: $(libdir)/liblacewing.a
+	@install -m 0755 liblacewing.a $(libdir)/liblacewing.a
+	@echo Installing header file: $(includedir)/lacewing.h
+	@install -d $(includedir)
+	@install -m 0644 ./include/lacewing.h $(includedir)/lacewing.h
 	@echo -----
-	@echo Compiler flags: -I$(PREFIX)/include
-	@echo Linker flags: -L$(PREFIX)/lib -llacewing
+	@echo Compiler flags: -I$(includedir)
+	@echo Linker flags: -L$(libdir) -llacewing
 	@echo ------
 
 ############
