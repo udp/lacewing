@@ -156,9 +156,9 @@ all: liblacewing.@SO_EXT@ liblacewing.a
 liblacewing.@SO_EXT@: $(OBJECTS)
 	@echo Linking shared library...
 ifeq ($(ENABLE_CXX), 1)
-	@$(CXX) $(CXXFLAGS) $(SONAME_FLAGS) -shared -o $(REAL_NAME) $(OBJECTS) $(LIBS)
+	@$(CXX) $(CXXFLAGS) $(SONAME_FLAGS) -shared -o liblacewing.@SO_EXT@ $(OBJECTS) $(LIBS)
 else
-	@$(CC) $(CFLAGS) $(SONAME_FLAGS) -shared -o $(REAL_NAME) $(OBJECTS) $(LIBS)
+	@$(CC) $(CFLAGS) $(SONAME_FLAGS) -shared -o liblacewing.@SO_EXT@ $(OBJECTS) $(LIBS)
 endif
 
 liblacewing.a: $(OBJECTS)
@@ -349,7 +349,7 @@ install: liblacewing.@SO_EXT@ liblacewing.a
 	@echo -----
 	@echo Installing shared library: $(PREFIX)/lib/liblacewing.@SO_EXT@
 	@install -d $(PREFIX)/lib
-	@install -m 0755 $(REAL_NAME) $(PREFIX)/lib/$(REAL_NAME)
+	@install -m 0755 liblacewing.@SO_EXT@ $(PREFIX)/lib/$(REAL_NAME)
 	@rm -f $(PREFIX)/lib/$(SO_NAME)
 	@ln -s $(REAL_NAME) $(PREFIX)/lib/$(SO_NAME)
 	@rm -f $(PREFIX)/lib/liblacewing.@SO_EXT@
