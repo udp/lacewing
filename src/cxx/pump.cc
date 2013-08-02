@@ -70,8 +70,8 @@ bool _pump::in_use ()
                            lw_pump_callback on_write_ready,
                            bool edge_triggered)
  {
-    lw_pump_add ((lw_pump) this, fd, tag, on_read_ready,
-                 on_write_ready, edge_triggered);
+    return (lw_pump_watch) lw_pump_add
+       ((lw_pump) this, fd, tag, on_read_ready, on_write_ready, edge_triggered);
  }
 
  void _pump::update_callbacks (lw_pump_watch watch, void * tag,
