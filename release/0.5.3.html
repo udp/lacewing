@@ -25,7 +25,7 @@
     <p>
         <ul>
             <li><code>lw_event</code> now supports infinite timeouts when waiting for events</li>
-            <li>The C++ wrapper for <a href="http://lacewing-project.org/docs/pump/add.html">pump:;add</a> now returns the <code>lw_pump_watch</code></li>
+            <li>The C++ wrapper for <a href="http://lacewing-project.org/docs/pump/add.html">pump::add</a> now returns the <code>lw_pump_watch</code></li>
             <li>The makefile now respects autoconf <code>libdir</code> and <code>includedir</code>.  Previously, the library would always install to <code>$(PREFIX)/lib</code>, which was incorrect on (for example) 64-bit Fedora systems where <code>lib64</code> is used instead.</li>
             <li>The makefile now produces a dynamic library without the version suffix (i.e. <code>liblacewing.so</code> instead of <code>liblacewing.so.0.5.3</code>).  <code>make install</code> will still install the library with the version suffix.</li>
         </ul>
