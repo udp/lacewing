@@ -1,6 +1,6 @@
 AC_PREREQ([2.49])
 
-AC_INIT([liblacewing], [0.5.2], [])
+AC_INIT([liblacewing], [0.5.3], [])
 VERSION_MAJOR="0.5"
 
 AC_CONFIG_MACRO_DIR([m4])

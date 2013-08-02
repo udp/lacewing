@@ -51,7 +51,7 @@ const char * lw_version ()
       #endif
 
       #ifndef PACKAGE_VERSION
-         #define PACKAGE_VERSION "0.5.2"
+         #define PACKAGE_VERSION "0.5.3"
       #endif
 
       sprintf (version, "liblacewing " PACKAGE_VERSION " (%s, %d-bit)",

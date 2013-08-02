@@ -39,6 +39,22 @@ Issues with the documentation can be reported in the [gh-pages branch](https://g
 of the liblacewing GitHub repository.
 
 
+Changes in 0.5.3 (2013-Aug-02)
+==============================
+
+- `lw_eventpump_start_sleepy_ticking` is now supported on UNIX
+
+- `lw_event` now supports infinite timeouts
+
+- C++ wrapper for `pump::add` now returns the `lw_pump_watch`
+
+- The makefile now respects autoconf `libdir` and `includedir`
+
+- The makefile now produces an unversioned dynamic library, while still installing with the version suffix
+
+[0.5.3 Release Notes](http://lacewing-project.org/release/0.5.3.html)
+
+
 Changes in 0.5.2 (2013-Jun-05)
 ==============================
 
