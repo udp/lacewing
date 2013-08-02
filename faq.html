@@ -63,6 +63,7 @@
                 <li><a href="#stream-impl">4.5. How can I implement my own stream?</a></li>
                 <li><a href="#tail">4.6. I'm implementing a stream.  What's <code>tail_size</code> in <code>lw_streamdef</code>?</a></li>
                 <li><a href="#new-delete">4.7. Why is there a <code>lw_client_new</code> but not a <code>lw_client_delete</code>?</a></li>
+                <li><a href="#qt">4.8. Can I use liblacewing in a Qt application without blocking the Qt eventloop?</a></li>
             </ul>
         </li>
         <li><b>5. Future</b>
@@ -196,6 +197,11 @@
         <p>
             (Note that <code>lw_stream</code> was just used as an example here; this applies to all liblacewing classes.)
         </p>
+        <h3 id="windows-separation">3.8. Why is the Windows and UNIX code completely separate?  Isn't this code duplication?</h3>
+        <p>
+            If you've worked with raw sockets before, you might be wondering why we did this when Berkeley socket code seems to work just fine on Windows.  Well, the truth is that Berkeley-style sockets on Windows are just a wrapper over the real Winsock, and that wrapper is severely limited.
+        </p>
+            IF YO 
 
     <h1 id="structure">4. Structure</h1>
 
@@ -269,6 +275,11 @@
         <h3 id="new-delete">4.7. Why is there a <code>lw_client_new</code> but not a <code>lw_client_delete</code>?</h3>
         <p>
             Only the base object has a delete function.  Anything that derives from <code>lw_stream</code> is deleted with <code>lw_stream_delete</code>, and similarly anything that derives from <code>lw_pump</code> is deleted with <code>lw_pump_delete</code>.
+        </p>
+
+        <h3 id="qt">4.8. Can I use liblacewing in a Qt application without blocking the Qt eventloop?</h3>
+        <p>
+            Yes, this can be accomplished using the <a href="http://lacewing-project.org/docs/eventpump/start_sleepy_ticking.html" target="_blank">sleepy ticking API</a>.  An example can be found <a href="https://github.com/udp/lacewing/issues/74#issuecomment-22009183" target="_blank">here</a>.
         </p>
 
 
