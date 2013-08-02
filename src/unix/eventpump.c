@@ -221,7 +221,7 @@ lw_bool ready (lw_eventpump ctx, lw_pump_watch watch,
 
 lw_error lw_eventpump_tick (lw_eventpump ctx)
 {
-   lw_bool need_watcher_resume = false;
+   lw_bool need_watcher_resume = lw_false;
     
    if (ctx->watcher.num_events > 0)
    {
@@ -233,7 +233,7 @@ lw_error lw_eventpump_tick (lw_eventpump ctx)
 
       ctx->watcher.num_events = 0;
        
-      need_watcher_resume = true;
+      need_watcher_resume = lw_true;
    }
 
    #if defined (_lacewing_use_epoll)
