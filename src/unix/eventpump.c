@@ -52,6 +52,7 @@ lw_eventpump lw_eventpump_new ()
       return 0;
 
    ctx->watcher.thread = lw_thread_new ("watcher", (void *) watcher);
+   ctx->watcher.resume_event = lw_event_new ();
 
    lwp_pump_init (&ctx->pump, &def_eventpump);
 
@@ -105,6 +106,8 @@ static void def_cleanup (lw_pump pump)
       lw_event_signal (ctx->watcher.resume_event);
       lw_thread_join (ctx->watcher.thread);
    }
+
+   lw_event_delete (ctx->watcher.resume_event);
 
    /* TODO */
 }
@@ -218,6 +221,8 @@ lw_bool ready (lw_eventpump ctx, lw_pump_watch watch,
 
 lw_error lw_eventpump_tick (lw_eventpump ctx)
 {
+   lw_bool need_watcher_resume = false;
+    
    if (ctx->watcher.num_events > 0)
    {
       /* sleepy ticking: the watcher thread already grabbed some events we
@@ -227,8 +232,8 @@ lw_error lw_eventpump_tick (lw_eventpump ctx)
          process_event (ctx, ctx->watcher.events [i]);
 
       ctx->watcher.num_events = 0;
-
-      lw_event_signal (ctx->watcher.resume_event);
+       
+      need_watcher_resume = true;
    }
 
    #if defined (_lacewing_use_epoll)
@@ -251,7 +256,10 @@ lw_error lw_eventpump_tick (lw_eventpump ctx)
          process_event (ctx, kevents [i]);
    
    #endif
-
+    
+   if (need_watcher_resume)
+      lw_event_signal (ctx->watcher.resume_event);
+    
    return 0;
 }
 
