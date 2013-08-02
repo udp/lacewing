@@ -29,6 +29,8 @@
 
 #include "../pump.h"
 
+#define max_events  16
+
 struct _lw_pump_watch
 {
    lw_pump_callback on_read_ready, on_write_ready;
@@ -48,6 +50,26 @@ struct _lw_eventpump
 
    int signalpipe_read, signalpipe_write;
    list (void *, signalparams);
+
+   /* for start_sleepy_ticking
+    */
+   struct
+   {
+      lw_thread thread;
+
+      int num_events;
+
+      #if defined (_lacewing_use_epoll)
+        struct epoll_event events [max_events];
+      #elif defined (_lacewing_use_kqueue)
+        struct kevent events [max_events];
+      #endif
+
+      lw_event resume_event;
+
+   } watcher;
+
+   void (lw_callback * on_tick_needed) (lw_eventpump);
 };
 
 const lw_pumpdef def_eventpump;
