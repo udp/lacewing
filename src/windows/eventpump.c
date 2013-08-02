@@ -134,6 +134,8 @@ lw_eventpump lw_eventpump_new ()
       return 0;
 
    ctx->watcher.thread = lw_thread_new ("watcher", (void *) watcher);
+   ctx->watcher.resume_event = lw_event_new ();
+
    ctx->completion_port = CreateIoCompletionPort (INVALID_HANDLE_VALUE, 0, 4, 0);
 
    lwp_pump_init ((lw_pump) ctx, &def_eventpump);
@@ -152,6 +154,8 @@ static void def_cleanup (lw_pump _ctx)
       lw_event_signal (ctx->watcher.resume_event);
       lw_thread_join (ctx->watcher.thread);
    }
+
+   lw_event_delete (ctx->watcher.resume_event);
 }
 
 lw_error lw_eventpump_tick (lw_eventpump ctx)
