@@ -93,12 +93,19 @@ lw_bool lw_event_wait (lw_event ctx, long timeout)
     FD_ZERO (&set);
     FD_SET (ctx->pipe_r, &set);
 
-    struct timeval tv;
+    if (timeout == -1)
+    {
+       return select (ctx->pipe_r + 1, &set, 0, 0, 0) > 0;
+    }
+    else
+    {
+       struct timeval tv;
 
-    tv.tv_sec = timeout / 1000;
-    tv.tv_usec = (timeout % 1000) * 1000;
+       tv.tv_sec = timeout / 1000;
+       tv.tv_usec = (timeout % 1000) * 1000;
 
-    return select (ctx->pipe_r + 1, &set, 0, 0, &tv) > 0;
+       return select (ctx->pipe_r + 1, &set, 0, 0, &tv) > 0;
+    }
 }
 
 void lw_event_set_tag (lw_event ctx, void * tag)
