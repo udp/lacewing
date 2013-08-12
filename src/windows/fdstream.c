@@ -162,7 +162,7 @@ static void close_fd (lw_fdstream ctx)
 
          if (closesocket ((SOCKET) ctx->fd) == SOCKET_ERROR)
          {
-             assert (false);
+             assert (lw_false);
          }
       }
       else
