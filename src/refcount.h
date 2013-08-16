@@ -36,7 +36,7 @@ struct lwp_refcount
    void (* dealloc) (void *);
 };
 
-static lw_bool _lwp_release (struct lwp_refcount * refcount)
+inline lw_bool _lwp_release (struct lwp_refcount * refcount)
 {
    assert (refcount->refcount >= 1);
 
