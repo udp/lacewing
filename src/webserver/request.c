@@ -536,12 +536,12 @@ void lw_ws_req_disable_cache (lw_ws_req ctx)
 
 void lw_ws_req_set_header (lw_ws_req ctx, const char * name, const char * value)
 {
-   list_each (ctx->headers_out, header)
+   list_each_elem (ctx->headers_out, header)
    {
-      if (!strcasecmp (header.name, name))
+      if (!strcasecmp (header->name, name))
       {
-         free (header.value);
-         header.value = strdup (value);
+         free (header->value);
+         header->value = strdup (value);
 
          return;
       }
