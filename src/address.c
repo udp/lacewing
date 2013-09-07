@@ -128,14 +128,40 @@ lw_addr lw_addr_new_port_hint (const char * hostname, long port, long hints)
 
 lw_addr lwp_addr_new_sockaddr (struct sockaddr * sockaddr)
 {
-   /* TODO */
+   lw_addr addr = (lw_addr) calloc (sizeof (*addr), 1);
 
-   return 0;
+   if (!addr)
+      return 0;
+   
+   lwp_addr_set_sockaddr (addr, sockaddr);
+
+   return addr;
 }
 
 void lwp_addr_set_sockaddr (lw_addr ctx, struct sockaddr * sockaddr)
 {
-   /* TODO */
+   if (!ctx->info)
+      ctx->info = (struct addrinfo *) calloc (sizeof (*ctx->info), 1);
+
+   ctx->info->ai_family = sockaddr->sa_family;
+
+   free (ctx->info->ai_addr);
+   ctx->info->ai_addr = (struct sockaddr *) malloc (sizeof (struct sockaddr_storage));
+
+   switch (sockaddr->sa_family)
+   {
+      case AF_INET:
+
+         ctx->info->ai_addrlen = sizeof (struct sockaddr_in);
+         memcpy (ctx->info->ai_addr, sockaddr, sizeof (struct sockaddr_in));
+         break;
+
+      case AF_INET6:
+
+         ctx->info->ai_addrlen = sizeof (struct sockaddr_in6);
+         memcpy (ctx->info->ai_addr, sockaddr, sizeof (struct sockaddr_in6));
+         break;
+   };
 }
 
 lw_addr lw_addr_clone (lw_addr ctx)
@@ -172,8 +198,11 @@ lw_addr lw_addr_clone (lw_addr ctx)
 
 void lwp_addr_cleanup (lw_addr ctx)
 {
-   lw_thread_join (ctx->resolver_thread);
-   lw_thread_delete (ctx->resolver_thread);
+   if (ctx->resolver_thread)
+   {
+      lw_thread_join (ctx->resolver_thread);
+      lw_thread_delete (ctx->resolver_thread);
+   }
 
    free (ctx->hostname_to_free);
 
@@ -242,8 +271,8 @@ const char * lw_addr_tostring (lw_addr ctx)
 
          #endif
 
-            lwp_snprintf (ctx->buffer + strlen (ctx->buffer) - 1,
-                          sizeof (ctx->buffer) - strlen (ctx->buffer),
+            lwp_snprintf (ctx->buffer + strlen (ctx->buffer),
+                          sizeof (ctx->buffer) - strlen (ctx->buffer) - 1,
                           ":%d",
                           ntohs (((struct sockaddr_in6 *)
                                 ctx->info->ai_addr)->sin6_port));
@@ -327,7 +356,8 @@ void resolver (lw_addr ctx)
 
 lw_bool lw_addr_ready (lw_addr ctx)
 {
-   return !lw_thread_started (ctx->resolver_thread);
+   return !ctx->resolver_thread ||
+          !lw_thread_started (ctx->resolver_thread);
 }
 
 long lw_addr_port (lw_addr ctx)
@@ -361,7 +391,8 @@ void lw_addr_set_port (lw_addr ctx, long port)
 
 lw_error lw_addr_resolve (lw_addr ctx)
 {
-   lw_thread_join (ctx->resolver_thread);
+   if (ctx->resolver_thread)
+      lw_thread_join (ctx->resolver_thread);
 
    return ctx->error;
 }
