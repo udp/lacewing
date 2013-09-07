@@ -316,6 +316,11 @@ const char * _webserver_request::cookie (const char * name)
    return lw_ws_req_get_cookie ((lw_ws_req) this, name);
 }
 
+void _webserver_request::cookie (const char * name, const char * value)
+{
+   lw_ws_req_set_cookie ((lw_ws_req) this, name, value);
+}
+
 void _webserver_request::cookie (const char * name, const char * value, const char * attr)
 {
    lw_ws_req_set_cookie_attr ((lw_ws_req) this, name, value, attr);
