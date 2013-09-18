@@ -265,7 +265,8 @@ lw_error lw_eventpump_tick (lw_eventpump ctx)
 
 lw_error lw_eventpump_start_eventloop (lw_eventpump ctx)
 {
-   for (;;)
+   int do_loop = 1;
+   while (do_loop)
    {
       #if defined (_lacewing_use_epoll)
 
@@ -283,7 +284,10 @@ lw_error lw_eventpump_start_eventloop (lw_eventpump ctx)
    
          for (int i = 0; i < count; ++ i)
             if (!process_event (ctx, epoll_events [i]))
+            {
+               do_loop = 0;
                break;
+            }
          
       #elif defined (_lacewing_use_kqueue)
           
@@ -302,7 +306,10 @@ lw_error lw_eventpump_start_eventloop (lw_eventpump ctx)
 
          for (int i = 0; i < count; ++ i)
             if (!process_event (ctx, kevents [i]))
+            {
+               do_loop = 0;
                break;
+            }
       
       #endif
    }
