@@ -20,7 +20,7 @@
 <div id="content">
     <h1>Using the Tag members</h1>
 
-<p>Nearly every class in liblacewing has associated functions *<code>_tag</code> and *<code>_set_tag</code> (or two versions of <code>tag</code> in the C++ interface).</p>
+<p>Nearly every class in liblacewing has associated functions *<code>_tag</code> and *<code>_set_tag</code> (or two overrides of <code>tag</code> in the C++ interface).</p>
 
 <p>The tag is initialized to <code>0</code> when an instance of a class is created, but is then left alone by the library. You are free to use it to store your own pointer (perhaps extending a <a href="server/client">lacewing::server_client</a> with your own client-specific state, for instance).</p>
 
@@ -31,7 +31,7 @@
     <font color="green">/* Your data here */</font>
 };
 
-<font color="blue">void</font> onConnect (lacewing::server, lacewing::server_cliet Client)
+<font color="blue">void</font> onConnect (lacewing::server, lacewing::server_client Client)
 {
     Client->tag(<font color="blue">new</font> ClientState);
 }
