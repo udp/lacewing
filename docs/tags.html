@@ -20,32 +20,30 @@
 <div id="content">
     <h1>Using the Tag members</h1>
 
-<p>Nearly every class in liblacewing contains a member called <code>Tag</code>, and sometimes also <code>internal</code>.</p>
+<p>Nearly every class in liblacewing has associated functions *<code>_tag</code> and *<code>_set_tag</code> (or two versions of <code>tag</code> in the C++ interface).</p>
 
-<p>The <code>Tag</code> member is initialized to <code>0</code> when an instance of a class is created, but is then left alone by the library. You are free to use it to store your own pointer (perhaps extending a <a href="server/client">Server::Client</a> with your own client-specific state, for instance).</p>
+<p>The tag is initialized to <code>0</code> when an instance of a class is created, but is then left alone by the library. You are free to use it to store your own pointer (perhaps extending a <a href="server/client">lacewing::server_client</a> with your own client-specific state, for instance).</p>
 
-<p>The <code>internal</code> member is used to hide implementation details from the application and keep public class sizes constant, and the library will use it to store a pointer to an internal structure. This should not be accessed by code outside of the library itself.</p>
-
-<p>Most of the handlers that introduce new instances of classes (such as <a href="server/onConnect.html">Server::onConnect</a>) will state that they do so in the documentation, and when the <i>last</i> time the instance will be seen is (in this case, <a href="server/onDisconnect.html">onDisconnect</a>). This is a good time to free any data stored in <code>Tag</code>.</p>
+<p>Most of the handlers that introduce new instances of classes (such as <a href="server/on_connect.html">server::on_connect</a>) will state that they do so in the documentation, and when the <i>last</i> time the instance will be seen is (in this case, <a href="server/on_disconnect.html">on_disconnect</a>). This is a good time to free any data stored in <code>Tag</code>.</p>
 
 <pre class="code"><font color="blue">struct</font> ClientState
 {
     <font color="green">/* Your data here */</font>
 };
 
-<font color="blue">void</font> onConnect (Lacewing::Server &, Lacewing::Server::Client &Client)
+<font color="blue">void</font> onConnect (lacewing::server, lacewing::server_cliet Client)
 {
-    Client.Tag = <font color="blue">new</font> ClientState;
+    Client->tag(<font color="blue">new</font> ClientState);
 }
 
-<font color="blue">void</font> onDisconnect (Lacewing::Server &, Lacewing::Server::Client &Client)
+<font color="blue">void</font> onDisconnect (lacewing::server, lacewing::server_client Client)
 {
-    <font color="blue">delete</font> ((ClientState *) Client.Tag);
+    <font color="blue">delete</font> ((ClientState *) Client->tag());
 }
 
-<font color="blue">void</font> onReceive (Lacewing::Server &, Lacewing::Server::Client &Client)
+<font color="blue">void</font> onReceive (lacewing::server, lacewing::server_client Client)
 {
-    ClientState &State = *(ClientState *) Client.Tag; <font color="green">/* Guaranteed to be valid */</font>
+    ClientState &State = *(ClientState *) Client->tag(); <font color="green">/* Guaranteed to be valid */</font>
 
 }</pre>
 
