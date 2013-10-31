@@ -39,6 +39,21 @@ Issues with the documentation can be reported in the [gh-pages branch](https://g
 of the liblacewing GitHub repository.
 
 
+Changes in 0.5.4 (2013-Oct-31)
+==============================
+
+- `post_eventloop_exit` now works correctly on UNIX
+
+- Socket address is now stored and retrievable for server/webserver clients
+
+- Suppressed warnings about unused `lwp_release` function when compiling the library
+
+- Fix issue with the webserver accessing freed pointers when writing response headers
+
+[0.5.4 Release Notes](http://lacewing-project.org/release/0.5.4.html)
+
+
+
 Changes in 0.5.3 (2013-Aug-02)
 ==============================
 
