@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Release notes for version 0.5.4 of the cross-platform, high-level network I/O library" />
+	<meta http-equiv="content-language" content="en"/>
+	<title>0.5.4 Release Notes - liblacewing</title>
+	<link rel="stylesheet" type="text/css" href="../style.css" />
+</head>
+<body>
+
+<div id="content">
+
+    <h1>Release Notes - 0.5.4</h1>
+
+    <p>The 0.5.4 release of liblacewing is <a href="http://lacewing-project.org">now available</a>.</p>
+
+    <h2>Changes in this version</h2>
+    <p>
+        <ul>
+            <li>The <code>post_eventloop_exit</code> function is now implemented on UNIX platforms.</li>
+
+            <li>The socket address information is now stored and retrievable for server and webserver clients.  This fixes functions such as <code>lw_ws_req_addr</code>, which previously returned <code>NULL</code> (a 0.5.x regression.)</li>
+
+            <li>Suppressed warnings about unused <code>lwp_release</code> function when compiling the library</li>
+
+            <li>Fix issue with the webserver accessing freed pointers when writing response headers.  This could cause segmentation faults or heap corruption in some cases.</code>
+        </ul>
+    </p>
+
+    <br />
+
+</div>
+
+<div id="copyright">
+
+<p style="font-size: 8pt;">Copyright &copy; The Lacewing Project Authors 2013<br />
+<a target="_blank" href="https://github.com/udp/lacewing/tree/gh-pages">Repo for this page</a>
+</div>
+
+</body>
+</html>
+
+
