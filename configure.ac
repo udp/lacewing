@@ -110,8 +110,15 @@ CFLAGS="-std=gnu99 -Wall -Wno-format $CFLAGS"
 
 SO_NAME=liblacewing.$SO_EXT.$VERSION_MAJOR
 
+if test "x$SO_EXT" = "so"; then
+    REAL_NAME=liblacewing.so.$PACKAGE_VERSION
+else
+    REAL_NAME=liblacewing.$PACKAGE_VERSION.$SO_EXT
+fi
+
 AC_SUBST(SO_NAME, $SO_NAME)
 AC_SUBST(SO_EXT, $SO_EXT)
+AC_SUBST(REAL_NAME, $REAL_NAME)
 
 if test "x$host_alias" = "x"; then
     AC_SUBST(AR, ar)

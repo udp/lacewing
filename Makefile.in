@@ -29,7 +29,7 @@ LIBS = @LIBS@
 SO_EXT = @SO_EXT@
 SO_NAME = @SO_NAME@
 SONAME_FLAGS = @SONAME_FLAGS@
-REAL_NAME = liblacewing.@SO_EXT@.@PACKAGE_VERSION@
+REAL_NAME = @REAL_NAME@
 
 OBJECTS =\
 build/global.o \
@@ -347,7 +347,7 @@ build/webserver-cxx.o: src/cxx/webserver.cc $(COMMONDEPS)
 ############
 	
 clean:
-	rm -f liblacewing.@SO_EXT@* liblacewing.a build/*.o
+	rm -f $(REAL_NAME) liblacewing.so liblacewing.dylib liblacewing.a build/*.o
 
 install: liblacewing.@SO_EXT@ liblacewing.a
 	@echo -----

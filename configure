@@ -622,6 +622,7 @@ ac_subst_vars='LTLIBOBJS
 LIBOBJS
 SONAME_FLAGS
 AR
+REAL_NAME
 SO_EXT
 SO_NAME
 EGREP
@@ -4100,9 +4101,17 @@ CFLAGS="-std=gnu99 -Wall -Wno-format $CFLAGS"
 
 SO_NAME=liblacewing.$SO_EXT.$VERSION_MAJOR
 
+if test "x$SO_EXT" = "so"; then
+    REAL_NAME=liblacewing.so.$PACKAGE_VERSION
+else
+    REAL_NAME=liblacewing.$PACKAGE_VERSION.$SO_EXT
+fi
+
 SO_NAME=$SO_NAME
 
 SO_EXT=$SO_EXT
+
+REAL_NAME=$REAL_NAME
 
 
 if test "x$host_alias" = "x"; then
