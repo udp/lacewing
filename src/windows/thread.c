@@ -48,6 +48,7 @@ lw_thread lw_thread_new (const char * name, void * proc)
 
    ctx->proc = proc;
    ctx->thread = INVALID_HANDLE_VALUE;
+   ctx->name = strdup (name);
 
    return ctx;
 }
