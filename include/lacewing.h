@@ -454,6 +454,7 @@ lw_import       lw_bool  lw_random                   (char * buffer, size_t size
 /* Client */
 
   lw_import      lw_client  lw_client_new                (lw_pump);
+  lw_import           void  lw_client_delete             (lw_client);
   lw_import           void  lw_client_connect            (lw_client, const char * host, long port);
   lw_import           void  lw_client_connect_addr       (lw_client, lw_addr);
   lw_import           void  lw_client_disconnect         (lw_client);
