@@ -27,4 +27,8 @@ Release
 BuildLog*
 *.idb
 *.dep
+Makefile
+config.h
+config.log
+config.status
 
