@@ -359,8 +359,6 @@ static void watcher (lw_eventpump ctx)
          
       #elif defined (_lacewing_use_kqueue)
           
-         struct kevent kevents [max_events];
-      
          count = kevent
             (ctx->queue, 0, 0, ctx->watcher.events, max_events, 0);
       
