@@ -451,17 +451,21 @@ lw_import       lw_bool  lw_random                   (char * buffer, size_t size
   lw_import           void* lw_error_tag                 (lw_error);
   lw_import           void  lw_error_set_tag             (lw_error, void *);
 
-/* Client */
+/* Client
+ *
+ * Note: lw_client derives from lw_stream, so all of the stream functions are
+ * applicable.  To delete a lw_client, use lw_stream_delete.
+ */
 
-  lw_import      lw_client  lw_client_new                (lw_pump);
-  lw_import           void  lw_client_connect            (lw_client, const char * host, long port);
-  lw_import           void  lw_client_connect_addr       (lw_client, lw_addr);
-  lw_import           void  lw_client_disconnect         (lw_client);
-  lw_import        lw_bool  lw_client_connected          (lw_client);
-  lw_import        lw_bool  lw_client_connecting         (lw_client);
-  lw_import        lw_addr  lw_client_server_addr        (lw_client);
-  lw_import           void* lw_client_tag                (lw_client);
-  lw_import           void  lw_client_set_tag            (lw_client, void *);
+  lw_import      lw_client  lw_client_new                   (lw_pump);
+  lw_import           void  lw_client_connect               (lw_client, const char * host, long port);
+  lw_import           void  lw_client_connect_addr          (lw_client, lw_addr);
+  lw_import           void  lw_client_connect_secure        (lw_client, const char * host, long port);
+  lw_import           void  lw_client_connect_addr_secure   (lw_client, lw_addr);
+  lw_import           void  lw_client_disconnect            (lw_client);
+  lw_import        lw_bool  lw_client_connected             (lw_client);
+  lw_import        lw_bool  lw_client_connecting            (lw_client);
+  lw_import        lw_addr  lw_client_server_addr           (lw_client);
   
   typedef void (lw_callback * lw_client_hook_connect) (lw_client);
   lw_import void lw_client_on_connect (lw_client, lw_client_hook_connect);
