@@ -312,6 +312,7 @@ void lw_server_host_filter (lw_server ctx, lw_filter filter)
       if (ctx->on_error)
          ctx->on_error (ctx, error);
 
+      lw_error_delete (error);
       return;
    }
 
@@ -326,11 +327,12 @@ void lw_server_host_filter (lw_server ctx, lw_filter filter)
          ctx->on_error (ctx, error);
 
       lw_error_delete (error);
-
       return;
    }
 
    lw_pump_add (ctx->pump, ctx->socket, ctx, listen_socket_read_ready, 0, lw_true);
+   
+   lw_error_delete (error);
 }
 
 void lw_server_unhost (lw_server ctx)
