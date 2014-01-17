@@ -91,7 +91,10 @@ void lwp_heapbuffer_addf (lwp_heapbuffer * ctx, const char * format, ...)
    ssize_t length = lwp_format (&buffer, format, args);
 
    if (length > 0)
+   {
       lwp_heapbuffer_add (ctx, buffer, length);
+      free (buffer);
+   }
 
    va_end (args);
 }
