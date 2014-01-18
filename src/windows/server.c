@@ -1,7 +1,7 @@
 
-/* vim: set et ts=3 sw=3 ft=c:
+/* vim: set et ts=3 sw=3 sts=3 ft=c:
  *
- * Copyright (C) 2011, 2012 James McLaughlin et al.  All rights reserved.
+ * Copyright (C) 2011, 2012, 2013 James McLaughlin et al.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -29,8 +29,19 @@
 
 #include "../common.h"
 #include "../address.h"
-#include "sslclient.h"
+#include "ssl/serverssl.h"
 #include "fdstream.h"
+
+typedef struct _accept_overlapped
+{
+   OVERLAPPED overlapped;
+
+   SOCKET socket;
+
+   struct _lw_addr addr;
+   char addr_buffer [(sizeof (struct sockaddr_storage) + 16) * 2];
+
+} * accept_overlapped;
 
 static void on_client_close (lw_stream, void * tag);
 static void on_client_data (lw_stream, void * tag, const char * buffer, size_t size);
@@ -40,6 +51,7 @@ struct _lw_server
    SOCKET socket;
 
    lw_pump pump;
+   lw_pump_watch pump_watch;
 
    lw_server_hook_connect on_connect;
    lw_server_hook_disconnect on_disconnect;
@@ -49,7 +61,7 @@ struct _lw_server
    lw_bool cert_loaded;
    CredHandle ssl_creds;
 
-   long accepts_posted;
+   list (struct _accept_overlapped, pending_accepts);
 
    list (lw_server_client, clients);
 
@@ -64,13 +76,15 @@ struct _lw_server_client
 
    lw_bool on_connect_called;
 
-   lwp_winsslclient ssl;
-
    lw_addr addr;
 
    HANDLE socket;
 
    lw_server_client * elem;
+
+   /* TODO: don't include this for non SSL clients
+    */
+   struct _lwp_serverssl ssl;
 };
 
 lw_server lw_server_new (lw_pump pump)
@@ -124,7 +138,7 @@ lw_server_client lwp_server_client_new (lw_server ctx, SOCKET socket)
 
    if (ctx->cert_loaded)
    {
-      client->ssl = lwp_winsslclient_new (ctx->ssl_creds, (lw_stream) client);
+      lwp_serverssl_init (&client->ssl, ctx->ssl_creds, (lw_stream) client);
    }
 
    lw_fdstream_set_fd ((lw_fdstream) client, (HANDLE) socket, 0, lw_true);
@@ -134,24 +148,12 @@ lw_server_client lwp_server_client_new (lw_server ctx, SOCKET socket)
 
 const int ideal_pending_accept_count = 16;
 
-typedef struct 
-{
-   OVERLAPPED overlapped;
-
-   SOCKET socket;
-
-   struct _lw_addr addr;
-   char addr_buffer [(sizeof (struct sockaddr_storage) + 16) * 2];
-
-} accept_overlapped;
-
 static lw_bool issue_accept (lw_server ctx)
 {
-   accept_overlapped * overlapped =
-      (accept_overlapped *) calloc (sizeof (*overlapped), 1);
+   struct _accept_overlapped _overlapped = {};
+   list_push (ctx->pending_accepts, _overlapped);
 
-   if (!overlapped)
-      return lw_false;
+   accept_overlapped overlapped = list_elem_back (ctx->pending_accepts);
 
    if ((overlapped->socket = WSASocket (lwp_socket_addr (ctx->socket).ss_family,
                                         SOCK_STREAM,
@@ -160,7 +162,7 @@ static lw_bool issue_accept (lw_server ctx)
                                         0,
                                         WSA_FLAG_OVERLAPPED)) == INVALID_SOCKET)
    {
-      free (overlapped);
+      list_elem_remove (overlapped);
       return lw_false;
    }
 
@@ -182,10 +184,11 @@ static lw_bool issue_accept (lw_server ctx)
       int error = WSAGetLastError ();
 
       if (error != ERROR_IO_PENDING)
+      {
+         list_elem_remove (overlapped);
          return lw_false;
+      }
    }
-
-   ++ ctx->accepts_posted;
 
    return lw_true;
 }
@@ -194,17 +197,15 @@ static void listen_socket_completion (void * tag, OVERLAPPED * _overlapped,
                                       unsigned long bytes_transferred, int error)
 {
    lw_server ctx = (lw_server) tag;
-   accept_overlapped * overlapped = (accept_overlapped *) _overlapped;
-
-   -- ctx->accepts_posted;
+   accept_overlapped overlapped = (accept_overlapped) _overlapped;
 
    if (error)
    {
-      free (overlapped);
+      list_elem_remove (overlapped);
       return;
    }
 
-   while (ctx->accepts_posted < ideal_pending_accept_count)
+   while (list_length (ctx->pending_accepts) < ideal_pending_accept_count)
       if (!issue_accept (ctx))
          break;
 
@@ -235,14 +236,15 @@ static void listen_socket_completion (void * tag, OVERLAPPED * _overlapped,
    if (!client)
    {
       closesocket ((SOCKET) overlapped->socket);
-      free (overlapped);
+      list_elem_remove (overlapped);
 
       return;
    }
 
    client->addr = lwp_addr_new_sockaddr ((struct sockaddr *) remote_addr);
 
-   free (overlapped);
+   list_elem_remove (overlapped);
+   overlapped = NULL;
 
    lwp_retain (client);
 
@@ -288,6 +290,7 @@ void lw_server_host_filter (lw_server ctx, lw_filter filter)
       if (ctx->on_error)
          ctx->on_error (ctx, error);
 
+      lw_error_delete (error);
       return;
    }
 
@@ -302,21 +305,37 @@ void lw_server_host_filter (lw_server ctx, lw_filter filter)
          ctx->on_error (ctx, error);
 
       lw_error_delete (error);
-
       return;
    }
 
-   lw_pump_add (ctx->pump, (HANDLE) ctx->socket, ctx, listen_socket_completion);
+   ctx->pump_watch = lw_pump_add
+      (ctx->pump, (HANDLE) ctx->socket, ctx, listen_socket_completion);
 
-   while (ctx->accepts_posted < ideal_pending_accept_count)
+   while (list_length (ctx->pending_accepts) < ideal_pending_accept_count)
       if (!issue_accept (ctx))
          break;
+
+   lw_error_delete (error);
 }
 
 void lw_server_unhost (lw_server ctx)
 {
-    if(!lw_server_hosting (ctx))
+    if (!lw_server_hosting (ctx))
         return;
+
+    list_each (ctx->clients, client)
+    {
+       lw_stream_close ((lw_stream) client, lw_true);
+    }
+
+    assert (list_length (ctx->clients) == 0);
+
+    list_clear (ctx->pending_accepts);
+
+    lw_pump_remove (ctx->pump, ctx->pump_watch);
+    ctx->pump_watch = NULL;
+
+    CancelIo ((HANDLE) ctx->socket);
 
     closesocket (ctx->socket);
     ctx->socket = -1;
@@ -757,10 +776,14 @@ void on_client_close (lw_stream stream, void * tag)
       client->elem = 0;
    }
 
-   lwp_winsslclient_delete (client->ssl);
-   client->ssl = 0;
+   if (ctx->cert_loaded)
+   {
+      lwp_serverssl_cleanup (&client->ssl);
+   }
 
    lwp_release (client);
+
+   lw_stream_delete ((lw_stream) client);
 }
 
 void lw_server_on_data (lw_server ctx, lw_server_hook_data on_data)

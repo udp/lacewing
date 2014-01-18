@@ -60,6 +60,7 @@ void lw_thread_delete (lw_thread ctx)
 
    lw_thread_join (ctx);
 
+   free (ctx->name);
    free (ctx);
 }
 

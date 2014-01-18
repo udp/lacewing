@@ -95,6 +95,8 @@ void lw_pump_post (lw_pump ctx, void * proc, void * param)
    lw_pump_watch lw_pump_add (lw_pump ctx, HANDLE handle,
                               void * tag, lw_pump_callback callback)
    {
+      lw_pump_add_user (ctx);
+
       return ctx->def->add (ctx, handle, tag, callback);
    }
 
@@ -111,6 +113,8 @@ void lw_pump_post (lw_pump ctx, void * proc, void * param)
                               lw_pump_callback on_write_ready,
                               lw_bool edge_triggered)
    {
+      lw_pump_add_user (ctx);
+
       return ctx->def->add (ctx, fd, tag, on_read_ready,
                             on_write_ready, edge_triggered);
    }
@@ -129,6 +133,32 @@ void lw_pump_post (lw_pump ctx, void * proc, void * param)
 void lw_pump_remove (lw_pump ctx, lw_pump_watch watch)
 {
    ctx->def->remove (ctx, watch);
+
+   lw_pump_remove_user (ctx);
+}
+
+struct remove_proc_data
+{
+   lw_pump pump;
+   lw_pump_watch watch;
+};
+
+static void remove_proc (struct remove_proc_data * data)
+{
+   lw_pump_remove (data->pump, data->watch);
+
+   free (data);
+}
+
+void lw_pump_post_remove (lw_pump ctx, lw_pump_watch watch)
+{
+   struct remove_proc_data * data =
+      (struct remove_proc_data *) malloc (sizeof (*data));
+
+   data->pump = ctx;
+   data->watch = watch;
+
+   lw_pump_post (ctx, remove_proc, data);
 }
 
 void * lw_pump_tag (lw_pump ctx)

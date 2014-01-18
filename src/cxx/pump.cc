@@ -95,6 +95,11 @@ void _pump::post (void * func, void * param)
    lw_pump_post ((lw_pump) this, func, param);
 }
 
+void _pump::post_remove (lw_pump_watch watch)
+{
+   lw_pump_post_remove ((lw_pump) this, watch);
+}
+
 void * _pump::tag ()
 {
    return lw_pump_tag ((lw_pump) this);

@@ -38,7 +38,6 @@
 enum
 {
    sig_exit_eventloop,
-   sig_remove,
    sig_post
 };
 
@@ -144,18 +143,6 @@ lw_bool ready (lw_eventpump ctx, lw_pump_watch watch,
       {
          lw_sync_release (ctx->sync_signals);
          return lw_false;
-      }
-
-      case sig_remove:
-      {
-         lw_pump_watch to_remove = list_front (ctx->signalparams);
-         list_pop_front (ctx->signalparams);
-
-         free (to_remove);
-
-         lw_pump_remove_user ((lw_pump) ctx);
-
-         break;
       }
 
       case sig_post:
@@ -266,6 +253,7 @@ lw_error lw_eventpump_tick (lw_eventpump ctx)
 lw_error lw_eventpump_start_eventloop (lw_eventpump ctx)
 {
    int do_loop = 1;
+
    while (do_loop)
    {
       #if defined (_lacewing_use_epoll)
@@ -496,19 +484,36 @@ static void def_remove (lw_pump pump, lw_pump_watch watch)
 {
    lw_eventpump ctx = (lw_eventpump) pump;
 
-   /* TODO : Should this remove the FD from epoll/kqueue immediately? */
-
    watch->on_read_ready = 0;
    watch->on_write_ready = 0;
 
-   lw_sync_lock (ctx->sync_signals);
+   #if defined (_lacewing_use_epoll)
 
-      list_push (ctx->signalparams, watch);
+      ctx->queue = epoll_create (32);
 
-      char signal = sig_remove;
-      write (ctx->signalpipe_write, &signal, sizeof (signal));
+      struct epoll_event event =
+      {
+         .events = EPOLLIN | EPOLLET
+      };
 
-   lw_sync_release (ctx->sync_signals);
+      epoll_ctl (ctx->queue, EPOLL_CTL_ADD, ctx->signalpipe_read, &event);
+
+   #elif defined (_lacewing_use_kqueue)
+
+      ctx->queue = kqueue ();
+
+      struct kevent event;
+
+      EV_SET (&event, ctx->signalpipe_read, EVFILT_READ,
+            EV_ADD | EV_ENABLE | EV_CLEAR, 0, 0, 0);
+
+      kevent (ctx->queue, &event, 1, 0, 0, 0);
+
+   #endif
+
+   free (watch);
+
+   lw_pump_remove_user (pump);
 }
 
 static void def_post (lw_pump pump, void * func, void * param)

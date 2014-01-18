@@ -94,6 +94,8 @@ void lw_stream_delete (lw_stream ctx)
    /* Prevent any entry to lw_stream_close now */
 
    ctx->flags |= lwp_stream_flag_closing;
+   
+   list_clear (ctx->close_hooks);
 
    /* If this stream is a root in the graph, remove it */
 
@@ -160,7 +162,16 @@ void lw_stream_delete (lw_stream ctx)
    if (ctx->def->cleanup)
       ctx->def->cleanup (ctx);
 
-   /* TODO : clear queues */
+   /* Clear queues */
+
+   list_each (ctx->front_queue, queued)
+      lwp_heapbuffer_free (&queued.buffer);
+
+   list_each (ctx->back_queue, queued)
+      lwp_heapbuffer_free (&queued.buffer);
+
+   list_clear (ctx->front_queue);
+   list_clear (ctx->back_queue);
 
 
    /* This matches the lwp_retain in lw_stream_new, allowing the refcount to
@@ -583,9 +594,9 @@ void lw_stream_data (lw_stream ctx, const char * buffer, size_t size)
    if (! (ctx->flags & lwp_stream_flag_dead))
    {
       lwp_stream_push (ctx, buffer, size);
-
-      lwp_release (ctx);
    }
+
+   lwp_release (ctx);
 }
 
 void lwp_stream_push (lw_stream ctx, const char * buffer, size_t size)

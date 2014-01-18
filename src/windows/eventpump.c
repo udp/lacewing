@@ -33,8 +33,7 @@
 extern const lw_pumpdef def_eventpump;
 
 #define sig_exit_event_loop      ((OVERLAPPED *) 1)
-#define sig_remove               ((OVERLAPPED *) 2)
-#define sig_end_watcher_thread   ((OVERLAPPED *) 3)
+#define sig_end_watcher_thread   ((OVERLAPPED *) 2)
 
 struct _lw_pump_watch
 {
@@ -61,6 +60,8 @@ struct _lw_eventpump
       int error;
 
    } watcher;
+
+   size_t num_pending;
 };
 
 static lw_bool process (lw_eventpump ctx, OVERLAPPED * overlapped,
@@ -72,14 +73,6 @@ static lw_bool process (lw_eventpump ctx, OVERLAPPED * overlapped,
       /* See eventpump_post */
 
       ((void * (*) (void *)) watch) (overlapped);
-
-      return lw_true;
-   }
-
-   if (overlapped == sig_remove)
-   {
-      free (watch);
-      lw_pump_remove_user ((lw_pump) ctx);
 
       return lw_true;
    }
@@ -155,7 +148,13 @@ static void def_cleanup (lw_pump _ctx)
       lw_thread_join (ctx->watcher.thread);
    }
 
+   lw_thread_delete (ctx->watcher.thread);
+   ctx->watcher.thread = NULL;
+
    lw_event_delete (ctx->watcher.resume_event);
+   ctx->watcher.resume_event = NULL;
+
+   CloseHandle (ctx->completion_port);
 }
 
 lw_error lw_eventpump_tick (lw_eventpump ctx)
@@ -210,6 +209,8 @@ lw_error lw_eventpump_start_eventloop (lw_eventpump ctx)
 
    lw_pump_watch watch;
 
+   lw_bool finished = lw_false;
+
    for (;;)
    {
       /* TODO : Use GetQueuedCompletionStatusEx where available */
@@ -219,16 +220,21 @@ lw_error lw_eventpump_start_eventloop (lw_eventpump ctx)
       if (!GetQueuedCompletionStatus (ctx->completion_port,
                                       &bytes_transferred,
                                       (PULONG_PTR) &watch,
-                                      &overlapped, INFINITE))
+                                      &overlapped, finished ? 0 : INFINITE))
       {
          error = GetLastError();
+
+         /* Are all pending operations completed?
+          */
+         if (finished && error == WAIT_TIMEOUT)
+            break;
 
          if (!overlapped)
             continue;
       }
 
       if (!process (ctx, overlapped, bytes_transferred, watch, error))
-         break;
+         finished = lw_true;
    }
 
    return 0;
@@ -273,19 +279,19 @@ static lw_pump_watch def_add (lw_pump _ctx, HANDLE handle,
       assert (0);
    }
 
-   lw_pump_add_user ((lw_pump) ctx);
-
    return watch;
 }
 
+/* Note: the caller of lw_pump_remove is responsible for waiting for or
+ * cancelling any pending overlapped operations first.  If a watch is freed
+ * before any associated overlapped operations have completed, the behaviour
+ * is undefined.
+ */
 static void def_remove (lw_pump _ctx, lw_pump_watch watch)
 {
    lw_eventpump ctx = (lw_eventpump) _ctx;
 
-   watch->on_completion = 0;
-
-   PostQueuedCompletionStatus (ctx->completion_port, 0,
-                               (ULONG_PTR) watch, sig_remove);
+   free (watch);
 }
 
 static void def_post (lw_pump _ctx, void * function, void * parameter)

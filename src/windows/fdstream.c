@@ -38,7 +38,7 @@ static void write_completed (lw_fdstream);
 
 static void add_pending_write (lw_fdstream ctx)
 {
-   if ((++ ctx->pending_writes) == 1)
+   if ((++ ctx->num_pending_writes) == 1)
    {
       /* Since writes are now pending, the stream must be retained. */
 
@@ -48,7 +48,7 @@ static void add_pending_write (lw_fdstream ctx)
 
 static void remove_pending_write (lw_fdstream ctx)
 {
-   if ((-- ctx->pending_writes) == 0)
+   if ((-- ctx->num_pending_writes) == 0)
    {
       /* If any writes were pending, the stream was being retained.  Since the
        * last write has finished, we can release it now.
@@ -98,6 +98,7 @@ static void completion (void * tag, OVERLAPPED * _overlapped,
 
       case overlapped_type_write:
 
+         list_remove (ctx->pending_writes, overlapped);
          free (overlapped);
 
          write_completed (ctx);
@@ -116,6 +117,9 @@ static void completion (void * tag, OVERLAPPED * _overlapped,
 
          break;
       }
+
+	  default:
+		  assert (false);
    };
 
    lwp_release (ctx);
@@ -152,7 +156,22 @@ static void close_fd (lw_fdstream ctx)
       assert (0);
    }
 
-   ctx->pending_writes = 0;
+   list_each (ctx->pending_writes, overlapped)
+   {
+      free (overlapped);
+   }
+
+   list_clear (ctx->pending_writes);
+   
+   while (ctx->num_pending_writes > 0)
+   {
+      remove_pending_write (ctx);
+   }
+   
+   if (ctx->flags & lwp_fdstream_flag_read_pending)
+   {
+      read_completed (ctx);
+   }
 
    if (ctx->flags & lwp_fdstream_flag_auto_close)
    {
@@ -169,6 +188,12 @@ static void close_fd (lw_fdstream ctx)
          CloseHandle (ctx->fd);
    }
 
+   if (ctx->watch)
+   {
+      lw_pump_remove (lw_stream_pump ((lw_stream) ctx), ctx->watch);
+      ctx->watch = NULL;
+   }
+
    ctx->fd = INVALID_HANDLE_VALUE;
 }
 
@@ -176,11 +201,11 @@ void write_completed (lw_fdstream ctx)
 {
    remove_pending_write (ctx);
 
-   if (ctx->pending_writes == 0)
+   if (ctx->num_pending_writes == 0)
    {
       /* Were we trying to close? */
 
-      if ( (ctx->flags & lwp_fdstream_flag_close_asap) && ctx->pending_writes == 0)
+      if ( (ctx->flags & lwp_fdstream_flag_close_asap) && ctx->num_pending_writes == 0)
       {
          close_fd (ctx);
 
@@ -217,7 +242,7 @@ void issue_read (lw_fdstream ctx)
       int error = GetLastError();
 
       if (error != ERROR_IO_PENDING)
-      {
+	   {
          lw_stream_close ((lw_stream) ctx, lw_true);
          return;
       }
@@ -249,7 +274,10 @@ void lw_fdstream_set_fd (lw_fdstream ctx, HANDLE fd,
    lwp_trace ("FDStream %p : set FD to %d, auto_close %d", ctx, fd, (int) auto_close);
 
    if (ctx->watch)
+   {
       lw_pump_remove (lw_stream_pump ((lw_stream) ctx), ctx->watch);
+      ctx->watch = NULL;
+   }
 
    ctx->fd = fd;
 
@@ -331,8 +359,8 @@ static size_t def_sink_data (lw_stream _ctx, const char * buffer, size_t size)
 
    /* TODO : Pre-allocate a bunch of these and reuse them? */
 
-   fdstream_overlapped overlapped =
-      (fdstream_overlapped) malloc (sizeof (*overlapped) + size);
+   fdstream_overlapped overlapped = (fdstream_overlapped)
+      malloc (sizeof (*overlapped) + size);
 
    if (!overlapped)
       return size; 
@@ -371,6 +399,7 @@ static size_t def_sink_data (lw_stream _ctx, const char * buffer, size_t size)
       ctx->offset.QuadPart += size;
 
    add_pending_write (ctx);
+   list_push (ctx->pending_writes, overlapped);
 
    return size;
 }
@@ -486,7 +515,7 @@ static lw_bool def_close (lw_stream _ctx, lw_bool immediate)
 {
    lw_fdstream ctx = (lw_fdstream) _ctx;
 
-   if (immediate || ctx->pending_writes == 0)
+   if (immediate || ctx->num_pending_writes == 0)
    {
       lwp_retain (ctx);
 

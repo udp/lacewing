@@ -1,7 +1,7 @@
 
-/* vim: set et ts=3 sw=3 ft=c:
+/* vim: set et ts=3 sw=3 sts=3 ft=c:
  *
- * Copyright (C) 2012 James McLaughlin et al.  All rights reserved.
+ * Copyright (C) 2013 James McLaughlin et al.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -27,62 +27,34 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _lw_fdstream_h
-#define _lw_fdstream_h
+#ifndef _lw_ssl_h
+#define _lw_ssl_h
 
-#include "../stream.h"
+#include "../../stream.h"
 
-typedef struct _fdstream_overlapped
+typedef struct _lwp_ssl
 {
-    OVERLAPPED overlapped;
+   DWORD status;
+   lw_bool handshake_complete;
 
-    char type;
+   lw_bool got_context;
+   CtxtHandle context;
 
-    char data [1];
+   SecPkgContext_StreamSizes sizes;
 
-} * fdstream_overlapped;
+   char * header, * trailer;
 
-struct _lw_fdstream
-{
-   struct _lw_stream stream;
+   size_t (* proc_handshake_data) (struct _lwp_ssl *,
+                                   const char * buffer,
+                                   size_t size);
 
-   struct _fdstream_overlapped read_overlapped;
-   struct _fdstream_overlapped transmitfile_overlapped;
+   struct _lw_stream upstream;
+   struct _lw_stream downstream;
 
-   lw_fdstream transmit_file_from,
-               transmit_file_to;
+} * lwp_ssl;
 
-   char buffer [lwp_default_buffer_size];
-
-   HANDLE fd;
-
-   lw_pump_watch watch;
-
-   size_t size;
-   size_t reading_size;
-
-   LARGE_INTEGER offset;
-
-   char flags;
-
-   /* The number of pending writes.  May not be the same as
-    * list_length(pending_writes) because transmitfile counts as a pending
-    * write too, in both the source and dest stream.
-    */
-   int num_pending_writes;
-
-   list (fdstream_overlapped, pending_writes);
-
-   lw_fdstream transmitfile_from, transmitfile_to;
-};
-
-#define lwp_fdstream_flag_read_pending     1
-#define lwp_fdstream_flag_nagle            2
-#define lwp_fdstream_flag_is_socket        4
-#define lwp_fdstream_flag_close_asap       8  /* FD close pending on write? */
-#define lwp_fdstream_flag_auto_close       16
-
-void lwp_fdstream_init (lw_fdstream, lw_pump);
+void lwp_ssl_init (lwp_ssl, lw_stream socket);
+void lwp_ssl_cleanup (lwp_ssl);
 
 #endif
 

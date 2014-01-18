@@ -34,6 +34,9 @@
 static void graph_dealloc (lwp_streamgraph graph)
 {
    lwp_streamgraph_clear_expanded (graph);
+
+   list_clear (graph->roots);
+
    free (graph);
 }
 
@@ -45,6 +48,8 @@ lwp_streamgraph lwp_streamgraph_new ()
       return 0;
 
    lwp_set_dealloc_proc (graph, graph_dealloc);
+   lwp_enable_refcount_logging (graph, "streamgraph");
+
    lwp_retain (graph);
 
    return graph;
@@ -404,12 +409,11 @@ void lwp_streamgraph_read (lwp_streamgraph graph)
       if (graph->last_expand != this_expand || graph->dead)
       {
          lwp_trace ("Abort streamgraph_read with last_expand %d", this_expand);
-
-         lwp_release (graph);
-
-         return;
+         break;
       }
    }
+
+   lwp_release (graph);
 }
 
 static void clear_expanded (lw_stream stream)

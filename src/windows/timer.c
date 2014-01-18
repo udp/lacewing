@@ -1,7 +1,8 @@
 
 /* vim: set et ts=3 sw=3 ft=c:
  *
- * Copyright (C) 2011, 2012 James McLaughlin et al.  All rights reserved.
+ * Copyright (C) 2011, 2012, 2013, 2014 James McLaughlin et al.
+ * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -75,6 +76,7 @@ void lw_timer_delete (lw_timer ctx)
    lw_timer_stop (ctx);
 
    lw_thread_join (ctx->timer_thread);
+   lw_thread_delete (ctx->timer_thread);
 
    free (ctx);
 }

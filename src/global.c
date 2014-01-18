@@ -197,3 +197,24 @@ void lw_trace (const char * format, ...)
    va_end (args);
 }
 
+#ifdef _lacewing_debug
+
+   void lwp_refcount_log_retain(struct lwp_refcount * refcount)
+   {
+      lw_trace ("refcount: %p %s count = %d, retain",
+                   refcount,
+                   refcount->name,
+                   (int) refcount->refcount);
+   }
+
+   void lwp_refcount_log_release(struct lwp_refcount * refcount)
+   {
+      lw_trace ("refcount: %p %s count = %d, release",
+                   refcount,
+                   refcount->name,
+                   (int) refcount->refcount);
+   }
+
+#endif
+
+

@@ -33,17 +33,46 @@
 struct lwp_refcount
 {
    unsigned short refcount;           
-   void (* dealloc) (void *);
+   void (* on_dealloc) (void *);
+
+   #ifdef _lacewing_debug
+      void (* on_retain) (void *);
+      void (* on_release) (void *);
+      char name [64];
+   #endif
+
+   int selcounts[100];
 };
+
+static inline lw_bool _lwp_retain (struct lwp_refcount * refcount)
+{
+   /* sanity check
+    */
+   assert (refcount->refcount < 100);
+
+   #ifdef _lacewing_debug
+      if (refcount->on_retain)
+         refcount->on_retain ((void *) refcount);
+   #endif
+
+   ++ refcount->refcount;
+
+   return lw_false;
+}
 
 static inline lw_bool _lwp_release (struct lwp_refcount * refcount)
 {
-   assert (refcount->refcount >= 1);
+   assert (refcount->refcount >= 1 && refcount->refcount < 100);
+
+   #ifdef _lacewing_debug
+      if (refcount->on_release)
+         refcount->on_release ((void *) refcount);
+   #endif
 
    if ((-- refcount->refcount) == 0)
    {
-      if (refcount->dealloc)
-         refcount->dealloc ((void *) refcount);
+      if (refcount->on_dealloc)
+         refcount->on_dealloc ((void *) refcount);
       else
          free (refcount);
 
@@ -56,16 +85,47 @@ static inline lw_bool _lwp_release (struct lwp_refcount * refcount)
 #define lwp_refcounted                                                        \
    struct lwp_refcount refcount;                                              \
 
-#define lwp_retain(x) do {                                                    \
-   ++ ((struct lwp_refcount *) (x))->refcount;                                \
-} while (0);                                                                  \
-      
+#define lwp_retain(x)                                                         \
+   _lwp_retain ((struct lwp_refcount *) (x))                                  \
+
 #define lwp_release(x)                                                        \
    _lwp_release ((struct lwp_refcount *) (x))                                 \
 
 #define lwp_set_dealloc_proc(x, proc) do {                                    \
-  *(void **) &(((struct lwp_refcount *) (x))->dealloc) = (void *) (proc);     \
+  *(void **) &(((struct lwp_refcount *) (x))->on_dealloc) = (void *) (proc);  \
 } while (0);                                                                  \
+
+#ifdef _lacewing_debug
+
+   #define lwp_set_retain_proc(x, proc) do {                                     \
+     *(void **) &(((struct lwp_refcount *) (x))->on_retain) = (void *) (proc);   \
+   } while (0);                                                                  \
+
+   #define lwp_set_release_proc(x, proc) do {                                    \
+     *(void **) &(((struct lwp_refcount *) (x))->on_release) = (void *) (proc);  \
+   } while (0);                                                                  \
+
+   #define lwp_set_refcount_name(x, n) do {                                      \
+     strcpy (((struct lwp_refcount *) (x))->name, n);                            \
+   } while (0);                                                                  \
+
+   void lwp_refcount_log_retain (struct lwp_refcount *);
+   void lwp_refcount_log_release (struct lwp_refcount *);
+
+   #define lwp_enable_refcount_logging(x, name) do {        \
+      lwp_set_refcount_name (x, name);                      \
+      lwp_set_retain_proc (x, lwp_refcount_log_retain);     \
+      lwp_set_release_proc (x, lwp_refcount_log_release);   \
+   } while (0);                                             \
+
+#else
+
+   #define lwp_set_retain_proc(x, proc)
+   #define lwp_set_release_proc(x, proc)
+   #define lwp_set_refcount_name(x, name)
+   #define lwp_enable_refcount_logging(x, name)
+
+#endif
    
 #endif
 
