@@ -29,11 +29,11 @@
 
 #define _lacewing_internal
 
-#ifdef _MSC_VER
-    #include <vld.h>
-#endif
-
 #ifdef _WIN32
+
+   #if defined (_lacewing_vld)
+       #include <vld.h>
+   #endif
 
    #if defined(_DEBUG) && !defined(_lacewing_debug)
       #define _lacewing_debug
