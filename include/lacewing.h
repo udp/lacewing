@@ -753,6 +753,8 @@ struct _pump
    #endif
  
    void remove (lw_pump_watch);
+   void post_remove (lw_pump_watch);
+
    void post (void * proc, void * parameter = 0);
 
    lw_import void tag (void *);
