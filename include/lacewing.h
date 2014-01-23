@@ -238,6 +238,7 @@ lw_import       lw_bool  lw_random                   (char * buffer, size_t size
   lw_import           void  lw_pump_remove_user          (lw_pump);
   lw_import        lw_bool  lw_pump_in_use               (lw_pump);
   lw_import           void  lw_pump_remove               (lw_pump, lw_pump_watch);
+  lw_import           void  lw_pump_post_remove          (lw_pump, lw_pump_watch);
   lw_import           void  lw_pump_post                 (lw_pump, void * fn, void * param);
   lw_import           void* lw_pump_tag                  (lw_pump);
   lw_import           void  lw_pump_set_tag              (lw_pump, void *);
