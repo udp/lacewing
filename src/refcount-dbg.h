@@ -1,7 +1,7 @@
 
 /* vim: set et ts=3 sw=3 sts=3 ft=c:
  *
- * Copyright (C) 2013, 2014 James McLaughlin.  All rights reserved.
+ * Copyright (C) 2014 James McLaughlin.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -30,51 +30,38 @@
 #ifndef _lw_refcount_h
 #define _lw_refcount_h
 
+#define MAX_REFS  32
+
 struct lwp_refcount
 {
    unsigned short refcount;           
    void (* on_dealloc) (void *);
+
+   char name [64];
+   const char * refs[MAX_REFS];
+
+   lw_bool enable_logging;
 };
-
-static inline lw_bool _lwp_retain (struct lwp_refcount * refcount)
-{
-   ++ refcount->refcount;
-
-   return lw_false;
-}
-
-static inline lw_bool _lwp_release (struct lwp_refcount * refcount)
-{
-   if ((-- refcount->refcount) == 0)
-   {
-      if (refcount->on_dealloc)
-         refcount->on_dealloc ((void *) refcount);
-      else
-         free (refcount);
-
-      return lw_true;
-   }
-
-   return lw_false;
-}
 
 #define lwp_refcounted                                                        \
    struct lwp_refcount refcount;                                              \
 
 #define lwp_retain(x, name)                                                   \
-   _lwp_retain ((struct lwp_refcount *) (x))                                 \
+   _lwp_retain ((struct lwp_refcount *) (x), name)                            \
 
 #define lwp_release(x, name)                                                  \
-   _lwp_release ((struct lwp_refcount *) (x))                                 \
+   _lwp_release ((struct lwp_refcount *) (x), name)                           \
 
-#define lwp_set_dealloc_proc(x, proc) do {                                    \
+#define lwp_set_dealloc_proc(x, proc)                                         \
   *(void **) &(((struct lwp_refcount *) (x))->on_dealloc) = (void *) (proc);  \
-} while (0);                                                                  \
 
-#define lwp_set_retain_proc(x, proc)
-#define lwp_set_release_proc(x, proc)
-#define lwp_set_refcount_name(x, name)
-#define lwp_enable_refcount_logging(x, name)
+#define lwp_set_refcount_name(x, n)                                           \
+  strcpy (((struct lwp_refcount *) (x))->name, (n));                          \
 
+#define lwp_enable_refcount_logging(x, name)                                  \
+   ((struct lwp_refcount *) (x))->enable_logging = lw_true;                   \
+
+#endif
+   
 #endif
 

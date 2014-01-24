@@ -50,7 +50,7 @@ lwp_streamgraph lwp_streamgraph_new ()
    lwp_set_dealloc_proc (graph, graph_dealloc);
    lwp_enable_refcount_logging (graph, "streamgraph");
 
-   lwp_retain (graph);
+   lwp_retain (graph, "streamgraph_new");
 
    return graph;
 }
@@ -61,7 +61,7 @@ void lwp_streamgraph_delete (lwp_streamgraph graph)
       return;
 
    graph->dead = lw_true;
-   lwp_release (graph);
+   lwp_release (graph, "streamgraph_new");
 }
 
 static void swallow (lwp_streamgraph graph, lw_stream stream)
@@ -396,7 +396,7 @@ static void graph_read (lwp_streamgraph graph, int this_expand,
 
 void lwp_streamgraph_read (lwp_streamgraph graph)
 {
-   lwp_retain (graph);
+   lwp_retain (graph, "streamgraph_read");
 
    int this_expand = graph->last_expand;
 
@@ -413,7 +413,7 @@ void lwp_streamgraph_read (lwp_streamgraph graph)
       }
    }
 
-   lwp_release (graph);
+   lwp_release (graph, "streamgraph_read");
 }
 
 static void clear_expanded (lw_stream stream)

@@ -54,7 +54,8 @@ build/util.o \
 build/list.o \
 build/heapbuffer.o \
 build/upload.o \
-build/multipart_parser.o
+build/multipart_parser.o \
+build/refcount-dbg.o
 
 COMMONDEPS =\
 include/lacewing.h \
@@ -220,6 +221,8 @@ build/flashpolicy.o: src/flashpolicy.c $(COMMONDEPS)
 	$(CC) $(CFLAGS) -c -o $@ src/flashpolicy.c
 build/pump.o: src/pump.c $(COMMONDEPS)
 	$(CC) $(CFLAGS) -c -o $@ src/pump.c
+build/refcount-dbg.o: src/refcount-dbg.c $(COMMONDEPS)
+	$(CC) $(CFLAGS) -c -o $@ src/refcount-dbg.c
 
 build/openssl-sslclient.o: src/openssl/sslclient.c $(COMMONDEPS)
 	$(CC) $(CFLAGS) -c -o $@ src/openssl/sslclient.c

@@ -105,7 +105,7 @@ static lw_server_client lwp_server_client_new (lw_server ctx, lw_pump pump, int 
    /* We keep this reference right up until the client disconnects from
     * the server
     */
-   lwp_retain (client);
+   lwp_retain (client, "server_client_new");
 
    /* The first added close hook is always the last called.
     * This is important, because ours will destroy the client.
@@ -141,12 +141,12 @@ static lw_server_client lwp_server_client_new (lw_server ctx, lw_pump pump, int 
    
     client->on_connect_called = lw_true;
 
-    lwp_retain (client);
+    lwp_retain (client, "on_ssl_handshook");
 
     if (server->on_connect)
        server->on_connect (server, client);
 
-    if (lwp_release (client) ||
+    if (lwp_release (client, "on_ssl_handshook") ||
             ((lw_stream) client)->flags & lwp_stream_flag_dead)
     {
        /* Client was deleted by connect hook
@@ -249,12 +249,12 @@ static void listen_socket_read_ready (void * tag)
 
          client->on_connect_called = lw_true;
 
-         lwp_retain (client);
+         lwp_retain (client, "on_connect");
 
          if (ctx->on_connect)
             ctx->on_connect (ctx, client);
 
-         if (lwp_release (client) ||
+         if (lwp_release (client, "on_connect") ||
                 ((lw_stream) ctx)->flags & lwp_stream_flag_dead)
          {
             /* Client was deleted by connect hook
@@ -275,11 +275,11 @@ static void listen_socket_read_ready (void * tag)
 
       if (should_read)
       {
-         lwp_retain (client);
+         lwp_retain (client, "client initial read");
 
          lw_stream_read ((lw_stream) client, -1);
 
-         if (lwp_release (client) ||
+         if (lwp_release (client, "client initial read") ||
                 ((lw_stream) client)->flags & lwp_stream_flag_dead)
          {
             /* Client was deleted when performing initial read
@@ -586,7 +586,7 @@ void on_client_close (lw_stream stream, void * tag)
 
    lw_stream_delete ((lw_stream) client);
 
-   lwp_release (client);
+   lwp_release (client, "server_client_new");
 }
 
 void lw_server_on_data (lw_server ctx, lw_server_hook_data on_data)

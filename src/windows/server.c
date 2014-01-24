@@ -246,14 +246,14 @@ static void listen_socket_completion (void * tag, OVERLAPPED * _overlapped,
    list_elem_remove (overlapped);
    overlapped = NULL;
 
-   lwp_retain (client);
+   lwp_retain (client, "on_connect");
 
    client->on_connect_called = lw_true;
 
    if (ctx->on_connect)
       ctx->on_connect (ctx, client);
 
-   if (lwp_release (client))
+   if (lwp_release (client, "on_connect"))
       return;  /* client was deleted by connect hook */
 
    list_push (ctx->clients, client);
@@ -760,7 +760,7 @@ void on_client_close (lw_stream stream, void * tag)
 
    lwp_trace ("Server: on_client_close for client %p", client);
 
-   lwp_retain (client);
+   lwp_retain (client, "on_client_close");
 
    client->socket = INVALID_HANDLE_VALUE;
 
@@ -781,7 +781,7 @@ void on_client_close (lw_stream stream, void * tag)
       lwp_serverssl_cleanup (&client->ssl);
    }
 
-   lwp_release (client);
+   lwp_release (client, "on_client_close");
 
    lw_stream_delete ((lw_stream) client);
 }

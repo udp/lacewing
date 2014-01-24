@@ -37,7 +37,7 @@ void lwp_stream_init (lw_stream ctx, const lw_streamdef * def, lw_pump pump)
    memset (ctx, 0, sizeof (*ctx));
 
    /* This means that the refcount can never become 0 until lw_stream_delete */
-   lwp_retain (ctx); 
+   lwp_retain (ctx, "lwp_stream_init"); 
 
    ctx->def = def;
    ctx->pump = pump;
@@ -177,7 +177,7 @@ void lw_stream_delete (lw_stream ctx)
    /* This matches the lwp_retain in lw_stream_new, allowing the refcount to
     * become 0 and the stream to be destroyed.
     */
-   lwp_release (ctx);
+   lwp_release (ctx, "lwp_stream_init");
 }
 
 /* The public lw_stream_write just calls lwp_stream_write with flags = 0 */
@@ -559,7 +559,7 @@ void lw_stream_data (lw_stream ctx, const char * buffer, size_t size)
 {
    int num_data_hooks = list_length (ctx->exp_data_hooks);
 
-   lwp_retain (ctx);
+   lwp_retain (ctx, "lw_stream_data");
 
    /* TODO: The data hook list would be faster to make a copy of if it was     
     * a real array.
@@ -574,7 +574,7 @@ void lw_stream_data (lw_stream ctx, const char * buffer, size_t size)
    {
       data_hooks [i ++] = *hook;
 
-      lwp_retain (hook->stream);
+      lwp_retain (hook->stream, "stream_data hook");
    }
 
    for (i = 0; i < num_data_hooks; ++ i)
@@ -584,7 +584,7 @@ void lw_stream_data (lw_stream ctx, const char * buffer, size_t size)
       if (! (hook->stream->flags & lwp_stream_flag_dead))
          hook->proc (hook->stream, hook->tag, buffer, size);
 
-      lwp_release (hook->stream);
+      lwp_release (hook->stream, "stream_data hook");
    }
 
    /* Write the data to any streams next in the (expanded) graph, if this
@@ -596,7 +596,7 @@ void lw_stream_data (lw_stream ctx, const char * buffer, size_t size)
       lwp_stream_push (ctx, buffer, size);
    }
 
-   lwp_release (ctx);
+   lwp_release (ctx, "lw_stream_data");
 }
 
 void lwp_stream_push (lw_stream ctx, const char * buffer, size_t size)
@@ -606,7 +606,7 @@ void lwp_stream_push (lw_stream ctx, const char * buffer, size_t size)
    if (!num_links)
       return;  /* nothing to do */
 
-   lwp_retain (ctx);
+   lwp_retain (ctx, "stream_push");
 
    lwp_streamgraph_link * links = (lwp_streamgraph_link *) alloca
        (sizeof (lwp_streamgraph_link) * num_links);
@@ -750,7 +750,7 @@ void lwp_stream_push (lw_stream ctx, const char * buffer, size_t size)
             links [x] = 0;
    }
 
-   if (lwp_release (ctx) || ctx->flags & lwp_stream_flag_dead)
+   if (lwp_release (ctx, "stream_push") || ctx->flags & lwp_stream_flag_dead)
       return;
 
    if (ctx->flags & lwp_stream_flag_closeASAP
@@ -837,12 +837,12 @@ void lwp_stream_write_queued (lw_stream ctx)
    lwp_trace ("%p : Writing front queue (size = %d)",
                ctx, list_length (ctx->front_queue));
 
-   lwp_retain (ctx);
+   lwp_retain (ctx, "write front queue");
 
    ctx->front_queue = lwp_stream_write_queue (ctx, ctx->front_queue); 
 
-   if (lwp_release (ctx) || ctx->flags & lwp_stream_flag_dead)
-      return;
+   if (lwp_release (ctx, "write front queue") || ctx->flags & lwp_stream_flag_dead)
+      return
 
    lwp_trace ("%p : Front queue size is now %d, %d prev, %d in back queue",
          ctx, list_length (ctx->front_queue), list_length (ctx->prev),
@@ -851,11 +851,11 @@ void lwp_stream_write_queued (lw_stream ctx)
    if (list_length (ctx->front_queue) == 0
          && list_length (ctx->prev) == 0)
    {
-      lwp_retain (ctx);
+      lwp_retain (ctx, "write back queue");
 
       ctx->back_queue = lwp_stream_write_queue (ctx, ctx->back_queue);
 
-      if (lwp_release (ctx) || ctx->flags & lwp_stream_flag_dead)
+      if (lwp_release (ctx, "write back queue") || ctx->flags & lwp_stream_flag_dead)
          return;
    }
 
@@ -945,7 +945,7 @@ lw_bool lw_stream_close (lw_stream ctx, lw_bool immediate)
 
    ctx->flags |= lwp_stream_flag_closing;
 
-   lwp_retain (ctx);
+   lwp_retain (ctx, "stream_close");
 
    /* If roots_expanded is already empty, something else has already cleared
     * the expanded graph (e.g. another stream closing) and should re-expand
@@ -1002,7 +1002,7 @@ lw_bool lw_stream_close (lw_stream ctx, lw_bool immediate)
    {
       if (spec->close_together)
       {
-         lwp_retain (spec->stream);
+         lwp_retain (spec->stream, "stream_close filter");
          to_close [n ++] = spec->stream;
       }
    }
@@ -1011,7 +1011,7 @@ lw_bool lw_stream_close (lw_stream ctx, lw_bool immediate)
    {
       if (spec->close_together)
       {
-         lwp_retain (spec->filter);
+         lwp_retain (spec->filter, "stream_close filter");
          to_close [n ++] = spec->filter;
       }
    }
@@ -1020,7 +1020,7 @@ lw_bool lw_stream_close (lw_stream ctx, lw_bool immediate)
    {
       if (spec->close_together)
       {
-         lwp_retain (spec->filter);
+         lwp_retain (spec->filter, "stream_close filter");
          to_close [n ++] = spec->filter;
       }
    }
@@ -1032,7 +1032,7 @@ lw_bool lw_stream_close (lw_stream ctx, lw_bool immediate)
       /* TODO: see above wrt immediate = true */
       lw_stream_close (stream, lw_true);
 
-      lwp_release (stream);
+      lwp_release (stream, "stream_close filter");
    }
 
    if (!already_cleared)
@@ -1054,7 +1054,7 @@ lw_bool lw_stream_close (lw_stream ctx, lw_bool immediate)
 
    ctx->flags &= ~ lwp_stream_flag_closing;
 
-   lwp_release (ctx);
+   lwp_release (ctx, "stream_close");
 
    return lw_true;
 }

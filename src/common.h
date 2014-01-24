@@ -145,7 +145,11 @@ void lwp_init ();
 #include <ctype.h>
 #include <time.h>
 
-#include "refcount.h"
+#ifdef _lacewing_debug
+   #include "refcount-dbg.h"
+#else
+   #include "refcount.h"
+#endif
 
 #ifndef container_of
    #define container_of(p, type, v) \

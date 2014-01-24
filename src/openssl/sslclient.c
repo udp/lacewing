@@ -98,8 +98,8 @@ lwp_sslclient lwp_sslclient_new (SSL_CTX * server_context, lw_stream socket,
    /* Retain our streams indefinitely, since we'll be in charge of releasing
     * their memory.  This doesn't stop stream_delete from working.
     */
-   lwp_retain (&ctx->upstream);
-   lwp_retain (&ctx->downstream);
+   lwp_retain (&ctx->upstream, "lwp_sslclient upstream");
+   lwp_retain (&ctx->downstream, "lwp_sslclient downstream");
 
    lw_stream_add_filter_upstream
       (socket, &ctx->upstream, lw_false, lw_false);

@@ -42,7 +42,7 @@ static void add_pending_write (lw_fdstream ctx)
    {
       /* Since writes are now pending, the stream must be retained. */
 
-      lwp_retain (ctx);
+      lwp_retain (ctx, "fdstream pending write");
    }
 }
 
@@ -54,7 +54,7 @@ static void remove_pending_write (lw_fdstream ctx)
        * last write has finished, we can release it now.
        */
 
-      lwp_release (ctx);
+      lwp_release (ctx, "fdstream pending write");
    }
 }
 
@@ -69,7 +69,7 @@ static void completion (void * tag, OVERLAPPED * _overlapped,
 
    fdstream_overlapped overlapped = (fdstream_overlapped) _overlapped;
 
-   lwp_retain (ctx);
+   lwp_retain (ctx, "fdstream completion");
 
    switch (overlapped->type)
    {
@@ -122,7 +122,7 @@ static void completion (void * tag, OVERLAPPED * _overlapped,
 		  assert (false);
    };
 
-   lwp_release (ctx);
+   lwp_release (ctx, "fdstream completion");
 }
 
 static void close_fd (lw_fdstream ctx)
@@ -252,13 +252,13 @@ void issue_read (lw_fdstream ctx)
       ctx->offset.QuadPart += to_read;
 
    ctx->flags |= lwp_fdstream_flag_read_pending;
-   lwp_retain (ctx);  /* retain the stream for the duration of the read op */
+   lwp_retain (ctx, "fdstream read");  /* retain the stream for the duration of the read op */
 }
 
 void read_completed (lw_fdstream ctx)
 {
    ctx->flags &= ~ lwp_fdstream_flag_read_pending;
-   lwp_release (ctx);  /* matches retain in issue_read */
+   lwp_release (ctx, "fdstream read");  /* matches retain in issue_read */
 }
 
 static void def_cleanup (lw_stream _ctx)
@@ -517,11 +517,11 @@ static lw_bool def_close (lw_stream _ctx, lw_bool immediate)
 
    if (immediate || ctx->num_pending_writes == 0)
    {
-      lwp_retain (ctx);
+      lwp_retain (ctx, "fdstream close");
 
       close_fd (ctx);
 
-      lwp_release (ctx);
+      lwp_release (ctx, "fdstream close");
 
       return lw_true;
    }
