@@ -40,8 +40,6 @@ struct lwp_refcount
       void (* on_release) (void *);
       char name [64];
    #endif
-
-   int selcounts[100];
 };
 
 static inline lw_bool _lwp_retain (struct lwp_refcount * refcount)
