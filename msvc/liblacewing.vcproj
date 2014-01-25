@@ -536,6 +536,50 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\refcount-dbg.c"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						CompileAs="2"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						CompileAs="2"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Static Library - Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						CompileAs="2"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Static Library - Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						CompileAs="2"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\src\refcount.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\refcount-dbg.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\list.c"
 				>
 				<FileConfiguration
