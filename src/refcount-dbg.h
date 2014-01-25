@@ -32,6 +32,9 @@
 
 #define MAX_REFS  32
 
+lw_bool _lwp_retain (struct lwp_refcount * refcount, const char * name);
+lw_bool _lwp_release (struct lwp_refcount * refcount, const char * name);
+
 struct lwp_refcount
 {
    unsigned short refcount;           
@@ -63,5 +66,4 @@ struct lwp_refcount
 
 #endif
    
-#endif
 

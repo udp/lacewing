@@ -37,13 +37,13 @@ static void list_refs (char * buf, struct lwp_refcount * refcount)
 
    for (int i = 0; i < refcount->refcount; ++ i)
    {
-       if (!refcount->buf [i])
+       if (!refcount->refs [i])
            continue;
 
        if (*buf)
            strcat (buf, ", ");
 
-       strcat (buf, refcount->buf [i]);
+       strcat (buf, refcount->refs [i]);
    }
 }
 
@@ -66,6 +66,8 @@ lw_bool _lwp_retain (struct lwp_refcount * refcount, const char * name)
                     name);
    }
 
+   ++ refcount->refcount;
+
    for (int i = 0; i < MAX_REFS; ++ i)
    {
        if (!refcount->refs [i])
@@ -86,7 +88,8 @@ lw_bool _lwp_release (struct lwp_refcount * refcount, const char * name)
 
    for (int i = 0; i < MAX_REFS; ++ i)
    {
-       if (!strcasecmp (refcount->refs [i], name))
+       if (refcount->refs [i] &&
+            !strcasecmp (refcount->refs [i], name))
        {
            refcount->refs [i] = NULL;
            break;
