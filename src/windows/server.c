@@ -784,6 +784,8 @@ void on_client_close (lw_stream stream, void * tag)
    lwp_release (client, "on_client_close");
 
    lw_stream_delete ((lw_stream) client);
+
+   lw_addr_delete (client->addr);
 }
 
 void lw_server_on_data (lw_server ctx, lw_server_hook_data on_data)

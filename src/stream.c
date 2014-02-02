@@ -36,6 +36,8 @@ void lwp_stream_init (lw_stream ctx, const lw_streamdef * def, lw_pump pump)
 
    memset (ctx, 0, sizeof (*ctx));
 
+   lwp_enable_refcount_logging (ctx, "stream");
+
    /* This means that the refcount can never become 0 until lw_stream_delete */
    lwp_retain (ctx, "lwp_stream_init"); 
 

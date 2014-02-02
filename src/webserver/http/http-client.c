@@ -58,8 +58,6 @@ lwp_ws_client lwp_ws_httpclient_new (lw_ws ws, lw_server_client socket,
    ctx->parsing_headers = lw_true;
    ctx->signal_eof = lw_false;
 
-   lwp_stream_init ((lw_stream) ctx, &def_httpclient, 0);
-
    lw_stream_write_stream
       ((lw_stream) socket, (lw_stream) ctx->request, -1, lw_false);
 

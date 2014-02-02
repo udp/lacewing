@@ -48,6 +48,8 @@ struct _lw_addr
 void lwp_addr_init (lw_addr ctx, const char * hostname,
                     const char * service, long hints);
 
+void lwp_addr_cleanup (lw_addr ctx);
+
 lw_addr lwp_addr_new_sockaddr (struct sockaddr *);
 void lwp_addr_set_sockaddr (lw_addr ctx, struct sockaddr *);
 

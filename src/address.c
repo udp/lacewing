@@ -88,9 +88,8 @@ void lw_addr_delete (lw_addr ctx)
    if (!ctx)
       return;
 
-   lw_thread_delete (ctx->resolver_thread);
+   lwp_addr_cleanup (ctx);
 
-   free (ctx->hostname_to_free);
    free (ctx);
 }
 
@@ -141,7 +140,10 @@ lw_addr lwp_addr_new_sockaddr (struct sockaddr * sockaddr)
 void lwp_addr_set_sockaddr (lw_addr ctx, struct sockaddr * sockaddr)
 {
    if (!ctx->info)
-      ctx->info = (struct addrinfo *) calloc (sizeof (*ctx->info), 1);
+   {
+      ctx->info = ctx->info_to_free =
+         (struct addrinfo *) calloc (sizeof (*ctx->info), 1);
+   }
 
    ctx->info->ai_family = sockaddr->sa_family;
 
@@ -179,7 +181,7 @@ lw_addr lw_addr_clone (lw_addr ctx)
    if (!ctx->info)
       return 0;
 
-   addr->info = (struct addrinfo *) malloc (sizeof (*addr->info));
+   addr->info = addr->info_to_free = (struct addrinfo *) malloc (sizeof (*addr->info));
    memcpy (addr->info, ctx->info, sizeof (*addr->info));
 
    addr->info->ai_addrlen = ctx->info->ai_addrlen;
