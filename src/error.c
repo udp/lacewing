@@ -57,7 +57,7 @@ void lw_error_addv (lw_error ctx, const char * format, va_list args)
    if (*ctx->begin)
       lwp_error_add (ctx, " - ");
 
-   char * buffer = (char *) malloc (sizeof (ctx->buffer));
+   char * buffer = (char *) malloc (sizeof (ctx->buffer) + 1);
 
    vsnprintf (buffer, sizeof (ctx->buffer), format, args);
    lwp_error_add (ctx, buffer);
