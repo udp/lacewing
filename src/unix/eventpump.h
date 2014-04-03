@@ -1,7 +1,7 @@
 
-/* vim: set et ts=4 sw=4 ft=cpp:
+/* vim: set et ts=3 sw=3 sts=3 ft=c:
  *
- * Copyright (C) 2011, 2012 James McLaughlin.  All rights reserved.
+ * Copyright (C) 2011, 2012, 2013 James McLaughlin.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -28,6 +28,7 @@
  */
 
 #include "../pump.h"
+#include "eventqueue/eventqueue.h"
 
 #define max_events  16
 
@@ -44,34 +45,37 @@ struct _lw_eventpump
 {  
    struct _lw_pump pump;
 
-   int queue;
+   lwp_eventqueue queue;
 
    lw_sync sync_signals;
 
    int signalpipe_read, signalpipe_write;
    list (void *, signalparams);
 
-   /* for start_sleepy_ticking
-    */
-   struct
-   {
-      lw_thread thread;
+   #ifndef _lacewing_no_threads
 
-      int num_events;
+      /* for start_sleepy_ticking
+       */
+      struct
+      {
+         lw_thread thread;
+   
+         int num_events;
+         lwp_eventqueue_event events [max_events];
+   
+         lw_event resume_event;
+   
+      } watcher;
 
-      #if defined (_lacewing_use_epoll)
-        struct epoll_event events [max_events];
-      #elif defined (_lacewing_use_kqueue)
-        struct kevent events [max_events];
-      #endif
+      void (lw_callback * on_tick_needed) (lw_eventpump);
 
-      lw_event resume_event;
-
-   } watcher;
-
-   void (lw_callback * on_tick_needed) (lw_eventpump);
+   #endif
 };
 
 const lw_pumpdef def_eventpump;
+
+/* epoll/kqueue/select specific
+ */
+int lwp_eventpump_create_queue ();
 
 

@@ -3,9 +3,6 @@
 /* Define to 1 if you have the `clock_gettime' function. */
 #undef HAVE_CLOCK_GETTIME
 
-/* Define to 1 if you have the <CoreServices/CoreServices.h> header file. */
-#undef HAVE_CORESERVICES_CORESERVICES_H
-
 /* Define to 1 if you have the declaration of `EPOLLRDHUP', and to 0 if you
    don't. */
 #undef HAVE_DECL_EPOLLRDHUP

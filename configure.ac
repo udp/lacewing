@@ -35,6 +35,29 @@ AC_ARG_ENABLE([ssl],
 	[enable_ssl=yes]
 )
 
+AC_ARG_ENABLE([threads],
+	[AS_HELP_STRING([--enable-threads],
+		 [Build with thread support @<:@default=enabled@:>@])],
+	[enable_threads="$enableval"],
+	[enable_threads=yes]
+)
+
+AC_CHECK_FUNC([kqueue], [[ have_kqueue=yes; ]], [])
+AC_CHECK_FUNC([epoll_wait], [[ have_epoll=yes; ]], [])
+
+if test "x$have_kqueue" = xyes; then
+    AC_SUBST(USE_KQUEUE, 1)
+    CFLAGS="$CFLAGS -D_lacewing_use_kqueue"
+else
+    if test "x$have_epoll" = xyes; then
+        AC_SUBST(USE_EPOLL, 1)
+        CFLAGS="$CFLAGS -D_lacewing_use_epoll"
+    else
+        AC_SUBST(USE_SELECT, 1)
+        CFLAGS="$CFLAGS -D_lacewing_use_select"
+    fi
+fi
+
 CFLAGS="$CFLAGS -DHAVE_CONFIG_H -Wno-deprecated-declarations"
 
 if test "x$enable_debug" = xyes; then
@@ -52,6 +75,12 @@ if test "x$enable_ssl" = xyes; then
     AC_SUBST(ENABLE_SSL, 1)
 else
     CFLAGS="$CFLAGS -D_lacewing_no_ssl"
+fi
+
+if test "x$enable_threads" = xyes; then
+    AC_SUBST(ENABLE_THREADS, 1)
+else
+    CFLAGS="$CFLAGS -D_lacewing_no_threads"
 fi
 
 SO_EXT="so"

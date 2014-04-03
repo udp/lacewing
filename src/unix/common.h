@@ -72,22 +72,16 @@
    #endif
 #endif
 
-#ifdef HAVE_SYS_EPOLL_H
-
-   #define _lacewing_use_epoll
+#ifdef _lacewing_use_epoll
    #include <sys/epoll.h>
 
    #if !HAVE_DECL_EPOLLRDHUP
       #define EPOLLRDHUP 0x2000
    #endif
+#endif
 
-#else
-   #ifdef HAVE_KQUEUE
-      #define _lacewing_use_kqueue
-      #include <sys/event.h>
-   #else
-      #error "Either epoll or kqueue required to build liblacewing for UNIX"
-   #endif
+#ifdef _lacewing_use_kqueue
+   #include <sys/event.h>
 #endif
 
 #include <string.h>
@@ -95,10 +89,6 @@
 
 #ifdef HAVE_SYS_PRCTL_H
    #include <sys/prctl.h>
-#endif
-
-#ifdef HAVE_CORESERVICES_CORESERVICES_H
-   #include <CoreServices/CoreServices.h>
 #endif
 
 #ifndef _lacewing_no_ssl

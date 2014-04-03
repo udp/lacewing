@@ -11,6 +11,14 @@ ENABLE_SPDY = @ENABLE_SPDY@
 # 1 to enable SSL support
 ENABLE_SSL = @ENABLE_SSL@
 
+# 1 to enable thread support
+ENABLE_THREADS = @ENABLE_THREADS@
+
+# eventqueue backends (choose one only)
+USE_KQUEUE = @USE_KQUEUE@
+USE_EPOLL = @USE_EPOLL@
+USE_SELECT = @USE_SELECT@
+
 prefix = @prefix@
 exec_prefix = @exec_prefix@
 bindir = $(DESTDIR)@bindir@
@@ -84,7 +92,6 @@ build/pump-cxx.o \
 build/server-cxx.o \
 build/stream-cxx.o \
 build/sync-cxx.o \
-build/thread-cxx.o \
 build/timer-cxx.o \
 build/udp-cxx.o \
 build/webserver-cxx.o
@@ -96,21 +103,34 @@ build/unix-client.o \
 build/unix-event.o \
 build/unix-eventpump.o \
 build/unix-server.o \
-build/unix-thread.o \
+build/unix-sync.o \
 build/unix-timer.o \
 build/unix-udp.o \
 build/unix-fdstream.o \
 build/unix-file.o \
-build/unix-sync.o \
 build/unix-global.o
+ifeq ($(USE_KQUEUE), 1)
+OBJECTS += build/unix-kqueue.o
+endif
+ifeq ($(USE_EPOLL), 1)
+OBJECTS += build/unix-epoll.o
+endif
+ifeq ($(USE_SELECT), 1)
+OBJECTS += build/unix-select.o
+endif
 ifeq ($(ENABLE_SSL), 1)
 OBJECTS += build/openssl-sslclient.o
+endif
+ifeq ($(ENABLE_THREADS), 1)
+OBJECTS += build/unix-thread.o
+ifeq ($(ENABLE_CXX), 1)
+OBJECTS += build/thread-cxx.o
+endif
 endif
 COMMONDEPS +=\
 src/unix/eventpump.h \
 src/unix/common.h
 endif
-
 
 ifeq ($(PLATFORM), windows)
 OBJECTS +=\
@@ -249,6 +269,13 @@ build/unix-fdstream.o: src/unix/fdstream.c $(COMMONDEPS)
 	$(CC) $(CFLAGS) -c -o $@ src/unix/fdstream.c
 build/unix-file.o: src/unix/file.c $(COMMONDEPS)
 	$(CC) $(CFLAGS) -c -o $@ src/unix/file.c
+
+build/unix-kqueue.o: src/unix/eventqueue/kqueue.c $(COMMONDEPS)
+	$(CC) $(CFLAGS) -c -o $@ src/unix/eventqueue/kqueue.c
+build/unix-epoll.o: src/unix/eventqueue/epoll.c $(COMMONDEPS)
+	$(CC) $(CFLAGS) -c -o $@ src/unix/eventqueue/epoll.c
+build/unix-select.o: src/unix/eventqueue/select.c $(COMMONDEPS)
+	$(CC) $(CFLAGS) -c -o $@ src/unix/eventqueue/select.c
 
 build/windows-event.o: src/windows/event.c $(COMMONDEPS)
 	$(CC) $(CFLAGS) -c -o $@ src/windows/event.c

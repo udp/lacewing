@@ -30,28 +30,28 @@
 #include "../common.h"
 #include "eventpump.h"
 
-/* TODO: there is a lot of repeated if-epoll-this-elif-kqueue-that in
- * this file.  It would be better to abstract over epoll/kqueue once and use
- * that API here.
- */
-
 enum
 {
    sig_exit_eventloop,
+   sig_remove,
    sig_post
 };
 
-static void watcher (lw_eventpump ctx);
+#ifndef _lacewing_no_threads
+   static void watcher (lw_eventpump ctx);
+#endif
 
 lw_eventpump lw_eventpump_new ()
 {
    lw_eventpump ctx = calloc (sizeof (*ctx), 1);
 
    if (!ctx)
-      return 0;
+      return NULL;
 
-   ctx->watcher.thread = lw_thread_new ("watcher", (void *) watcher);
-   ctx->watcher.resume_event = lw_event_new ();
+   #ifndef _lacewing_no_threads
+      ctx->watcher.thread = lw_thread_new ("watcher", (void *) watcher);
+      ctx->watcher.resume_event = lw_event_new ();
+   #endif
 
    lwp_pump_init (&ctx->pump, &def_eventpump);
 
@@ -66,29 +66,11 @@ lw_eventpump lw_eventpump_new ()
    fcntl (ctx->signalpipe_read, F_SETFL,
          fcntl (ctx->signalpipe_read, F_GETFL, 0) | O_NONBLOCK);
 
-   #if defined (_lacewing_use_epoll)
+   ctx->queue = lwp_eventqueue_new ();
 
-      ctx->queue = epoll_create (32);
-
-      struct epoll_event event =
-      {
-         .events = EPOLLIN | EPOLLET
-      };
-
-      epoll_ctl (ctx->queue, EPOLL_CTL_ADD, ctx->signalpipe_read, &event);
-
-   #elif defined (_lacewing_use_kqueue)
-
-      ctx->queue = kqueue ();
-
-      struct kevent event;
-
-      EV_SET (&event, ctx->signalpipe_read, EVFILT_READ,
-            EV_ADD | EV_ENABLE | EV_CLEAR, 0, 0, 0);
-
-      kevent (ctx->queue, &event, 1, 0, 0, 0);
-
-   #endif
+   lwp_eventqueue_add (ctx->queue, ctx->signalpipe_read,
+                       lw_true, lw_false, lw_true,
+                       NULL);
 
    return ctx;
 }
@@ -97,23 +79,44 @@ static void def_cleanup (lw_pump pump)
 {
    lw_eventpump ctx = (lw_eventpump) pump;
 
-   close (ctx->queue);
-   ctx->queue = -1;
+   lwp_eventqueue_delete (ctx->queue);
    
-   if (lw_thread_started (ctx->watcher.thread))
-   {
-      lw_event_signal (ctx->watcher.resume_event);
-      lw_thread_join (ctx->watcher.thread);
-   }
+   #ifndef _lacewing_no_threads
 
-   lw_event_delete (ctx->watcher.resume_event);
+      if (lw_thread_started (ctx->watcher.thread))
+      {
+         lw_event_signal (ctx->watcher.resume_event);
+         lw_thread_join (ctx->watcher.thread);
+      }
+
+      lw_event_delete (ctx->watcher.resume_event);
+
+   #endif
 
    /* TODO */
 }
 
-lw_bool ready (lw_eventpump ctx, lw_pump_watch watch,
-               lw_bool read_ready, lw_bool write_ready)
+lw_bool process_event (lw_eventpump ctx, lwp_eventqueue_event event)
 {
+   lw_bool read_ready = lwp_eventqueue_event_read_ready (event),
+           write_ready = lwp_eventqueue_event_write_ready (event);
+
+   lw_pump_watch watch = lwp_eventqueue_event_tag (event);
+
+   /* fudge: nothing kqueue specific belongs in this file, but since the
+    * kqueue code doesn't actually look at the events it's the only place
+    * we can put it.
+    */
+   #ifdef lacewing_use_kqueue
+
+      if (event.filter == EVFILT_TIMER)
+      {
+         lw_timer_force_tick ((lw_timer) event.udata);
+         return lw_true;
+      }
+
+   #endif
+
    if (watch)
    {
       if (read_ready && watch->on_read_ready)
@@ -125,7 +128,7 @@ lw_bool ready (lw_eventpump ctx, lw_pump_watch watch,
       return lw_true;
    }
 
-   /* A null event means it must be the signal pipe */
+   /* A null tag means it must be the signal pipe */
 
    lw_sync_lock (ctx->sync_signals);
 
@@ -143,6 +146,18 @@ lw_bool ready (lw_eventpump ctx, lw_pump_watch watch,
       {
          lw_sync_release (ctx->sync_signals);
          return lw_false;
+      }
+
+      case sig_remove:
+      {
+         lw_pump_watch to_remove = list_front (ctx->signalparams);
+         list_pop_front (ctx->signalparams);
+
+         free (to_remove);
+
+         lw_pump_remove_user ((lw_pump) ctx);
+
+         break;
       }
 
       case sig_post:
@@ -164,89 +179,39 @@ lw_bool ready (lw_eventpump ctx, lw_pump_watch watch,
    return lw_true;
 }
 
-/* process_event: interprets an epoll_event or kevent and calls ready()
- */
-#if defined (_lacewing_use_epoll)
-   static lw_bool process_event (lw_eventpump ctx, struct epoll_event event)
-   {
-      return ready
-      (
-         ctx,
-
-         (lw_pump_watch) event.data.ptr,
-
-         (event.events & EPOLLIN) != 0
-          || (event.events & EPOLLHUP) != 0
-          || (event.events & EPOLLRDHUP) != 0,
-
-         (event.events & EPOLLOUT) != 0
-      );
-   }
-#else
-   static lw_bool process_event (lw_eventpump ctx, struct kevent event)
-   {
-      if (event.filter == EVFILT_TIMER)
-      {
-         lw_timer_force_tick ((lw_timer) event.udata);
-
-         return lw_true;
-      }
-      else
-      {
-         return ready
-         (
-            ctx, 
-
-            (lw_pump_watch) event.udata,
-
-            event.filter == EVFILT_READ || (event.flags & EV_EOF),
-            event.filter == EVFILT_WRITE
-         );
-      }
-   }
-#endif
-
 lw_error lw_eventpump_tick (lw_eventpump ctx)
 {
    lw_bool need_watcher_resume = lw_false;
-    
-   if (ctx->watcher.num_events > 0)
-   {
-      /* sleepy ticking: the watcher thread already grabbed some events we
-       * need to process.
-       */
-      for (int i = 0; i < ctx->watcher.num_events; ++ i)
-         process_event (ctx, ctx->watcher.events [i]);
 
-      ctx->watcher.num_events = 0;
+   #ifndef _lacewing_no_threads
+
+      if (ctx->watcher.num_events > 0)
+      {
+         /* sleepy ticking: the watcher thread already grabbed some events we
+          * need to process.
+          */
+         for (int i = 0; i < ctx->watcher.num_events; ++ i)
+            process_event (ctx, ctx->watcher.events [i]);
+   
+         ctx->watcher.num_events = 0;
        
-      need_watcher_resume = lw_true;
-   }
+         need_watcher_resume = lw_true;
+      }
 
-   #if defined (_lacewing_use_epoll)
-
-      struct epoll_event epoll_events [max_events];
-      int count = epoll_wait (ctx->queue, epoll_events, max_events, 0);
-
-      for (int i = 0; i < count; ++ i)
-         process_event (ctx, epoll_events [i]);
-      
-   #elif defined (_lacewing_use_kqueue)
-       
-      struct kevent kevents [max_events];
-   
-      struct timespec zero = { 0 };
-   
-      int count = kevent (ctx->queue, 0, 0, kevents, max_events, &zero);
-   
-      for (int i = 0; i < count; ++ i)
-         process_event (ctx, kevents [i]);
-   
    #endif
-    
-   if (need_watcher_resume)
-      lw_event_signal (ctx->watcher.resume_event);
-    
+
+   lwp_eventqueue_event events [max_events];
+
+   int count = lwp_eventqueue_drain (ctx->queue, lw_false, max_events, events);
+
+   for (int i = 0; i < count; ++ i)
+      process_event (ctx, events [i]);
+   
+   #ifndef _lacewing_no_threads
+      if (need_watcher_resume)
+         lw_event_signal (ctx->watcher.resume_event);
+   #endif
+
    return 0;
 }
 
@@ -256,50 +221,27 @@ lw_error lw_eventpump_start_eventloop (lw_eventpump ctx)
 
    while (do_loop)
    {
-      #if defined (_lacewing_use_epoll)
+      lwp_eventqueue_event events [max_events];
 
-         struct epoll_event epoll_events [max_events];
-         int count = epoll_wait (ctx->queue, epoll_events, max_events, -1);
-      
-         if (count == -1)
+      int count = lwp_eventqueue_drain (ctx->queue, lw_true, max_events, events);
+
+      if (count == -1)
+      {
+         if (errno == EINTR)
+            continue;
+
+         lwp_trace ("epoll error: %d", errno);
+         break;
+      }
+
+      for (int i = 0; i < count; ++ i)
+      {
+         if (!process_event (ctx, events [i]))
          {
-            if (errno == EINTR)
-               continue;
-
-            lwp_trace ("epoll error: %d", errno);
+            do_loop = 0;
             break;
          }
-   
-         for (int i = 0; i < count; ++ i)
-            if (!process_event (ctx, epoll_events [i]))
-            {
-               do_loop = 0;
-               break;
-            }
-         
-      #elif defined (_lacewing_use_kqueue)
-          
-         struct kevent kevents [max_events];
-      
-         int count = kevent (ctx->queue, 0, 0, kevents, max_events, 0);
-      
-         if (count == -1)
-         {
-            if (errno == EINTR)
-               continue;
-
-            lwp_trace ("kevent error: %d", errno);
-            break;
-         }
-
-         for (int i = 0; i < count; ++ i)
-            if (!process_event (ctx, kevents [i]))
-            {
-               do_loop = 0;
-               break;
-            }
-      
-      #endif
+      }
    }
 
    return 0;
@@ -318,11 +260,17 @@ void lw_eventpump_post_eventloop_exit (lw_eventpump ctx)
 lw_error lw_eventpump_start_sleepy_ticking
     (lw_eventpump ctx, void (lw_callback * on_tick_needed) (lw_eventpump))
 {
-   ctx->on_tick_needed = on_tick_needed;    
-   lw_thread_start (ctx->watcher.thread, ctx);
+   #ifndef _lacewing_no_threads
+      ctx->on_tick_needed = on_tick_needed;    
+      lw_thread_start (ctx->watcher.thread, ctx);
+   #else
+      /* TODO error */
+   #endif
 
    return 0;
 }
+
+#ifndef _lacewing_no_threads
 
 static void watcher (lw_eventpump ctx)
 {
@@ -330,37 +278,20 @@ static void watcher (lw_eventpump ctx)
    {
       assert (ctx->watcher.num_events == 0);
 
-      int count;
+      int count = lwp_eventqueue_drain (ctx->queue,
+                                        lw_true,
+                                        max_events,
+                                        ctx->watcher.events);
 
-      #if defined (_lacewing_use_epoll)
+      if (count == -1)
+      {
+         if (errno == EINTR)
+            continue;
 
-         count = epoll_wait (ctx->queue, ctx->watcher.events, max_events, -1);
-
-         if (count == -1)
-         {
-            if (errno == EINTR)
-               continue;
-
-            lwp_trace ("epoll error: %d", errno);
-            break;
-         }
+         lwp_trace ("drain error: %d", errno);
+         break;
+      }
          
-      #elif defined (_lacewing_use_kqueue)
-          
-         count = kevent
-            (ctx->queue, 0, 0, ctx->watcher.events, max_events, 0);
-      
-         if (count == -1)
-         {
-            if (errno == EINTR)
-               continue;
-
-            lwp_trace ("kevent error: %d", errno);
-            break;
-         }
-
-      #endif
-
       if (count == 0)
          continue;
 
@@ -375,6 +306,8 @@ static void watcher (lw_eventpump ctx)
       lw_event_unsignal (ctx->watcher.resume_event);
    }
 }
+
+#endif
 
 static lw_pump_watch def_add (lw_pump pump, int fd, void * tag,
                               lw_pump_callback on_read_ready,
@@ -392,36 +325,21 @@ static lw_pump_watch def_add (lw_pump pump, int fd, void * tag,
       return 0;
 
    watch->fd = fd;
+   watch->on_read_ready = on_read_ready;
+   watch->on_write_ready = on_write_ready;
+   watch->edge_triggered = edge_triggered;
+   watch->tag = tag;
 
-   #if defined (_lacewing_use_epoll)
-    
-      watch->on_read_ready = on_read_ready;
-      watch->on_write_ready = on_write_ready;
-      watch->edge_triggered = edge_triggered;
-      watch->tag = tag;
+   lwp_eventqueue_add (ctx->queue,
+                       fd,
+                       on_read_ready != NULL,
+                       on_write_ready != NULL,
+                       edge_triggered,
+                       watch);
 
-      struct epoll_event event;
-      memset (&event, 0, sizeof (event));
+   lw_pump_add_user ((lw_pump) ctx);
 
-      event.data.ptr = watch;
-        
-      event.events = (on_read_ready ? EPOLLIN : 0) |
-                        (on_write_ready ? EPOLLOUT : 0) |
-                           (edge_triggered ? EPOLLET : 0);
-
-      epoll_ctl (ctx->queue, EPOLL_CTL_ADD, fd, &event);
-
-  #elif defined (_lacewing_use_kqueue)
-
-      lw_pump_update_callbacks (&ctx->pump, watch, tag,
-                                on_read_ready, on_write_ready,
-                                edge_triggered);
-
-  #endif
-
-  lw_pump_add_user ((lw_pump) ctx);
-
-  return watch;
+   return watch;
 }
 
 static void def_update_callbacks (lw_pump pump,
@@ -434,44 +352,15 @@ static void def_update_callbacks (lw_pump pump,
 
    if ( ((on_read_ready != 0) != (watch->on_read_ready != 0))
          || ((on_write_ready != 0) != (watch->on_write_ready != 0))
-         || (edge_triggered != watch->edge_triggered) )
+         || (edge_triggered != watch->edge_triggered)
+         || tag != watch->tag)
    {
-      #if defined (_lacewing_use_epoll)
-
-         struct epoll_event event;
-         memset (&event, 0, sizeof (event));
-
-         event.data.ptr = watch;
-
-         event.events = (on_read_ready ? EPOLLIN : 0) |
-                          (on_write_ready ? EPOLLOUT : 0) |
-                             (edge_triggered ? EPOLLET : 0);
-
-         epoll_ctl (ctx->queue, EPOLL_CTL_MOD, watch->fd, &event);
-
-      #elif defined (_lacewing_use_kqueue)
-     
-         struct kevent change;
-
-         if (on_read_ready)
-         {
-             EV_SET (&change, watch->fd, EVFILT_READ,
-                         EV_ADD | EV_ENABLE | EV_EOF |
-                            (edge_triggered ? EV_CLEAR : 0), 0, 0, watch);
-
-             kevent (ctx->queue, &change, 1, 0, 0, 0);
-         }
-
-         if (on_write_ready)
-         {
-             EV_SET (&change, watch->fd, EVFILT_WRITE,
-                         EV_ADD | EV_ENABLE | EV_EOF |
-                            (edge_triggered ? EV_CLEAR : 0), 0, 0, watch);
-
-             kevent (ctx->queue, &change, 1, 0, 0, 0);
-         }
-
-      #endif
+      lwp_eventqueue_update (ctx->queue,
+                             watch->fd,
+                             watch->on_read_ready != NULL, on_read_ready != NULL,
+                             watch->on_write_ready != NULL, on_write_ready != NULL,
+                             watch->edge_triggered, edge_triggered,
+                             watch->tag, tag);
    }
 
    watch->on_read_ready = on_read_ready;
@@ -484,36 +373,19 @@ static void def_remove (lw_pump pump, lw_pump_watch watch)
 {
    lw_eventpump ctx = (lw_eventpump) pump;
 
-   watch->on_read_ready = 0;
-   watch->on_write_ready = 0;
+   /* TODO : Should this remove the FD from the eventqueue immediately? */
 
-   #if defined (_lacewing_use_epoll)
+   watch->on_read_ready = NULL;
+   watch->on_write_ready = NULL;
 
-      ctx->queue = epoll_create (32);
+   lw_sync_lock (ctx->sync_signals);
 
-      struct epoll_event event =
-      {
-         .events = EPOLLIN | EPOLLET
-      };
+      list_push (ctx->signalparams, watch);
 
-      epoll_ctl (ctx->queue, EPOLL_CTL_ADD, ctx->signalpipe_read, &event);
+      char signal = sig_remove;
+      write (ctx->signalpipe_write, &signal, sizeof (signal));
 
-   #elif defined (_lacewing_use_kqueue)
-
-      ctx->queue = kqueue ();
-
-      struct kevent event;
-
-      EV_SET (&event, ctx->signalpipe_read, EVFILT_READ,
-            EV_ADD | EV_ENABLE | EV_CLEAR, 0, 0, 0);
-
-      kevent (ctx->queue, &event, 1, 0, 0, 0);
-
-   #endif
-
-   free (watch);
-
-   lw_pump_remove_user (pump);
+   lw_sync_release (ctx->sync_signals);
 }
 
 static void def_post (lw_pump pump, void * func, void * param)
