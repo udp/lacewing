@@ -27,7 +27,7 @@
  * SUCH DAMAGE.
  */
 
-#include "../common.h"
+#include "../../common.h"
 #include "eventqueue.h"
 
 int lwp_eventqueue_new ()
