@@ -63,7 +63,7 @@ void lwp_eventqueue_update (lwp_eventqueue,
                             lw_bool was_reading, lw_bool read,
                             lw_bool was_writing, lw_bool write,
                             lw_bool was_edge_triggered, lw_bool edge_triggered,
-                            void * old_tag, void * tag);
+                            void * old_tag, void * tag)
 {
    struct epoll_event event = {};
 
