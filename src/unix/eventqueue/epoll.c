@@ -44,12 +44,12 @@ void lwp_eventqueue_add (lwp_eventqueue queue,
                          int fd,
                          lw_bool read,
                          lw_bool write,
-                        lw_bool edge_triggered,
+                         lw_bool edge_triggered,
                          void * tag)
 {
    struct epoll_event event = {};
 
-   event.data.ptr = watch;
+   event.data.ptr = tag;
 
    event.events = (read ? EPOLLIN : 0) |
                   (write ? EPOLLOUT : 0) |
