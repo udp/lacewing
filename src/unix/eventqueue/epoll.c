@@ -58,7 +58,7 @@ void lwp_eventqueue_add (lwp_eventqueue queue,
    epoll_ctl (queue, EPOLL_CTL_ADD, fd, &event);
 }
 
-void lwp_eventqueue_update (lwp_eventqueue,
+void lwp_eventqueue_update (lwp_eventqueue queue,
                             int fd,
                             lw_bool was_reading, lw_bool read,
                             lw_bool was_writing, lw_bool write,
