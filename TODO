@@ -17,3 +17,4 @@
 - SPDY multipart support
 - Replace lw_bool, lw_true, lw_false with stdbool
 - A way to list local network interfaces (integrated with lw_filter/lw_addr)
+- Change build system to CMake?
