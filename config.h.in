@@ -1,0 +1,24 @@
+
+#cmakedefine ENABLE_CXX
+#cmakedefine ENABLE_SPDY
+#cmakedefine ENABLE_SSL
+#cmakedefine ENABLE_THREADS
+
+#cmakedefine USE_EPOLL
+#cmakedefine USE_KQUEUE
+
+#cmakedefine HAVE_MALLOC_H
+#cmakedefine HAVE_NETDB_H
+#cmakedefine HAVE_SYS_PRCTL_H
+#cmakedefine HAVE_SYS_SENDFILE_H
+#cmakedefine HAVE_SYS_TIMERFD_H
+
+#cmakedefine HAVE_DECL_PR_SET_NAME
+#cmakedefine HAVE_DECL_TCP_CORK
+#cmakedefine HAVE_DECL_TCP_NOPUSH
+#cmakedefine HAVE_DECL_MSG_NOSIGNAL
+#cmakedefine HAVE_DECL_SO_NOSIGPIPE
+
+#cmakedefine HAVE_TIMEGM
+
+
