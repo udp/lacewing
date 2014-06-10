@@ -29,7 +29,7 @@
 
 #include "../common.h"
 
-#ifndef _lacewing_no_ssl
+#ifdef ENABLE_SSL
    #include "../openssl/sslclient.h"
 #endif
 
@@ -42,7 +42,7 @@ static void on_client_close (lw_stream, void * tag);
 static void on_client_data (lw_stream, void * tag, const char * buffer,
                             size_t size);
 
-#ifndef _lacewing_no_ssl
+#ifdef ENABLE_SSL
    static void on_ssl_handshook (lwp_sslclient ssl, void * tag);
 #endif
 
@@ -59,7 +59,7 @@ struct _lw_server
 
    void * tag;
 
-   #ifndef _lacewing_no_ssl
+   #ifdef ENABLE_SSL
       SSL_CTX * ssl_context;
       char ssl_passphrase [128];
 
@@ -79,7 +79,7 @@ struct _lw_server_client
 
    lw_bool on_connect_called;
 
-   #ifndef _lacewing_no_ssl
+   #ifdef ENABLE_SSL
       lwp_sslclient ssl;
    #endif
 
@@ -112,7 +112,7 @@ static lw_server_client lwp_server_client_new (lw_server ctx, lw_pump pump, int 
     */
    lw_stream_add_hook_close ((lw_stream) client, on_client_close, client);
 
-   #ifndef _lacewing_no_ssl
+   #ifdef ENABLE_SSL
 
       if (ctx->ssl_context)
       {
@@ -127,7 +127,7 @@ static lw_server_client lwp_server_client_new (lw_server ctx, lw_pump pump, int 
    return client;
 }
 
-#ifndef _lacewing_no_ssl
+#ifdef ENABLE_SSL
 
  void on_ssl_handshook (lwp_sslclient ssl, void * tag)
  {
@@ -242,7 +242,7 @@ static void listen_socket_read_ready (void * tag)
          should_read = lw_true;
       }
       
-      #ifndef _lacewing_no_ssl
+      #ifdef ENABLE_SSL
       if (!client->ssl)
       {
       #endif
@@ -265,7 +265,7 @@ static void listen_socket_read_ready (void * tag)
          list_push (ctx->clients, client);
          client->elem = list_elem_back (ctx->clients);
 
-      #ifndef _lacewing_no_ssl
+      #ifdef ENABLE_SSL
       }
       else
       {
@@ -361,7 +361,7 @@ long lw_server_port (lw_server ctx)
 
 lw_bool lw_server_cert_loaded (lw_server ctx)
 {
-   #ifndef _lacewing_no_ssl
+   #ifdef ENABLE_SSL
       return ctx->ssl_context != 0;
    #else
       return lw_false;
@@ -370,7 +370,7 @@ lw_bool lw_server_cert_loaded (lw_server ctx)
 
 static int ssl_password_callback (char * buffer, int size, int rwflag, void * tag)
 {
-   #ifndef _lacewing_no_ssl
+   #ifdef ENABLE_SSL
 
       lw_server ctx = tag;
 
@@ -411,7 +411,7 @@ static int ssl_password_callback (char * buffer, int size, int rwflag, void * ta
 lw_bool lw_server_load_cert_file (lw_server ctx, const char * filename,
                                   const char * passphrase)
 {
-   #ifdef _lacewing_no_ssl
+   #ifndef ENABLE_SSL
       return lw_false;
    #else
 
@@ -551,7 +551,7 @@ void on_client_data (lw_stream stream, void * tag, const char * buffer, size_t s
    lw_server_client client = tag;
    lw_server server = client->server;
 
-   #ifndef _lacewing_no_ssl
+   #ifdef ENABLE_SSL
       assert ( (!client->ssl) || lwp_sslclient_handshook (client->ssl) );
    #endif
 
@@ -579,7 +579,7 @@ void on_client_close (lw_stream stream, void * tag)
    if (client->elem)
       list_elem_remove (client->elem);
 
-   #ifndef _lacewing_no_ssl
+   #ifdef ENABLE_SSL
       if (client->ssl)
          lwp_sslclient_delete (client->ssl);
    #endif

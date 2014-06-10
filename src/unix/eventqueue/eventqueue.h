@@ -27,31 +27,27 @@
  * SUCH DAMAGE.
  */
 
-#ifdef _lacewing_use_epoll
+#if defined(USE_EPOLL)
+
    #include <sys/epoll.h>
 
-   #if !HAVE_DECL_EPOLLRDHUP
+   #ifndef EPOLLRDHUP
       #define EPOLLRDHUP 0x2000
    #endif
-#endif
-
-#ifdef _lacewing_use_kqueue
-   #include <sys/event.h>
-#endif
-
-#if defined(_lacewing_use_kqueue)
-
-   /* kqueue: lwp_eventqueue is a kqueue fd, _event is a kevent
-    */
-   typedef int lwp_eventqueue;
-   typedef struct kevent lwp_eventqueue_event;
-
-#elif defined(_lacewing_use_epoll)
 
    /* epoll: lwp_eventqueue is an epoll fd, _event is an epoll_event
     */
    typedef int lwp_eventqueue;
    typedef struct epoll_event lwp_eventqueue_event;
+
+#elif defined(USE_KQUEUE)
+
+   #include <sys/event.h>
+
+   /* kqueue: lwp_eventqueue is a kqueue fd, _event is a kevent
+    */
+   typedef int lwp_eventqueue;
+   typedef struct kevent lwp_eventqueue_event;
 
 #else
 

@@ -114,7 +114,7 @@ void lw_timer_start (lw_timer ctx, long interval)
    ctx->started = lw_true;
    lw_pump_add_user (ctx->pump);
 
-   #ifdef _lacewing_use_kqueue
+   #ifdef USE_KQUEUE
     
       if (ctx->pump->def == &def_eventpump)
       {
@@ -173,7 +173,7 @@ void lw_timer_stop (lw_timer ctx)
 
     #endif
 
-    #ifdef _lacewing_use_kqueue
+    #ifdef USE_KQUEUE
 
       if (ctx->pump->def == &def_eventpump)
       {

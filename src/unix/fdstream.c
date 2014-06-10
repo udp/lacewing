@@ -183,7 +183,7 @@ void lw_fdstream_set_fd (lw_fdstream ctx, lw_fd fd, lw_pump_watch watch,
 
    fcntl (fd, F_SETFL, fcntl (fd, F_GETFL, 0) | O_NONBLOCK);
 
-   #if HAVE_DECL_SO_NOSIGPIPE
+   #ifdef HAVE_DECL_SO_NOSIGPIPE
    {  int b = 1;
       setsockopt (fd, SOL_SOCKET, SO_NOSIGPIPE, (char *) &b, sizeof (b));
    }
@@ -280,7 +280,7 @@ static size_t def_sink_data (lw_stream stream, const char * buffer, size_t size)
 
    size_t written;
 
-   #if HAVE_DECL_SO_NOSIGPIPE
+   #ifdef HAVE_DECL_SO_NOSIGPIPE
       written = write (ctx->fd, buffer, size);
    #else
       if (ctx->flags & lwp_fdstream_flag_is_socket)

@@ -41,7 +41,7 @@
 #include <fcntl.h>
 #include <sched.h>
 
-#ifdef _lacewing_android
+#ifdef ANDROID
    #include <time64.h>
    #include <android/log.h>
 #endif
@@ -49,7 +49,7 @@
 #ifdef HAVE_SYS_TIMERFD_H
    #include <sys/timerfd.h>
    
-   #ifndef _lacewing_use_kqueue
+   #ifndef USE_KQUEUE
       #define _lacewing_use_timerfd
    #endif
 #endif
@@ -72,15 +72,13 @@
    #endif
 #endif
 
-#ifdef _lacewing_use_epoll
+#if defined(USE_EPOLL)
    #include <sys/epoll.h>
 
-   #if !HAVE_DECL_EPOLLRDHUP
+   #ifndef EPOLLRDHUP
       #define EPOLLRDHUP 0x2000
    #endif
-#endif
-
-#ifdef _lacewing_use_kqueue
+#elif defined(USE_KQUEUE)
    #include <sys/event.h>
 #endif
 
@@ -91,7 +89,7 @@
    #include <sys/prctl.h>
 #endif
 
-#ifndef _lacewing_no_ssl
+#ifdef ENABLE_SSL
    #include <openssl/ssl.h>
    #include <openssl/md5.h>
    #include <openssl/sha.h>

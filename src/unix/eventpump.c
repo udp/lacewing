@@ -37,7 +37,7 @@ enum
    sig_post
 };
 
-#ifndef _lacewing_no_threads
+#ifdef ENABLE_THREADS
    static void watcher (lw_eventpump ctx);
 #endif
 
@@ -48,7 +48,7 @@ lw_eventpump lw_eventpump_new ()
    if (!ctx)
       return NULL;
 
-   #ifndef _lacewing_no_threads
+   #ifdef ENABLE_THREADS
       ctx->watcher.thread = lw_thread_new ("watcher", (void *) watcher);
       ctx->watcher.resume_event = lw_event_new ();
    #endif
@@ -81,7 +81,7 @@ static void def_cleanup (lw_pump pump)
 
    lwp_eventqueue_delete (ctx->queue);
    
-   #ifndef _lacewing_no_threads
+   #ifdef ENABLE_THREADS
 
       if (lw_thread_started (ctx->watcher.thread))
       {
@@ -183,7 +183,7 @@ lw_error lw_eventpump_tick (lw_eventpump ctx)
 {
    lw_bool need_watcher_resume = lw_false;
 
-   #ifndef _lacewing_no_threads
+   #ifdef ENABLE_THREADS
 
       if (ctx->watcher.num_events > 0)
       {
@@ -207,7 +207,7 @@ lw_error lw_eventpump_tick (lw_eventpump ctx)
    for (int i = 0; i < count; ++ i)
       process_event (ctx, events [i]);
    
-   #ifndef _lacewing_no_threads
+   #ifdef ENABLE_THREADS
       if (need_watcher_resume)
          lw_event_signal (ctx->watcher.resume_event);
    #endif
@@ -260,7 +260,7 @@ void lw_eventpump_post_eventloop_exit (lw_eventpump ctx)
 lw_error lw_eventpump_start_sleepy_ticking
     (lw_eventpump ctx, void (lw_callback * on_tick_needed) (lw_eventpump))
 {
-   #ifndef _lacewing_no_threads
+   #ifdef ENABLE_THREADS
       ctx->on_tick_needed = on_tick_needed;    
       lw_thread_start (ctx->watcher.thread, ctx);
    #else
@@ -270,7 +270,7 @@ lw_error lw_eventpump_start_sleepy_ticking
    return 0;
 }
 
-#ifndef _lacewing_no_threads
+#ifdef ENABLE_THREADS
 
 static void watcher (lw_eventpump ctx)
 {
