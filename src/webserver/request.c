@@ -631,7 +631,7 @@ void lw_ws_req_status (lw_ws_req ctx, long code, const char * message)
 {
    /* TODO : prevent buffer overrun */
 
-   sprintf (ctx->status, "%d %s", code, message);
+   sprintf (ctx->status, "%d %s", (int) code, message);
 }
 
 void lw_ws_req_set_unmodified (lw_ws_req ctx)

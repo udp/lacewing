@@ -457,10 +457,10 @@ static void print (lwp_streamgraph graph, lw_stream stream, int depth)
 
    fprintf (stderr, "stream @ %p (" lwp_fmt_size " bytes, %d hooks, filtered %d up/%d down, filters %d)\n",
          stream, lw_stream_bytes_left (stream),
-         list_length (stream->data_hooks),
-         list_length (stream->filters_upstream),
-         list_length (stream->filters_downstream),
-         list_length (stream->filtering));
+         (int) list_length (stream->data_hooks),
+         (int) list_length (stream->filters_upstream),
+         (int) list_length (stream->filters_downstream),
+         (int) list_length (stream->filtering));
 
    list_each (stream->next, link)
    {
@@ -480,7 +480,7 @@ static void print_expanded (lwp_streamgraph graph, lw_stream stream, int depth)
 
    fprintf (stderr, "stream @ %p (" lwp_fmt_size " bytes, %d hooks)\n",
          stream, lw_stream_bytes_left (stream),
-         list_length (stream->exp_data_hooks));
+         (int) list_length (stream->exp_data_hooks));
 
    list_each (stream->next_expanded, link)
    {
@@ -499,7 +499,7 @@ static void print_expanded (lwp_streamgraph graph, lw_stream stream, int depth)
 void lwp_streamgraph_print (lwp_streamgraph graph)
 {
    fprintf (stderr, "\n--- Graph %p (%d) ---\n\n",
-         graph, list_length (graph->roots));
+         graph, (int) list_length (graph->roots));
 
    if (list_length (graph->roots) > 0)
    {
@@ -513,7 +513,7 @@ void lwp_streamgraph_print (lwp_streamgraph graph)
    }
 
    fprintf (stderr, "\n--- Graph %p expanded (%d) ---\n\n",
-         graph, list_length (graph->roots_expanded));
+         graph, (int) list_length (graph->roots_expanded));
 
    if (list_length (graph->roots_expanded) > 0)
    {

@@ -38,7 +38,7 @@ static void on_connect (lw_server server, lw_server_client client_socket)
 
    do
    {
-      #ifndef _lacewing_no_spdy
+      #ifdef ENABLE_SPDY
 
          if (!strcasecmp (lw_server_client_npn (client_socket), "spdy/3"))
          {
@@ -160,7 +160,7 @@ lw_ws lw_ws_new (lw_pump pump)
    lw_server_on_disconnect (ctx->socket_secure, on_disconnect);
    lw_server_on_error (ctx->socket_secure, on_error);
 
-   #ifndef _lacewing_no_spdy
+   #ifdef ENABLE_SPDY
       lw_server_add_npn (ctx->socket_secure, "spdy/3");
       lw_server_add_npn (ctx->socket_secure, "spdy/2");
    #endif

@@ -201,7 +201,7 @@ struct _lwp_ws_client
 
 #include "http/http.h"
 
-#ifndef _lacewing_no_spdy
+#ifdef ENABLE_SPDY
    #include "spdy/spdy.h"
 #endif
 

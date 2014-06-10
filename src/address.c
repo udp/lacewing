@@ -97,7 +97,7 @@ lw_addr lw_addr_new_port (const char * hostname, long port)
 {
    char service [64];
 
-   lwp_snprintf (service, sizeof (service), "%d", port);
+   lwp_snprintf (service, sizeof (service), "%d", (int) port);
 
    lw_addr ctx = (lw_addr) malloc (sizeof (*ctx));
    lwp_addr_init (ctx, hostname, service, 0);
@@ -117,7 +117,7 @@ lw_addr lw_addr_new_port_hint (const char * hostname, long port, long hints)
 {
    char service [64];
 
-   lwp_snprintf (service, sizeof (service), "%d", port);
+   lwp_snprintf (service, sizeof (service), "%d", (int) port);
 
    lw_addr ctx = (lw_addr) malloc (sizeof (*ctx));
    lwp_addr_init (ctx, hostname, service, hints);

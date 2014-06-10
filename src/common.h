@@ -57,16 +57,7 @@
       #define _GNU_SOURCE
    #endif
 
-   #ifdef ANDROID
-      #define _lacewing_android
-      #include "../jni/config.h"
-   #else
-      #ifdef HAVE_CONFIG_H
-         #include "../config.h"
-      #else
-         #error "Valid config.h required to build!  Run ./configure"
-      #endif
-   #endif
+   #include "config.h"
 
 #endif
 

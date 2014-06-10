@@ -272,7 +272,7 @@ time_t lwp_parse_time (const char * string)
              return compat_mkgmtime64 () (&tm);
           #endif
        #else
-          #if HAVE_TIMEGM
+          #ifdef HAVE_TIMEGM
              return timegm (&tm);
           #else
              #pragma error "Can't find a suitable way to convert a tm to a UTC UNIX time"

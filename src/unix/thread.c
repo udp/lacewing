@@ -66,7 +66,7 @@ void lw_thread_delete (lw_thread ctx)
 
 static int thread_proc (lw_thread ctx)
 {
-   #if HAVE_DECL_PR_SET_NAME != 0
+   #ifdef HAVE_DECL_PR_SET_NAME
       prctl (PR_SET_NAME, (unsigned long) ctx->name, 0, 0, 0);
    #endif
     

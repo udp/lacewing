@@ -43,7 +43,7 @@ const char * lw_version ()
    {
       #if defined (_WIN32)
          platform = "Windows";
-      #elif defined (_lacewing_android)
+      #elif defined (ANDROID)
          platform = "Android";
       #else
          uname (&name);
@@ -124,7 +124,7 @@ void lw_dump (const char * buffer, size_t size)
    fprintf (stderr, "\n===\n");
 }
 
-#ifndef _lacewing_no_ssl
+#ifdef ENABLE_SSL
 
  void lw_md5_hex (char * output, const char * input, size_t length)
  {
@@ -178,7 +178,7 @@ void lw_trace (const char * format, ...)
 
       lw_sync_lock (sync);
 
-      #ifdef _lacewing_android
+      #ifdef ANDROID
          __android_log_write (ANDROID_LOG_INFO, "liblacewing", data);
       #else
          #ifdef COXSDK
