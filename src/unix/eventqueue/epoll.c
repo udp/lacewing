@@ -83,6 +83,14 @@ void lwp_eventqueue_update (lwp_eventqueue queue,
    }
 }
 
+int lwp_eventqueue_drain (lwp_eventqueue queue,
+                          lw_bool block,
+                          int max_events,
+                          lwp_eventqueue_event * events)
+{
+   return epoll_wait (queue, events, max_events, block ? -1 : 0);
+}
+
 lw_bool lwp_eventqueue_event_read_ready (lwp_eventqueue_event event)
 {
    return event.events & (EPOLLIN | EPOLLHUP | EPOLLRDHUP);
