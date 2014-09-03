@@ -1,15 +1,17 @@
 language: c++
-before_script: "./configure"
-script: "make"
+before_script:
+    - mkdir build
+    - cd build
+    - cmake ..
+script: make
 branches:
   only:
     - master
 notifications:
   recipients:
-    - jamie@lacewing-project.org
+    - james@clickteam.com
   email:
     on_success: change
     on_failure: always
-
 
 
