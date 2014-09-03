@@ -10,24 +10,9 @@ http://github.com/udp/lacewing/
 Installing
 ==========
 
-Linux, OS X:
+liblacewing now uses the [CMake](http://cmake.org/) build system.
 
-    ./configure
-    make
-    make install
-
-FreeBSD (GNU make required):
-
-    ./configure
-    gmake
-    gmake install
-
-Windows (MinGW/MSYS only):
-
-    ./configure --disable-spdy
-    make
-
-An MSVC project file is available in the `msvc` directory.
+For build instructions, see [Running CMake](http://www.cmake.org/runningcmake/).
 
 
 Documentation
