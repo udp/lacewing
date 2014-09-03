@@ -36,7 +36,9 @@ set (SOURCES ${SOURCES}
         src/list.c
         src/heapbuffer.c
         src/webserver/upload.c
-        deps/multipart-parser/multipart_parser.c)
+        deps/multipart-parser/multipart_parser.c
+        deps/http-parser/http_parser.c
+        )
 
 if (ENABLE_CXX)
     set (SOURCES ${SOURCES}
@@ -150,6 +152,10 @@ endif ()
 check_function_exists (timegm HAVE_TIMEGM)
 
 add_library (lacewing ${SOURCES})
+
+set_target_properties(lacewing PROPERTIES VERSION 0.5.4
+                                          SOVERSION 0.5)
+
 target_link_libraries (lacewing ${LIBS})
 
 # MSVC only supports C89, so compile everything as C++ there
@@ -162,6 +168,11 @@ configure_file ("${PROJECT_SOURCE_DIR}/config.h.in"
                 "${PROJECT_BINARY_DIR}/config.h")
 
 include_directories (${PROJECT_BINARY_DIR})
+
+install(TARGETS lacewing DESTINATION lib)
+install(FILES include/lacewing.h DESTINATION include)
+
+
 
 
 
