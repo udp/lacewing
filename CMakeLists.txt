@@ -14,6 +14,8 @@ option (ENABLE_THREADS "Enable thread support" ON)
 set (CMAKE_C_FLAGS "-std=gnu99 -Wno-deprecated-declarations ${CMAKE_C_FLAGS}")
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
+include_directories(deps/libuv/include deps/libuv/src)
+
 set (SOURCES ${SOURCES}
         src/global.c
         src/nvhash.c
@@ -38,6 +40,11 @@ set (SOURCES ${SOURCES}
         src/webserver/upload.c
         deps/multipart-parser/multipart_parser.c
         deps/http-parser/http_parser.c
+        deps/libuv/src/fs-poll.c
+        deps/libuv/src/inet.c
+        deps/libuv/src/threadpool.c
+        deps/libuv/src/uv-common.c
+        deps/libuv/src/version.c
         )
 
 if (ENABLE_CXX)
@@ -65,6 +72,8 @@ endif ()
 #
 if (WIN32)
 
+    include_directories(deps/libuv/src/win)
+
     set (SOURCES ${SOURCES}
             src/windows/client.c
             src/windows/compat.c
@@ -78,9 +87,36 @@ if (WIN32)
             src/windows/sync.c
             src/windows/thread.c
             src/windows/timer.c
-            src/windows/udp.c)
+            src/windows/udp.c
+            deps/libuv/src/win/async.c
+            deps/libuv/src/win/core.c
+            deps/libuv/src/win/dl.c
+            deps/libuv/src/win/error.c
+            deps/libuv/src/win/fs.c
+            deps/libuv/src/win/fs-event.c
+            deps/libuv/src/win/getaddrinfo.c
+            deps/libuv/src/win/getnameinfo.c
+            deps/libuv/src/win/handle.c
+            deps/libuv/src/win/loop-watcher.c
+            deps/libuv/src/win/pipe.c
+            deps/libuv/src/win/thread.c
+            deps/libuv/src/win/poll.c
+            deps/libuv/src/win/process.c
+            deps/libuv/src/win/process-stdio.c
+            deps/libuv/src/win/req.c
+            deps/libuv/src/win/signal.c
+            deps/libuv/src/win/stream.c
+            deps/libuv/src/win/tcp.c
+            deps/libuv/src/win/tty.c
+            deps/libuv/src/win/timer.c
+            deps/libuv/src/win/udp.c
+            deps/libuv/src/win/util.c
+            deps/libuv/src/win/winapi.c
+            deps/libuv/src/win/winsock.c
+            )
 
     set (LIBS ${LIBS} mswsock ws2_32 crypt32 secur32)
+    set (LIBS ${LIBS} advapi32 iphlpapi psapi shell32)  # libuv
 
     # Use Windows native SSL rather than OpenSSL on Windows
     #
@@ -95,6 +131,8 @@ if (WIN32)
 
 elseif (UNIX)
 
+    include_directories(deps/libuv/src/unix)
+
     set (SOURCES ${SOURCES}
             src/unix/client.c
             src/unix/event.c
@@ -106,7 +144,27 @@ elseif (UNIX)
             src/unix/sync.c
             src/unix/thread.c
             src/unix/timer.c
-            src/unix/udp.c)
+            src/unix/udp.c
+            deps/libuv/src/unix/async.c
+            deps/libuv/src/unix/core.c
+            deps/libuv/src/unix/dl.c
+            deps/libuv/src/unix/fs.c
+            deps/libuv/src/unix/getaddrinfo.c
+            deps/libuv/src/unix/getnameinfo.c
+            deps/libuv/src/unix/loop.c
+            deps/libuv/src/unix/loop-watcher.c
+            deps/libuv/src/unix/pipe.c
+            deps/libuv/src/unix/poll.c
+            deps/libuv/src/unix/process.c
+            deps/libuv/src/unix/signal.c
+            deps/libuv/src/unix/stream.c
+            deps/libuv/src/unix/tcp.c
+            deps/libuv/src/unix/thread.c
+            deps/libuv/src/unix/timer.c
+            deps/libuv/src/unix/tty.c
+            deps/libuv/src/unix/udp.c
+            deps/libuv/src/unix/proctitle.c
+    )
 
     if (ENABLE_SSL)
         find_package (OpenSSL)
@@ -119,10 +177,32 @@ elseif (UNIX)
 
     set (LIBS ${LIBS} )
 
+    # TODO: Android etc., all the stuff we used to support before switching
+    # to CMake.  libuv's gyp script is a good reference.
+    #
+
     if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-        set (SOURCES ${SOURCES} src/unix/eventqueue/kqueue.c)
+
+        set (SOURCES ${SOURCES} 
+                src/unix/eventqueue/kqueue.c
+                deps/libuv/src/unix/kqueue.c
+            )
+
+        set (SOURCES ${SOURCES}
+                deps/libuv/src/unix/darwin.c
+                deps/libuv/src/unix/fsevents.c
+                deps/libuv/src/unix/darwin-proctitle.c
+            )
+
     elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-        set (SOURCES ${SOURCES} src/unix/eventqueue/epoll.c)
+
+        set (SOURCES ${SOURCES}
+                src/unix/eventqueue/epoll.c
+                deps/libuv/src/unix/linux-core.c
+                deps/libuv/src/unix/linux-inotify.c
+                deps/libuv/src/unix/linux-syscalls.c
+            )
+
     else ()
         set (SOURCES ${SOURCES} src/unix/eventqueue/select.c)
     endif ()
