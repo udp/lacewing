@@ -739,6 +739,9 @@ lw_server_client lw_server_client_next (lw_server_client client)
 
 lw_server_client lw_server_client_first (lw_server ctx)
 {
+   if (list_length (ctx->clients) == 0)
+      return NULL;
+
    return list_front (ctx->clients);
 }
 
