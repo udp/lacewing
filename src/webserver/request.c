@@ -337,7 +337,7 @@ lw_bool lwp_ws_req_in_header (lw_ws_req ctx, size_t name_len, const char * name,
       {
          if(i > 0 && value [i] == ':')
          {
-            host_len = (i - 1);
+            host_len = i;
             break;
          }
       }
