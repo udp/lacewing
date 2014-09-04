@@ -734,7 +734,12 @@ lw_addr lw_server_client_addr (lw_server_client client)
 
 lw_server_client lw_server_client_next (lw_server_client client)
 {
-   return *list_elem_next (client->elem);
+   lw_server_client * next_client = list_elem_next (client->elem);
+
+   if (!next_client)
+      return NULL;
+
+   return *next_client;
 }
 
 lw_server_client lw_server_client_first (lw_server ctx)
