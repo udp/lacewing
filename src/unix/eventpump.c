@@ -107,7 +107,7 @@ lw_bool process_event (lw_eventpump ctx, lwp_eventqueue_event event)
     * kqueue code doesn't actually look at the events it's the only place
     * we can put it.
     */
-   #ifdef lacewing_use_kqueue
+   #ifdef USE_KQUEUE
 
       if (event.filter == EVFILT_TIMER)
       {
