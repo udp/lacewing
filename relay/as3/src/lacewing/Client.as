@@ -355,7 +355,7 @@ package lacewing
             receivedThisTime.length   = 0;
             socket.readBytes(receivedThisTime);
             receivedThisTime.position = 0;
-            
+
             process(receivedThisTime);
             
             receivedThisTime.length = 0;
@@ -368,6 +368,7 @@ package lacewing
         
         private function process(bytes:flash.utils.ByteArray):void
         {
+
             while(bytes.bytesAvailable)
             {
                 var byte:int = bytes.readByte();
@@ -449,7 +450,7 @@ package lacewing
                 if(received.bytesAvailable == 0 && bytes.bytesAvailable >= incomingSize)
                 {
                     /* Often the case - the message isn't fragmented, no need to copy anything. */
-                    
+
                     handleMessage(incomingType, bytes, incomingSize);
                     readerState = 0;
                     
@@ -516,13 +517,19 @@ package lacewing
             
             return null; 
         }
+
+        private function readBinary(bytes:ByteArray, size:int):ByteArray
+        {
+            var binaryMessage:ByteArray = new ByteArray();
+            binaryMessage.endian = flash.utils.Endian.LITTLE_ENDIAN;
+            bytes.readBytes(binaryMessage, 0, size);
+            return binaryMessage;
+        }
         
-        private function handleMessage(type:int, bytes:flash.utils.ByteArray, size:int):void
+        private function handleMessage(type:int, bytes:ByteArray, size:int):void
         {
             var messageTypeID:int = (type & 240) >>> 4;
             var variant:int = type & 15;
-         
-            trace("Handling " + messageTypeID + " variant " + variant + " size " + bytes.bytesAvailable);
           
             var readEnd:int = bytes.position + size;
             
@@ -536,6 +543,7 @@ package lacewing
             var oldName:String;
             var channelName:String;
             var peerName:String;
+            var binaryMessage:ByteArray;
             var i:int;
             
             switch(messageTypeID)
@@ -682,9 +690,11 @@ package lacewing
                     
                 case 1: /* BinaryServerMessage */
                 {
-                    subchannel = bytes.readUnsignedByte();      
+                    subchannel = bytes.readUnsignedByte();
+
+                    binaryMessage = readBinary(bytes, readEnd - bytes.position);
                     
-                    onServerMessage(subchannel, bytes, variant);
+                    onServerMessage(subchannel, binaryMessage, variant);
                     
                     break;
                 }
@@ -694,8 +704,11 @@ package lacewing
                     subchannel = bytes.readUnsignedByte();        
                     channel    = getChannel(bytes);
                     peer       = getPeer(channel, bytes);
+
+                    binaryMessage = readBinary(bytes, readEnd - bytes.position);
                     
-                    onChannelMessage(channel, peer, subchannel, bytes, variant);
+                    onChannelMessage(channel, peer, subchannel, binaryMessage, 
+                                     variant);
                     
                     break;
                 }
@@ -705,8 +718,11 @@ package lacewing
                     subchannel = bytes.readUnsignedByte();        
                     channel    = getChannel(bytes);
                     peer       = getPeer(channel, bytes);
+
+                    binaryMessage = readBinary(bytes, readEnd - bytes.position);
                     
-                    onPeerMessage(channel, peer, subchannel, bytes, variant);
+                    onPeerMessage(channel, peer, subchannel, binaryMessage, 
+                                  variant);
                     
                     break;
                 }
@@ -715,8 +731,11 @@ package lacewing
                 {
                     subchannel = bytes.readUnsignedByte();        
                     channel    = getChannel(bytes);
+
+                    binaryMessage = readBinary(bytes, readEnd - bytes.position);
                     
-                    onServerChannelMessage(channel, subchannel, bytes, variant);
+                    onServerChannelMessage(channel, subchannel, binaryMessage, 
+                                           variant);
                     
                     break;
                 }
@@ -801,6 +820,8 @@ package lacewing
                 default:
                     break;
             };
+
+            bytes.position = readEnd;
         }
         
         private function addHeader(type:int, variant:int):void
