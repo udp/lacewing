@@ -1,3 +1,8 @@
+
+[**liblacewing is no longer maintained.**](http://lacewing-project.org)  The final version is [0.5.4](http://lacewing-project.org/release/0.5.4.html).
+
+<hr>
+
 liblacewing is a library for writing cross-platform, networked applications in C/C++.
 
 http://lacewing-project.org/
