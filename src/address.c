@@ -193,7 +193,7 @@ lw_addr lw_addr_clone (lw_addr ctx)
 
    memcpy (addr->service, ctx->service, sizeof (ctx->service));
 
-   addr->hostname = addr->hostname_to_free = ctx->hostname;
+   addr->hostname = addr->hostname_to_free = _strdup(ctx->hostname);
 
    return addr;
 }
@@ -421,7 +421,7 @@ static lw_bool sockaddr_equal (struct sockaddr * a, struct sockaddr * b)
 
       return !memcmp (&((struct sockaddr_in *) a)->sin_addr,
                       &((struct sockaddr_in *) b)->sin_addr,
-                      sizeof (struct in6_addr));
+                      sizeof (struct in_addr));
    }
 
    return lw_false;
